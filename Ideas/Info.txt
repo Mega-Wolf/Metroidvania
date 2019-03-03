@@ -1,0 +1,4 @@
+Here, all ideas get shared
+The ideas, that a new file for every new idea is generated
+That way, it is easier to track what has been added/moved/changed
+If ideas get rejected, they are moved to the Rejected folder. They are NOT deleted, since this way we can remember what was bad about them and why we have not done it
