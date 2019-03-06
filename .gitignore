@@ -1,4 +1,10 @@
-[Ll]ibrary/
+
+Metroidvania/Library/*
+!Metroidvania/Library/PackageCache/
+
+Metroidvania/Library/PackageCache/*
+!Metroidvania/Library/PackageCache/com.unity.inputsystem@0.2.0-preview/
+
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
