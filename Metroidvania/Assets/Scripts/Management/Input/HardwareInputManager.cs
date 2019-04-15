@@ -6,7 +6,7 @@ using UnityEngine;
 /// The actual input, but useable in FixedUpdate
 /// Therefore, Input.GetButtonUp/Down will not work, since it is updated in Update
 /// </summary>
-public class HardwareInputManager : InputManager {
+public class HardwareInputManager : IInputManager {
 
     #region [MemberFields]
 
@@ -18,15 +18,17 @@ public class HardwareInputManager : InputManager {
     #region [FinalVariables]
 
     //private Dictionary<string, float> f_axisValues = new Dictionary<string, float>();
-	private Dictionary<string, bool> f_buttonValuesLastFrame = new Dictionary<string, bool>();
-	private Dictionary<string, bool> f_buttonValues = new Dictionary<string, bool>();
+    private Dictionary<string, bool> f_buttonValuesLastFrame = new Dictionary<string, bool>();
+    private Dictionary<string, bool> f_buttonValues = new Dictionary<string, bool>();
+
+    private InputSave f_inputSave;
 
     #endregion
 
-    #region [Init]
+    #region [Constructors]
 
-    protected override void Awake() {
-        base.Awake();
+    public HardwareInputManager(InputSave inputSave) {
+        f_inputSave = inputSave;
 
         foreach (string button in f_buttons) {
             f_buttonValues[button] = false;
@@ -38,46 +40,54 @@ public class HardwareInputManager : InputManager {
 
     #region [Updates]
 
-    public void FixedUpdate() {
+    public void HandleUpdate() {
         foreach (string button in f_buttons) {
+            bool newValue = Input.GetButton(button);
+
+            if (newValue != f_buttonValues[button]) {
+                f_inputSave.AddButtonInput(button, newValue);
+            }
+
             f_buttonValuesLastFrame[button] = f_buttonValues[button];
-            f_buttonValues[button] = Input.GetButton(button);
+            f_buttonValues[button] = newValue;
         }
     }
 
     #endregion
 
-	#region Buttons
+    #region [PublicMethods]
 
-	public override bool GetButton(string virtualKey) {
-		return f_buttonValues[virtualKey];
-	}
+    public void StartReplay() {
+        //TODO; I have no idea what I should do here
+    }
 
-	public override bool GetButtonDown(string virtualKey) {
-		return f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey];
-	}
+    public void PauseReplay() {
+        f_inputSave.Split();
+    }
 
-	public override bool GetButtonUp(string virtualKey) {
-		return !f_buttonValues[virtualKey] && f_buttonValuesLastFrame[virtualKey];
-	}
+    public void StopReplay() {
+        //TODO; I have no idea what I should do here; save?
+    }
 
-	#endregion
+    #endregion
 
-	// #region Joysticks
+    #region [Getter]
 
-	// public override float GetAxis(string virtualAxis) {
-	// 	if (Input.GetAxis(virtualAxis) == 0) {
-	// 		return 0;
-	// 	}
+    #region [Buttons]
 
-    //     //TODO; I migth look at that again
+    public bool GetButton(string virtualKey) {
+        return f_buttonValues[virtualKey];
+    }
 
-	// 	// Only returns -1, 0 or 1 (=> no gravity or sensitivity)
-	// 	// That way the AI will have the same possible inputs as the player
+    public bool GetButtonDown(string virtualKey) {
+        return f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey];
+    }
 
-	// 	return Mathf.Sign(Input.GetAxis(virtualAxis));
-	// 	// return Input.GetAxis(virtualAxis);
-	// }
+    public bool GetButtonUp(string virtualKey) {
+        return !f_buttonValues[virtualKey] && f_buttonValuesLastFrame[virtualKey];
+    }
 
-	// #endregion
+    #endregion
+
+    #endregion
 }
