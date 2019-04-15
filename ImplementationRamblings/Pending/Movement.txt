@@ -1,0 +1,40 @@
+After trying out the system without physics I realised that it wouldn't be as easy as I initially thought.
+However, after a second thought it still isn't too difficult and has a few advantages:
+- Jump heights etc. can be entered exactly instead of guessing with velocities
+- Arcs can be entered very easily as well (jumping, wall jump, ...)
+- Going up slopes does not require walking into the slope
+- Going down slopes does not mean actually jumping a little distance all the time
+- It probably is needed for birds etc anyway to have paths instead of velocities
+
+In the end, this means that there will be different kinds of movement:
+- path movements: jumping, (special movements)
+	Those will move the character along a path or more concretely: they will affect the position of the character in a specified way
+- velocity movements: walking, (swimming, climbing on a ladder, etc.)
+	When walking or swimming it would be strange to have a given path to a movmement; this will still just set a velocity; however this is partially affected by the ground (at least when walking)
+
+Another distinction of the two groups would be "triggers" and "constants"
+
+I want to be able to trigger all of these movements and specify whether they shall start smoothly or if they shall be started immediately
+They have to be loopable or startable at once
+Some of them might start with one part and then stay at another
+A function/sound has to be triggerable from the animation
+All of these things should be achieveable by just using the Unity Mecanim Animator class (although it is painfully annoying to use)
+
+I want to keep in mind though, that at one point this could be changed if this system has too much or less functionality; things I have to think of at the moment:
+- I cannot visualise the path the character will take
+- Mirroring originally takes two states (at least I think so; probably mirroring can be achieved dynamically)
+
+(As a note: the imagined animation matrix might become very big if there are extra states for slopes etc. (think: Ori's water insanity))
+
+
+
+
+Functions I think of at the moment (there is a lot missing here)
+.StartTriggerMovement()
+.AbortTriggerMovement() // is this possible; I probably have to start a new action or transition to another state, because just aborting is ambiguous
+
+.StartConstantMovement()
+.StopConstantMovement() // this could involve either transitionsing to another state or just remembering the state the charatcer is in at the moment
+
+
+While doing that, I will also make it possible to save/load inputs to make a replay possible (for debugging purposes) (this might not work due to inconsistencies; I will see)
