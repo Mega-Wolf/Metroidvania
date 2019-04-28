@@ -8,13 +8,6 @@ using UnityEngine;
 /// </summary>
 public class HardwareInputManager : IInputManager {
 
-    #region [MemberFields]
-
-    [SerializeField]
-    private string[] f_buttons;
-
-    #endregion
-
     #region [FinalVariables]
 
     //private Dictionary<string, float> f_axisValues = new Dictionary<string, float>();
@@ -23,12 +16,15 @@ public class HardwareInputManager : IInputManager {
 
     private InputSave f_inputSave;
 
+    private string[] f_buttons;
+
     #endregion
 
     #region [Constructors]
 
-    public HardwareInputManager(InputSave inputSave) {
+    public HardwareInputManager(InputSave inputSave, string[] buttons) {
         f_inputSave = inputSave;
+        f_buttons = buttons;
 
         foreach (string button in f_buttons) {
             f_buttonValues[button] = false;
@@ -46,6 +42,7 @@ public class HardwareInputManager : IInputManager {
 
             if (newValue != f_buttonValues[button]) {
                 f_inputSave.AddButtonInput(button, newValue);
+                //TODO; ignore when menu
             }
 
             f_buttonValuesLastFrame[button] = f_buttonValues[button];

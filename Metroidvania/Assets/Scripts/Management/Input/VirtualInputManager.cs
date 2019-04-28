@@ -5,17 +5,9 @@ using UnityEngine.Assertions;
 using static InputSave;
 
 /// <summary>
-/// The actual input, but useable in FixedUpdate
-/// Therefore, Input.GetButtonUp/Down will not work, since it is updated in Update
+/// Recorded input which is now played back
 /// </summary>
 public class VirtualInputManager : IInputManager {
-
-    #region [MemberFields]
-
-    [SerializeField]
-    private string[] f_buttons;
-
-    #endregion
 
     #region [FinalVariables]
 
@@ -24,6 +16,8 @@ public class VirtualInputManager : IInputManager {
     private Dictionary<string, bool> f_buttonValues = new Dictionary<string, bool>();
 
     private InputSave f_inputSave;
+
+    private string[] f_buttons;
 
     #endregion
 
@@ -37,8 +31,9 @@ public class VirtualInputManager : IInputManager {
 
     #region [Constructors]
 
-    public VirtualInputManager(InputSave inputSave) {
+    public VirtualInputManager(InputSave inputSave, string[] buttons) {
         f_inputSave = inputSave;
+        f_buttons = buttons;
 
         Clear();
     }
