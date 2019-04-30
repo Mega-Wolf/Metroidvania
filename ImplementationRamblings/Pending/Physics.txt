@@ -1,0 +1,8 @@
+Since I already want to do the character movement on my own, the whole pyhsics and trigger stuff could be disabled
+Triggers would then have to be called on my own
+This sound expensive, but I would not do the checks on my own; it would just mean calling the Physics2d.BoxCast etc. 
+I do not want to have actual physics stuff in the game; therefore not having a physics engine wouldn't be bad
+However, physics could be nice for projectiles, visuals, etc.
+So for now I will let it in
+PRobably all the stuff really affected by physics don't react on each other and therefore it mostly does not matter in which order they affect things
+(this includes, that during one frame, a receiver should consume everything it collides with and take the most severe thing)

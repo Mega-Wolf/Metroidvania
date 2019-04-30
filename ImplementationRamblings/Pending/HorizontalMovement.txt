@@ -1,0 +1,20 @@
+Horizontal Movement
+
+Instead of just moving horizontally, the character will be able to walk up and down slopes (up to ~25°)
+The orientation of the character therefore will also rotate
+In fact, all walking things should be able to walk over slopes (maybe even up to higher angles (even negative), so the system has to have that in mind)
+
+Maybe I can assume that turns won't be bigger than 90°?
+
+Edges might be connected by a polygon or edge collider; however, since I don't know how the game will be constructed, it could be possible that this will not be true everywhere
+
+For access reasons: Don't use more than one path of a PolygonCollider (use more colliders instead)
+
+This script will somehow be used inside the character state machine, but since it might be used by other characters as well, it is very difficult to generate it.
+Since the state machine stuff will already check physics it will very likely get collisions already as an input.
+
+
+#####
+
+The ControllerState sets the target point and the target rotation
+The Controller then checks if that movement is possible or if it has to stop  beforehand and executes the movement accordingly
