@@ -20,7 +20,26 @@ public interface IInputManager {
 /// This class combined all the different input types and makes it possible to play the game in normal and edit mode
 /// It is also possible to save and reload inputs here
 /// </summary>
-public abstract class InputManager : Singleton<InputManager> {
+public class InputManager : Singleton<InputManager> {
+
+    #region [Types]
+
+    private enum EInputManager {
+        Hardware,
+        Virtual
+    }
+
+    #endregion
+
+    #region [MemberFields]
+
+    [SerializeField]
+    private EInputManager f_eInputManager;
+
+    [SerializeField]
+    private string[] f_buttons;
+
+    #endregion
 
     #region [PrivateVariables]
 
@@ -35,6 +54,22 @@ public abstract class InputManager : Singleton<InputManager> {
 
     public bool IsPaused { get { return m_isPaused; } }
     public int ReplayFrame { get { return m_replayFrame; } }
+
+    #endregion
+
+    #region [Init]
+
+    protected override void Awake() {
+        base.Awake();
+        switch (f_eInputManager) {
+            case EInputManager.Hardware:
+                f_inputManager = new HardwareInputManager(new InputSave(), f_buttons);
+                break;
+            case EInputManager.Virtual:
+                f_inputManager = new VirtualInputManager(new InputSave(), f_buttons);
+                break;
+        }
+    }
 
     #endregion
 
