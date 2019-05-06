@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerGrounded : ControllerState {
@@ -37,7 +36,10 @@ public class PlayerGrounded : ControllerState {
     #region [Override]
 
     public override void Enter() {
+        f_controller.Velocity = Vector2.zero;
 
+        //TODO; don't
+        f_controller.Animator.Play("Landing");
     }
 
     protected override bool EnterOnCondition() {

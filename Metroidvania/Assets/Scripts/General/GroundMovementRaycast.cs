@@ -68,8 +68,8 @@ public class GroundMovementRaycast {
 
     public void Move(bool forward) {
 
-        // Do 3 downward raycasts
-        // Downward = downward in regards to character?
+        // Do 5 downward raycasts
+        // Downward = downward in regards to character
         {
             Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down);
 
@@ -115,7 +115,7 @@ public class GroundMovementRaycast {
 
 
             // preparing the velocity change for the transform
-            // this is a bit complicated due to many different cases
+            // this is a bit complicated due too many different cases
             if (forward) {
                 if (hitHR) {
                     f_controller.Velocity = middleVector * f_speed;

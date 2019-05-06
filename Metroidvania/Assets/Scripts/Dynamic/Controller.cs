@@ -82,7 +82,7 @@ public class Controller : MonoBehaviour {
 #if UNITY_EDITOR
 
     private void OnDrawGizmos() {
-        m_activeState.OnDrawGizmos();
+        m_activeState?.OnDrawGizmos();
     }
 
 #endif
