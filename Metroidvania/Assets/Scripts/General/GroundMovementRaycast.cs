@@ -146,6 +146,34 @@ public class GroundMovementRaycast {
 
     }
 
+    public bool TryStickToGround() {
+
+        LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+        float RAY_LENGTH = f_halfHeight + EXTRA_RAY_LENGTH;
+
+        RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
+        RaycastHit2D hitC = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
+        RaycastHit2D hitHR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
+
+        if (hitHL && hitHR) {
+            f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
+            f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
+            return true;
+        } else if (hitC) {
+            if (hitHL) {
+                f_controller.transform.position = hitC.point;
+                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitC.point - hitHL.point).normalized, Vector3.back));
+                return true;
+            } else if (hitHR) {
+                f_controller.transform.position = hitC.point;
+                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitC.point).normalized, Vector3.back));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     #endregion
 
 }

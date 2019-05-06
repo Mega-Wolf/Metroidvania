@@ -50,13 +50,14 @@ public class PlayerGrounded : ControllerState {
 
         // The following checks if the player touches the ground
         {
-            Vector2 origin = f_controller.transform.TransformPoint(new Vector2(0, (f_controller.Height / 2f - EXTRA_RAY_LENGTH) / 2f));
+            bool hit = f_ground.TryStickToGround();
 
-            LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+            if (hit) {
+                Enter();
+                return true;
+            }
 
-            RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f - EXTENDS, f_controller.Height / 2f + EXTRA_RAY_LENGTH), 0, Vector2.zero, 0, GROUND_MASK);
-
-            return !hit;
+            return false;
         }
     }
 
