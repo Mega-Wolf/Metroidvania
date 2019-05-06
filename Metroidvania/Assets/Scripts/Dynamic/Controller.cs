@@ -57,10 +57,15 @@ public class Controller : MonoBehaviour {
 
         m_activeState.HandleFixedUpdate();
 
-        // Update position
+        
         // TODO; check for collisions
 
+        // Update position
         transform.position = transform.position + (Vector3)Velocity / 60f;
+
+
+        f_animator.SetFloat("X", Velocity.x);
+        f_animator.SetFloat("Y", Velocity.y);
 
     }
 
