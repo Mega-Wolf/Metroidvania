@@ -111,25 +111,28 @@ public class GroundMovementRaycast {
             } else if (hitC) {
                 f_controller.transform.position = hitC.point;
                 if (!hitHL && !hitHR) {
+                    middleVector = Vector2.right;
                     f_controller.transform.rotation = Quaternion.identity;
                 } else if (hitHL) {
-                    f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitC.point - hitHL.point).normalized, Vector3.back));
+                    middleVector = (hitC.point - hitHL.point).normalized;
+                    f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross(middleVector, Vector3.back));
                 } else { // hitHR
-                    f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitC.point).normalized, Vector3.back));
+                    middleVector = (hitHR.point - hitC.point).normalized;
+                    f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross(middleVector, Vector3.back));
                 }
             } else {
                 if (hitHL) {
+                    middleVector = Vector2.right;
                     f_controller.transform.rotation = Quaternion.identity;
                     f_controller.transform.position = hitHL.point + Vector2.right * f_halfWidth;
-                } else if (hitR) {
+                } else if (hitHR) {
+                    middleVector = Vector2.right;
                     f_controller.transform.rotation = Quaternion.identity;
                     f_controller.transform.position = hitHR.point + Vector2.left * f_halfWidth;
                 }
             }
 
             //TODO: What do I do if not both inner ones hit (pointy edge?)
-
-
 
             // preparing the velocity change for the transform
             // this is a bit complicated due too many different cases
