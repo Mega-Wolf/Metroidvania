@@ -7,7 +7,7 @@ public class PlayerGrounded : ControllerState {
     private const float EXTENDS = 0.05f * 2f;
     private const float EXTRA_RAY_LENGTH = 0.1f;
 
-    private const float SPEED = 1.5f;
+    private const float SPEED = 3f;
 
     #endregion
 
@@ -36,6 +36,7 @@ public class PlayerGrounded : ControllerState {
     #region [Override]
 
     public override void Enter() {
+        f_controller.Backwards = false;
         f_controller.Velocity = Vector2.zero;
 
         //TODO; don't
