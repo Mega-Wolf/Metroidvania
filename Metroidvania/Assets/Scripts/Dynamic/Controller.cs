@@ -13,6 +13,9 @@ public class Controller : MonoBehaviour {
     private Animator f_animator;
 
     [SerializeField]
+    private Transform f_visuals;
+
+    [SerializeField]
     private float f_height;
 
     [SerializeField]
@@ -35,6 +38,7 @@ public class Controller : MonoBehaviour {
     public float HalfWidth { get { return f_halfWidth * 0.75f; } }
 
     public Vector2 Velocity { get; set; }
+    public bool Backwards { get; set; }
 
     #endregion
 
@@ -57,11 +61,18 @@ public class Controller : MonoBehaviour {
 
         m_activeState.HandleFixedUpdate();
 
-        
+
         // TODO; check for collisions
 
         // Update position
         transform.position = transform.position + (Vector3)Velocity / 60f;
+
+        if (Velocity.x != 0) {
+            int right = Velocity.x > 0 ? 1 : -1;
+            right *= Backwards ? -1 : 1;
+
+            f_visuals.localScale = new Vector3(right, 1, 1);
+        }
 
 
         f_animator.SetFloat("X", Velocity.x);

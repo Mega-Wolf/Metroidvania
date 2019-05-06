@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_animator: {fileID: 7463822625840821759}
+  f_visuals: {fileID: 4285007682210003962}
   f_height: 1
   f_halfWidth: 0.23
 --- !u!114 &2064314870

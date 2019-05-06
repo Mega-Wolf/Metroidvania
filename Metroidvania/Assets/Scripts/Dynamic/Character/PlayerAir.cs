@@ -47,6 +47,7 @@ public class PlayerAir : ControllerState {
     #region [Override]
 
     public override void Enter() {
+        f_controller.Backwards = false;
         f_controller.transform.rotation = Quaternion.identity;
 
         if (!m_isJumping) {
