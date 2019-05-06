@@ -13,5 +13,25 @@ public class GameManager : Singleton<GameManager> {
     // However, GameMode probably means doing nothing; so I just keep both in here
     // It probably should set the InputManager and maybe load a game (or replay)
 
+    #region [PrivateVariables]
+
+    private int m_frame = 0;
+
+    #endregion
+
+    #region [Properties]
+
+    public int Frame { get { return m_frame; } }
+
+    #endregion
+
+    #region [Updates]
+
+    private void FixedUpdate() {
+        //TODO; not when paused
+        ++m_frame;
+    }
+
+    #endregion
 
 }
