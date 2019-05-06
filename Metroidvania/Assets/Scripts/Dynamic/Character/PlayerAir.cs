@@ -13,6 +13,8 @@ public class PlayerAir : ControllerState {
 
     #region [Consts]
 
+    private const int COYOTE_FRAMES = 10;
+
     private const float EXTRA_RAY_LENGTH = 0.1f;
 
     private const float MAX_SPEED = 3f;
@@ -34,6 +36,7 @@ public class PlayerAir : ControllerState {
     #region [PrivateVariables]
 
     private bool m_isJumping;
+    private bool m_coyoteable;
 
     #endregion
 
@@ -47,6 +50,7 @@ public class PlayerAir : ControllerState {
     #region [Override]
 
     public override void Enter() {
+        m_coyoteable = false;
         f_controller.Backwards = false;
         f_controller.transform.rotation = Quaternion.identity;
 
@@ -81,13 +85,30 @@ public class PlayerAir : ControllerState {
 
             RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f, f_controller.Height / 2f + EXTRA_RAY_LENGTH), 0, Vector2.zero, f_controller.transform.eulerAngles.z, GROUND_MASK);
 
-            //TODO Enter()
+            if (!hit) {
+                Enter();
 
-            return !hit;
+                // Only delayable if not started by a jump
+                m_coyoteable = true;
+
+                return true;
+            }
+
+            return false;
         }
     }
 
     public override void HandleFixedUpdate() {
+
+        // Late jump (coyote time)
+        if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump")) {    
+            m_coyoteable = false;
+            m_isJumping = true;
+            f_controller.Animator.Play("Jump");
+
+            // since in the air, the upwards transform will always be directly up, ther is no difference between Ori and Sonic
+            f_controller.Velocity = new Vector2(f_controller.Velocity.x, JUMP_SPEED);
+        }
 
         Vector2 velocity = f_controller.Velocity;
 
