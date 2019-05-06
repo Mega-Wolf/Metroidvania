@@ -1,3 +1,12 @@
+// Not caring about slopes; changing horizontal velocity all the time
+#define ORI_JUMP
+
+#if !ORI_JUMP
+
+// slope will define the initial jump velocity; can only change horizontal velocity when falling
+#define SONIC_JUMP
+#endif
+
 using UnityEngine;
 
 public class PlayerAir : ControllerState {
@@ -6,23 +15,19 @@ public class PlayerAir : ControllerState {
 
     private const float EXTRA_RAY_LENGTH = 0.1f;
 
-    private const float MAX_SPEED = 1.5f;
-    
+    private const float MAX_SPEED = 3f;
+
 
     private const float JUMP_HEIGHT = 2.5f;
     private const float JUMP_HALF_DURATION = 0.45f;
 
     private const float JUMP_SPEED = 2 * JUMP_HEIGHT / JUMP_HALF_DURATION;
 
-    //private const float MAX_FALL_SPEED = JUMP_SPEED* 1.5f;
-    private const float MAX_FALL_SPEED = 5;
+    private const float MAX_FALL_SPEED = JUMP_SPEED * 1.5f;
+    //private const float MAX_FALL_SPEED = 5;
 
-    private Vector2 ACCELERATION = new Vector2(10f, JUMP_SPEED / JUMP_HALF_DURATION);
-    
-    
-
-    // this is intended to define the speed of falling down; however, everything else turn in an instant as well
-    //private float TURN_FACTOR
+    //TODO; ACCELERATION.x is not used
+    private Vector2 ACCELERATION = new Vector2(5f, JUMP_SPEED / JUMP_HALF_DURATION);
 
     #endregion
 
@@ -56,7 +61,13 @@ public class PlayerAir : ControllerState {
         if (InputManager.Instance.GetButtonDown("Jump")) {
             m_isJumping = true;
             f_controller.Animator.Play("Jump");
-            f_controller.Velocity = new Vector2(0, JUMP_SPEED);
+
+#if ORI_JUMP
+            f_controller.Velocity = new Vector2(f_controller.Velocity.x, JUMP_SPEED);
+#elif SONIC_JUMP
+            f_controller.Velocity = f_controller.Velocity + JUMP_SPEED * (Vector2)f_controller.transform.up;
+#endif
+
             Enter();
             return true;
         }
@@ -80,6 +91,10 @@ public class PlayerAir : ControllerState {
         Vector2 velocity = f_controller.Velocity;
 
         // Horizontal Movement
+#if SONIC_JUMP
+            if (velocity.y < 0)
+            //if (velocity.y < JUMP_SPEED / 2f) {
+#endif
         {
             int move = 0;
             if (InputManager.Instance.GetButton("Left")) {
@@ -93,20 +108,23 @@ public class PlayerAir : ControllerState {
             // from where do I get the acceleration/velocity
             // oh well this state should just have the acceleration itself
             // but the velocity should come from outside; otherwise I would rapidly slow down when jumping
+            // TODO; change that commetn above, since it seems that I don't do it now
 
-            // maybe really just set the rigidbody velocity?
+            //velocity.x += move * 1 / 60f * ACCELERATION.x;
+            velocity.x = move * MAX_SPEED;
 
-            velocity.x += move * 1 / 60f * ACCELERATION.x;
-
-            velocity.x = Mathf.Clamp(velocity.x, -MAX_SPEED, MAX_SPEED);
+            //velocity.x = Mathf.Clamp(velocity.x, -MAX_SPEED, MAX_SPEED);
         }
 
         // vertical movement
         {
-            //  TODO end jump at specific time (dynamic)
-
-            //y velocity according to timeline?
             velocity.y = velocity.y - ACCELERATION.y / 60f;
+
+            if (velocity.y > 0 && InputManager.Instance.GetButtonUp("Jump")) {
+                //velocity.y = -velocity.y;
+                //velocity.y = 0;
+                velocity.y = Mathf.Min(velocity.y, 0.5f);
+            }
 
             velocity.y = Mathf.Max(velocity.y, -MAX_FALL_SPEED);
         }
