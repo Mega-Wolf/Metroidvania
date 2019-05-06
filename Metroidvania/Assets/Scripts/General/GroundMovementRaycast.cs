@@ -68,8 +68,8 @@ public class GroundMovementRaycast {
 
     public void Move(bool forward) {
 
-        // Do 3 downward raycasts
-        // Downward = downward in regards to character?
+        // Do 5 downward raycasts
+        // Downward = downward in regards to character
         {
             Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down);
 
@@ -108,6 +108,23 @@ public class GroundMovementRaycast {
                 } else {
                     f_controller.transform.position = (hitHR.point + hitHL.point) / 2f;
                 }
+            } else if (hitC) {
+                f_controller.transform.position = hitC.point;
+                if (!hitHL && !hitHR) {
+                    f_controller.transform.rotation = Quaternion.identity;
+                } else if (hitHL) {
+                    f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitC.point - hitHL.point).normalized, Vector3.back));
+                } else { // hitHR
+                    f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitC.point).normalized, Vector3.back));
+                }
+            } else {
+                if (hitHL) {
+                    f_controller.transform.rotation = Quaternion.identity;
+                    f_controller.transform.position = hitHL.point + Vector2.right * f_halfWidth;
+                } else if (hitR) {
+                    f_controller.transform.rotation = Quaternion.identity;
+                    f_controller.transform.position = hitHR.point + Vector2.left * f_halfWidth;
+                }
             }
 
             //TODO: What do I do if not both inner ones hit (pointy edge?)
@@ -115,7 +132,7 @@ public class GroundMovementRaycast {
 
 
             // preparing the velocity change for the transform
-            // this is a bit complicated due to many different cases
+            // this is a bit complicated due too many different cases
             if (forward) {
                 if (hitHR) {
                     f_controller.Velocity = middleVector * f_speed;
@@ -144,6 +161,34 @@ public class GroundMovementRaycast {
 
         }
 
+    }
+
+    public bool TryStickToGround() {
+
+        LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+        float RAY_LENGTH = f_halfHeight + EXTRA_RAY_LENGTH;
+
+        RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
+        RaycastHit2D hitC = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
+        RaycastHit2D hitHR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
+
+        if (hitHL && hitHR) {
+            f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
+            f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
+            return true;
+        } else if (hitC) {
+            if (hitHL) {
+                f_controller.transform.position = hitC.point;
+                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitC.point - hitHL.point).normalized, Vector3.back));
+                return true;
+            } else if (hitHR) {
+                f_controller.transform.position = hitC.point;
+                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitC.point).normalized, Vector3.back));
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #endregion

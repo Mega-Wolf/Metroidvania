@@ -32,7 +32,7 @@ public class Controller : MonoBehaviour {
 
     public Animator Animator { get { return f_animator; } }
     public float Height { get { return f_height; } }
-    public float HalfWidth { get { return f_halfWidth; } }
+    public float HalfWidth { get { return f_halfWidth * 0.75f; } }
 
     public Vector2 Velocity { get; set; }
 
@@ -57,10 +57,15 @@ public class Controller : MonoBehaviour {
 
         m_activeState.HandleFixedUpdate();
 
-        // Update position
+        
         // TODO; check for collisions
 
+        // Update position
         transform.position = transform.position + (Vector3)Velocity / 60f;
+
+
+        f_animator.SetFloat("X", Velocity.x);
+        f_animator.SetFloat("Y", Velocity.y);
 
     }
 
@@ -77,7 +82,7 @@ public class Controller : MonoBehaviour {
 #if UNITY_EDITOR
 
     private void OnDrawGizmos() {
-        m_activeState.OnDrawGizmos();
+        m_activeState?.OnDrawGizmos();
     }
 
 #endif
