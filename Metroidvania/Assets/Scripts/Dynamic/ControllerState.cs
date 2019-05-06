@@ -10,12 +10,6 @@ public abstract class ControllerState {
 
     #endregion
 
-    #region [PrivateVariables]
-
-    protected ControllerState m_stateBefore;
-
-    #endregion
-
     #region [Properties]
 
     public List<ControllerState> FutureStates { get { return f_states; } }
@@ -47,13 +41,8 @@ public abstract class ControllerState {
     /// If true then it considered itself as started
     /// IMPORTANT: Enter is NOT called in that case
     /// </summary>
-    /// <returns></returns>
-    public bool EnterOnCondition(ControllerState stateBefore) {
-        m_stateBefore = stateBefore;
-        return EnterOnCondition();
-    }
-
-    protected abstract bool EnterOnCondition();
+    /// <returns>True if the condition was met; this is now  the new state</returns>
+    public abstract bool EnterOnCondition();
 
     public abstract void Enter();
 
@@ -66,7 +55,7 @@ public abstract class ControllerState {
 
     #endregion
 
-    
+
 #if UNITY_EDITOR
 
     public virtual void OnDrawGizmos() { }

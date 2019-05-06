@@ -57,7 +57,7 @@ public class PlayerAir : ControllerState {
 
     }
 
-    protected override bool EnterOnCondition() {
+    public override bool EnterOnCondition() {
 
         if (InputManager.Instance.GetButtonDown("Jump")) {
             m_isJumping = true;

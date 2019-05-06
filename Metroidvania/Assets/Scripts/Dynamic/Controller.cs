@@ -27,6 +27,9 @@ public class Controller : MonoBehaviour {
 
     private ControllerState m_activeState;
 
+    //private ControllerState m_lastState;
+    private int m_stateStartedFrame;
+
     #endregion
 
     #region [Properties]
@@ -40,6 +43,9 @@ public class Controller : MonoBehaviour {
     public Vector2 Velocity { get; set; }
     public bool Backwards { get; set; }
 
+    //public ControllerState LastState { get { return m_lastState; } }
+    public int StateStartedFrame { get { return m_stateStartedFrame; } }
+
     #endregion
 
     #region [Updates]
@@ -51,8 +57,12 @@ public class Controller : MonoBehaviour {
         // ?
 
         foreach (ControllerState state in m_activeState.FutureStates) {
-            bool entered = state.EnterOnCondition(m_activeState);
+            bool entered = state.EnterOnCondition(/*m_activeState*/);
             if (entered) {
+
+                //m_lastState = m_activeState;
+                m_stateStartedFrame = GameManager.Instance.Frame;
+
                 Debug.Log("New active: " + state);
                 m_activeState = state;
                 return;

@@ -43,7 +43,7 @@ public class PlayerGrounded : ControllerState {
         f_controller.Animator.Play("Landing");
     }
 
-    protected override bool EnterOnCondition() {
+    public override bool EnterOnCondition() {
 
         if (f_controller.Velocity.y >= 0) {
             return false;
