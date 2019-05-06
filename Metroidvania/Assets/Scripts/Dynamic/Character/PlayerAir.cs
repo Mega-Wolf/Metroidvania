@@ -67,7 +67,7 @@ public class PlayerAir : ControllerState {
 
             LayerMask GROUND_MASK = LayerMask.GetMask("Default");
 
-            RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f - EXTENDS, f_controller.Height / 2f + EXTRA_RAY_LENGTH), 0, Vector2.zero, f_controller.transform.eulerAngles.z, GROUND_MASK);
+            RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f, f_controller.Height / 2f + EXTRA_RAY_LENGTH), 0, Vector2.zero, f_controller.transform.eulerAngles.z, GROUND_MASK);
 
             //TODO Enter()
 

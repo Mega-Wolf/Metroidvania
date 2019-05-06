@@ -32,7 +32,7 @@ public class Controller : MonoBehaviour {
 
     public Animator Animator { get { return f_animator; } }
     public float Height { get { return f_height; } }
-    public float HalfWidth { get { return f_halfWidth; } }
+    public float HalfWidth { get { return f_halfWidth * 0.75f; } }
 
     public Vector2 Velocity { get; set; }
 
