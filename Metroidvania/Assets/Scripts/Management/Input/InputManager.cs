@@ -12,7 +12,7 @@ public interface IInputManager {
     void HandleUpdate();
 
     bool GetButton(string virtualKey);
-    bool GetButtonDown(string virtualKey);
+    bool GetButtonDown(string virtualKey, InputManager.EDelayType delayType);
     bool GetButtonUp(string virtualKey);
 }
 
@@ -22,11 +22,24 @@ public interface IInputManager {
 /// </summary>
 public class InputManager : Singleton<InputManager> {
 
+    #region [Consts]
+
+    public const int LATE_DOWN = 10;
+
+    #endregion
+
     #region [Types]
 
     private enum EInputManager {
         Hardware,
         Virtual
+    }
+
+    public enum EDelayType {
+        None, // when walking left / right
+        OnlyWhenDown,   // when jumping, since that has to be done in order to be effective
+        OnlyWhenUp, // dunno
+        Always // when casting a spell, I don't care if I already released it
     }
 
     #endregion
@@ -126,8 +139,8 @@ public class InputManager : Singleton<InputManager> {
     /// <summary>
     /// Returns true if the virtual button with the given name was pressed this frame
     /// </summary>
-    public bool GetButtonDown(string virtualKey) {
-        return f_inputManager.GetButtonDown(virtualKey);
+    public bool GetButtonDown(string virtualKey, EDelayType delayType = EDelayType.None) {
+        return f_inputManager.GetButtonDown(virtualKey, delayType);
     }
 
     /// <summary>

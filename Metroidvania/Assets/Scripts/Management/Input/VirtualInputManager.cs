@@ -15,6 +15,8 @@ public class VirtualInputManager : IInputManager {
     private Dictionary<string, bool> f_buttonValuesLastFrame = new Dictionary<string, bool>();
     private Dictionary<string, bool> f_buttonValues = new Dictionary<string, bool>();
 
+    private Dictionary<string, int> f_lastDown = new Dictionary<string, int>();
+
     private InputSave f_inputSave;
 
     private string[] f_buttons;
@@ -68,6 +70,7 @@ public class VirtualInputManager : IInputManager {
         foreach (string button in f_buttons) {
             f_buttonValues[button] = false;
             f_buttonValuesLastFrame[button] = false;
+            f_lastDown[button] = int.MinValue;
         }
     }
 
@@ -76,12 +79,14 @@ public class VirtualInputManager : IInputManager {
     public void StartReplay() {
         m_layer = 0;
         m_positionInLayer = 0;
+        Clear();
         m_currentLayer = f_inputSave.GetLayer(m_layer);
     }
 
     public void PauseReplay() {
         ++m_layer;
         m_positionInLayer = 0;
+        Clear();
         m_currentLayer = f_inputSave.GetLayer(m_layer);
     }
 
@@ -114,8 +119,20 @@ public class VirtualInputManager : IInputManager {
         return f_buttonValues[virtualKey];
     }
 
-    public bool GetButtonDown(string virtualKey) {
-        return f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey];
+    public bool GetButtonDown(string virtualKey, InputManager.EDelayType delayType) {
+        if (f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey]) {
+            f_lastDown[virtualKey] = int.MinValue;
+            return true;
+        }
+
+        if ((delayType == InputManager.EDelayType.Always || (delayType == InputManager.EDelayType.OnlyWhenDown && f_buttonValues[virtualKey]) || (delayType == InputManager.EDelayType.OnlyWhenUp && !f_buttonValues[virtualKey])) && f_lastDown[virtualKey] + InputManager.LATE_DOWN >= GameManager.Instance.Frame) {
+            f_lastDown[virtualKey] = int.MinValue;
+            return true;
+        }
+
+        return false;
+
+        //return f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey];
     }
 
     public bool GetButtonUp(string virtualKey) {
