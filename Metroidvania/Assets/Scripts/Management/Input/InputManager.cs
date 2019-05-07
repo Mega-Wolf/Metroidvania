@@ -24,7 +24,7 @@ public class InputManager : Singleton<InputManager> {
 
     #region [Consts]
 
-    public const int LATE_DOWN = 10;
+    public const int LATE_DOWN = 5;
 
     #endregion
 

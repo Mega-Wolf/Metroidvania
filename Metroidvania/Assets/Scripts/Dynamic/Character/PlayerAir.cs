@@ -13,7 +13,7 @@ public class PlayerAir : ControllerState {
 
     #region [Consts]
 
-    private const int COYOTE_FRAMES = 10;
+    private const int COYOTE_FRAMES = 5;
 
     private const float EXTRA_RAY_LENGTH = 0.1f;
 
@@ -63,7 +63,7 @@ public class PlayerAir : ControllerState {
 
     public override bool EnterOnCondition() {
 
-        if (InputManager.Instance.GetButtonDown("Jump")) {
+        if (InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
             m_isJumping = true;
             f_controller.Animator.Play("Jump");
 
@@ -101,7 +101,7 @@ public class PlayerAir : ControllerState {
     public override void HandleFixedUpdate() {
 
         // Late jump (coyote time)
-        if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump")) {    
+        if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {    
             m_coyoteable = false;
             m_isJumping = true;
             f_controller.Animator.Play("Jump");
