@@ -77,13 +77,19 @@ public class Controller : MonoBehaviour {
         // Update position
         transform.position = transform.position + (Vector3)Velocity / 60f;
 
-        if (Velocity.x != 0) {
-            int right = Velocity.x > 0 ? 1 : -1;
-            right *= Backwards ? -1 : 1;
 
-            f_visuals.localScale = new Vector3(right, 1, 1);
         }
 
+        // Setting x scale (mirroring)
+        if (Velocity.sqrMagnitude > 0) {
+            float right = System.Math.Sign(Vector2.Dot(Velocity, transform.right));
+
+            if (right != 0) {
+                right *= Backwards ? -1 : 1;
+                f_visuals.localScale = new Vector3(right, 1, 1);
+            }
+
+        }
 
         f_animator.SetFloat("X", Velocity.x);
         f_animator.SetFloat("Y", Velocity.y);
