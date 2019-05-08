@@ -71,12 +71,39 @@ public class Controller : MonoBehaviour {
 
         m_activeState.HandleFixedUpdate();
 
+        // moving
+        {
+            Vector2 origin = transform.TransformPoint(new Vector2(0, f_height * 0.75f));
+            LayerMask GROUND_MASK = LayerMask.GetMask("Default");
 
-        // TODO; check for collisions
+            float boxHeight = f_height / 2f;
 
-        // Update position
-        transform.position = transform.position + (Vector3)Velocity / 60f;
+            //if (Vector2.Angle(transform.up, Velocity) > 45) {
+            if (Velocity.y <= 0) {
+                boxHeight *= 0.9f;
+            }
 
+            RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(HalfWidth * 2f - 0.05f, boxHeight - 0.05f), transform.eulerAngles.z, Velocity, Velocity.magnitude / 60f, GROUND_MASK);
+
+            if (hit) {
+                // updating the position by the fraction of the velocity which worked
+                transform.position = transform.position + (hit.fraction) / 60f * (Vector3)Velocity;
+
+                //Vector2 parallel = Vector2.Perpendicular(hit.normal);
+                Vector2 parallel = Vector3.Cross(hit.normal, Vector3.forward);
+
+                float parFraction = Vector2.Dot((1 - hit.fraction) / 60f * Velocity, parallel);
+
+                // this cancels out the Velocity in which the character is moving at the moment
+                Velocity = (60f * parFraction * parallel);
+
+                // updating the rest of the movment
+                transform.position = transform.position + parFraction * (Vector3)parallel;
+            } else {
+
+                // moving normally
+                transform.position = transform.position + (Vector3)Velocity / 60f;
+            }
 
         }
 
