@@ -36,6 +36,7 @@ public class PlayerGrounded : ControllerState {
     #region [Override]
 
     public override void Enter() {
+        f_controller.Grounded = true;
         f_controller.Backwards = false;
         f_controller.Velocity = Vector2.zero;
 

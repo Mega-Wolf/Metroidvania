@@ -50,6 +50,7 @@ public class PlayerAir : ControllerState {
     #region [Override]
 
     public override void Enter() {
+        f_controller.Grounded = false;
         m_coyoteable = false;
         f_controller.Backwards = false;
         f_controller.transform.rotation = Quaternion.identity;
