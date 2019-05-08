@@ -7,6 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Controller : MonoBehaviour {
 
+    #region [Consts]
+
+    private const int MAX_COLLISION_ITERATIONS = 3;
+
+    #endregion
+
     #region [MemberFields]
 
     [SerializeField, Autohook]
@@ -27,6 +33,9 @@ public class Controller : MonoBehaviour {
 
     private ControllerState m_activeState;
 
+    //private ControllerState m_lastState;
+    private int m_stateStartedFrame;
+
     #endregion
 
     #region [Properties]
@@ -39,6 +48,10 @@ public class Controller : MonoBehaviour {
 
     public Vector2 Velocity { get; set; }
     public bool Backwards { get; set; }
+    public bool Grounded { get; set; }
+
+    //public ControllerState LastState { get { return m_lastState; } }
+    public int StateStartedFrame { get { return m_stateStartedFrame; } }
 
     #endregion
 
@@ -51,8 +64,12 @@ public class Controller : MonoBehaviour {
         // ?
 
         foreach (ControllerState state in m_activeState.FutureStates) {
-            bool entered = state.EnterOnCondition(m_activeState);
+            bool entered = state.EnterOnCondition(/*m_activeState*/);
             if (entered) {
+
+                //m_lastState = m_activeState;
+                m_stateStartedFrame = GameManager.Instance.Frame;
+
                 Debug.Log("New active: " + state);
                 m_activeState = state;
                 return;
@@ -61,19 +78,78 @@ public class Controller : MonoBehaviour {
 
         m_activeState.HandleFixedUpdate();
 
+        // moving
+        {
+            Vector2 origin;
+            float boxHeight;
+            LayerMask GROUND_MASK = LayerMask.GetMask("Default");
 
-        // TODO; check for collisions
+            // On the ground, the feet will be ignored, since they often walk through the floor a bit
+            if (Grounded) {
+                origin = transform.TransformPoint(new Vector2(0, f_height * 0.75f));
+                boxHeight = f_height / 2f;
+            } else { // in air
+                origin = transform.TransformPoint(new Vector2(0, f_height * 0.55f));
+                boxHeight = f_height * 0.9f;
 
-        // Update position
-        transform.position = transform.position + (Vector3)Velocity / 60f;
+                //if (Vector2.Angle(transform.up, Velocity) > 45) {
+                if (Velocity.y <= 0) {
+                    boxHeight *= 0.9f;
+                }
+            }
 
-        if (Velocity.x != 0) {
-            int right = Velocity.x > 0 ? 1 : -1;
-            right *= Backwards ? -1 : 1;
+            RaycastHit2D hit;
 
-            f_visuals.localScale = new Vector3(right, 1, 1);
+            // Trying to move
+            // When there is a collision, the character only gets moved a bit and the velocity changes
+            // It is then tried again if the character can move
+            for (int i = 0; i < MAX_COLLISION_ITERATIONS; ++i) {
+
+                hit = Physics2D.BoxCast(origin, new Vector2(HalfWidth * 2f - 0.05f, boxHeight - 0.05f), transform.eulerAngles.z, Velocity, Velocity.magnitude / 60f, GROUND_MASK);
+
+                if (hit) {
+
+                    if (hit.fraction == 0) {
+                        // TODO; not sure about this one
+                        transform.position = transform.position + (Vector3)(hit.normal * 0.1f + Velocity.normalized * 0.05f);
+
+                    } else {
+                        // updating the position by the fraction of the velocity which worked
+                        transform.position = transform.position + (hit.fraction - 0.1f) / 60f * (Vector3)Velocity;
+                    }
+
+
+
+                    //Vector2 parallel = Vector2.Perpendicular(hit.normal);
+                    Vector2 parallel = Vector3.Cross(hit.normal, Vector3.forward);
+
+                    float parFraction = Vector2.Dot((1 - hit.fraction + 0.1f) / 60f * Velocity, parallel);
+
+                    // this cancels out the Velocity in which the character is moving at the moment
+                    Velocity = (60f * parFraction * parallel);
+
+                    // the character will NOT move the rest of the movement here anymore; this will happen in the next iteration step
+                } else {
+
+                    // moving normally
+                    transform.position = transform.position + (Vector3)Velocity / 60f;
+
+                    // Since the velocity has not been updated, this process can be ended
+                    break;
+                }
+            }
         }
 
+        // Setting x scale (mirroring)
+        if (Velocity.sqrMagnitude > 0) {
+            float right = System.Math.Sign(Vector2.Dot(Velocity, transform.right));
+
+            if (right != 0) {
+                right *= Backwards ? -1 : 1;
+                f_visuals.localScale = new Vector3(right, 1, 1);
+            }
+
+        }
 
         f_animator.SetFloat("X", Velocity.x);
         f_animator.SetFloat("Y", Velocity.y);

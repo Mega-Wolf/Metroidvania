@@ -53,6 +53,7 @@ public class GroundMovementRaycast {
         {
             Debug.DrawLine(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth - OUTER_EXTEND, f_halfHeight, 0)), f_controller.transform.TransformPoint(new Vector3(-f_halfWidth - OUTER_EXTEND, f_halfHeight, 0)) + (Vector3)transformedDownward * RAY_LENGTH, Color.cyan);
             Debug.DrawLine(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)) + (Vector3)transformedDownward * RAY_LENGTH, Color.cyan);
+            Debug.DrawLine(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)) + (Vector3)transformedDownward * RAY_LENGTH, Color.yellow);
             Debug.DrawLine(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)) + (Vector3)transformedDownward * RAY_LENGTH, Color.cyan);
             Debug.DrawLine(f_controller.transform.TransformPoint(new Vector3(f_halfWidth + OUTER_EXTEND, f_halfHeight, 0)), f_controller.transform.TransformPoint(new Vector3(f_halfWidth + OUTER_EXTEND, f_halfHeight, 0)) + (Vector3)transformedDownward * RAY_LENGTH, Color.cyan);
 
@@ -81,8 +82,6 @@ public class GroundMovementRaycast {
             RaycastHit2D hitC = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
             RaycastHit2D hitHR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
             RaycastHit2D hitR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth + OUTER_EXTEND, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
-
-
 
             if (forward) {
                 if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {

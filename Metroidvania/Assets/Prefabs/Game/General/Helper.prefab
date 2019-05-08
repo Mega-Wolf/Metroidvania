@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2338722034794685471}
   - component: {fileID: 2338722034794685470}
   - component: {fileID: 2338722034794685456}
+  - component: {fileID: 859950417}
   m_Layer: 0
   m_Name: Helper
   m_TagString: Untagged
@@ -69,3 +70,15 @@ MonoBehaviour:
   - Right
   - Left
   - Jump
+--- !u!114 &859950417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338722034794685469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9cbab907f76da84788935a5d12a45a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
