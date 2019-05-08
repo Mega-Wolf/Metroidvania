@@ -83,9 +83,11 @@ public class PlayerAir : ControllerState {
 
             LayerMask GROUND_MASK = LayerMask.GetMask("Default");
 
-            RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f, f_controller.Height / 2f + EXTRA_RAY_LENGTH), 0, Vector2.zero, f_controller.transform.eulerAngles.z, GROUND_MASK);
+            // angles is actually always 0
+            RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f, f_controller.Height / 2f + EXTRA_RAY_LENGTH), f_controller.transform.eulerAngles.z, Vector2.zero, 0, GROUND_MASK);
 
             if (!hit) {
+                m_isJumping = false;
                 Enter();
 
                 // Only delayable if not started by a jump
@@ -101,7 +103,7 @@ public class PlayerAir : ControllerState {
     public override void HandleFixedUpdate() {
 
         // Late jump (coyote time)
-        if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {    
+        if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
             m_coyoteable = false;
             m_isJumping = true;
             f_controller.Animator.Play("Jump");
@@ -130,7 +132,7 @@ public class PlayerAir : ControllerState {
             // from where do I get the acceleration/velocity
             // oh well this state should just have the acceleration itself
             // but the velocity should come from outside; otherwise I would rapidly slow down when jumping
-            // TODO; change that commetn above, since it seems that I don't do it now
+            // TODO; change that comment above, since it seems that I don't do it now
 
             //velocity.x += move * 1 / 60f * ACCELERATION.x;
             velocity.x = move * MAX_SPEED;
