@@ -66,6 +66,8 @@ public class Controller : MonoBehaviour {
         foreach (ControllerState state in m_activeState.FutureStates) {
             bool entered = state.EnterOnCondition(/*m_activeState*/);
             if (entered) {
+                state.LogicalEnter();
+                state.EffectualEnter();
 
                 //m_lastState = m_activeState;
                 m_stateStartedFrame = GameManager.Instance.Frame;

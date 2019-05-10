@@ -35,7 +35,7 @@ public class PlayerAir : ControllerState {
 
     #region [PrivateVariables]
 
-    private bool m_isJumping;
+    private bool m_playJumpAnimation;
     private bool m_coyoteable;
 
     #endregion
@@ -49,24 +49,26 @@ public class PlayerAir : ControllerState {
 
     #region [Override]
 
-    public override void Enter() {
-        f_controller.Grounded = false;
-        m_coyoteable = false;
-        f_controller.Backwards = false;
-        f_controller.transform.rotation = Quaternion.identity;
-
-        if (!m_isJumping) {
-            // this means that the jump animation is already playing
+    public override void EffectualEnter() {
+        if (m_playJumpAnimation) {
+            m_playJumpAnimation = false;
+            f_controller.Animator.Play("Jump");
+        } else {
             f_controller.Animator.Play("Air");
         }
+    }
 
+    public override void LogicalEnter() {
+        f_controller.Grounded = false;
+        f_controller.Backwards = false;
+        f_controller.transform.rotation = Quaternion.identity;
     }
 
     public override bool EnterOnCondition() {
 
         if (InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
-            m_isJumping = true;
-            f_controller.Animator.Play("Jump");
+            m_playJumpAnimation = true;
+            m_coyoteable = false;
 
 #if ORI_JUMP
             f_controller.Velocity = new Vector2(f_controller.Velocity.x, JUMP_SPEED);
@@ -74,7 +76,6 @@ public class PlayerAir : ControllerState {
             f_controller.Velocity = f_controller.Velocity + JUMP_SPEED * (Vector2)f_controller.transform.up;
 #endif
 
-            Enter();
             return true;
         }
 
@@ -88,8 +89,7 @@ public class PlayerAir : ControllerState {
             RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f, f_controller.Height / 2f + EXTRA_RAY_LENGTH), f_controller.transform.eulerAngles.z, Vector2.zero, 0, GROUND_MASK);
 
             if (!hit) {
-                m_isJumping = false;
-                Enter();
+                m_playJumpAnimation = false;
 
                 // Only delayable if not started by a jump
                 m_coyoteable = true;
@@ -106,8 +106,7 @@ public class PlayerAir : ControllerState {
         // Late jump (coyote time)
         if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
             m_coyoteable = false;
-            m_isJumping = true;
-            f_controller.Animator.Play("Jump");
+            m_playJumpAnimation = true;
 
             // since in the air, the upwards transform will always be directly up, ther is no difference between Ori and Sonic
             f_controller.Velocity = new Vector2(f_controller.Velocity.x, JUMP_SPEED);

@@ -35,13 +35,14 @@ public class PlayerGrounded : ControllerState {
 
     #region [Override]
 
-    public override void Enter() {
+    public override void EffectualEnter() {
+        f_controller.Animator.Play("Landing");
+    }
+
+    public override void LogicalEnter() {
         f_controller.Grounded = true;
         f_controller.Backwards = false;
         f_controller.Velocity = Vector2.zero;
-
-        //TODO; don't
-        f_controller.Animator.Play("Landing");
     }
 
     public override bool EnterOnCondition() {
@@ -51,16 +52,7 @@ public class PlayerGrounded : ControllerState {
         }
 
         // The following checks if the player touches the ground
-        {
-            bool hit = f_ground.TryStickToGround();
-
-            if (hit) {
-                Enter();
-                return true;
-            }
-
-            return false;
-        }
+        return f_ground.TryStickToGround();
     }
 
     public override void HandleFixedUpdate() {
