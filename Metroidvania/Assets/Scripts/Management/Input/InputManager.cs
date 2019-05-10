@@ -67,6 +67,7 @@ public class InputManager : Singleton<InputManager> {
 
     public bool IsPaused { get { return m_isPaused; } }
     public int ReplayFrame { get { return m_replayFrame; } }
+    public bool IgnoreInput { get; set; }
 
     #endregion
 
@@ -132,22 +133,22 @@ public class InputManager : Singleton<InputManager> {
     /// <summary>
     /// Returns true if the virtual button with the given name is pressed
     /// </summary>
-    public bool GetButton(string virtualKey) {
-        return f_inputManager.GetButton(virtualKey);
+    public bool GetButton(string virtualKey, bool ignoreIgnore = false) {
+        return (!IgnoreInput || ignoreIgnore) && f_inputManager.GetButton(virtualKey);
     }
 
     /// <summary>
     /// Returns true if the virtual button with the given name was pressed this frame
     /// </summary>
-    public bool GetButtonDown(string virtualKey, EDelayType delayType = EDelayType.None) {
-        return f_inputManager.GetButtonDown(virtualKey, delayType);
+    public bool GetButtonDown(string virtualKey, EDelayType delayType = EDelayType.None, bool ignoreIgnore = false) {
+        return (!IgnoreInput || ignoreIgnore) && f_inputManager.GetButtonDown(virtualKey, delayType);
     }
 
     /// <summary>
     /// Returns true if the virtual button with the given name was released this frame
     /// </summary>
-    public bool GetButtonUp(string virtualKey) {
-        return f_inputManager.GetButtonUp(virtualKey);
+    public bool GetButtonUp(string virtualKey, bool ignoreIgnore = false) {
+        return (!IgnoreInput || ignoreIgnore) && f_inputManager.GetButtonUp(virtualKey);
     }
 
     #endregion
