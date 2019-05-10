@@ -101,7 +101,7 @@ public class PlayerAir : ControllerState {
         }
     }
 
-    public override void HandleFixedUpdate() {
+    public override bool HandleFixedUpdate() {
 
         // Late jump (coyote time)
         if (m_coyoteable && (f_controller.StateStartedFrame + COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
@@ -159,6 +159,8 @@ public class PlayerAir : ControllerState {
         // hit upwards
         // hit left
         // hit right
+
+        return true;
 
     }
 

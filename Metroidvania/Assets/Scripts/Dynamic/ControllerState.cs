@@ -4,7 +4,8 @@ public abstract class ControllerState {
 
     #region [FinalVariables]
 
-    private List<ControllerState> f_states = new List<ControllerState>();
+    private List<ControllerState> f_futureStates = new List<ControllerState>();
+    private List<ControllerState> f_stackedStates = new List<ControllerState>();
 
     protected Controller f_controller;
 
@@ -12,7 +13,11 @@ public abstract class ControllerState {
 
     #region [Properties]
 
-    public List<ControllerState> FutureStates { get { return f_states; } }
+    public List<ControllerState> FutureStates { get { return f_futureStates; } }
+    public List<ControllerState> StackedStates { get { return f_stackedStates; } }
+
+    // This specifies if the ControllerState should consume inputs when it is the stacked state
+    public virtual bool ConsumesInput { get { return true; } }
 
     #endregion
 
@@ -32,8 +37,14 @@ public abstract class ControllerState {
     /// </summary>
     /// <param name="label">This label gives the state a name which can then be referenced to be called</param>
     /// <param name="state">The possible future state</param>
-    public void AddTransitionGoal(string label, ControllerState state) {
-        f_states.Add(state);
+    /// <param name="stacked">Whether this state should be stacked ontop of this one or not</param>
+    public void AddTransitionGoal(string label, ControllerState state, bool stacked = false) {
+        if (stacked) {
+            f_stackedStates.Add(state);
+        } else {
+            f_futureStates.Add(state);
+        }
+
     }
 
     /// <summary>
@@ -57,7 +68,7 @@ public abstract class ControllerState {
     /// <summary>
     /// This function is called every frame while the state is active
     /// </summary>
-    public abstract void HandleFixedUpdate();
+    public abstract bool HandleFixedUpdate();
 
     //public abstract void Leave();
 

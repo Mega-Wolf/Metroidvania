@@ -32,9 +32,11 @@ public class Controller : MonoBehaviour {
     #region [PrivateVariables]
 
     private ControllerState m_activeState;
+    private ControllerState m_activeStackedState;
 
     //private ControllerState m_lastState;
     private int m_stateStartedFrame;
+    private int m_stateStartedStackedFrame;
 
     #endregion
 
@@ -52,6 +54,7 @@ public class Controller : MonoBehaviour {
 
     //public ControllerState LastState { get { return m_lastState; } }
     public int StateStartedFrame { get { return m_stateStartedFrame; } }
+    public int StateStartedStackedFrame { get { return m_stateStartedStackedFrame; } }
 
     #endregion
 
@@ -62,6 +65,10 @@ public class Controller : MonoBehaviour {
         // check collisions
         // check the active collisions
         // ?
+
+        if (m_activeStackedState != null) {
+            InputManager.Instance.IgnoreInput = m_activeStackedState.ConsumesInput;
+        }
 
         foreach (ControllerState state in m_activeState.FutureStates) {
             bool entered = state.EnterOnCondition(/*m_activeState*/);
@@ -74,11 +81,47 @@ public class Controller : MonoBehaviour {
 
                 Debug.Log("New active: " + state);
                 m_activeState = state;
-                return;
+                break;
+            }
+        }
+
+        InputManager.Instance.IgnoreInput = false;
+
+        if (m_activeStackedState != null) {
+            foreach (ControllerState state in m_activeStackedState.StackedStates) {
+                if (state.EnterOnCondition()) {
+                    state.LogicalEnter();
+                    state.EffectualEnter();
+
+                    m_stateStartedStackedFrame = GameManager.Instance.Frame;
+                    m_activeStackedState = state;
+                    break;
+                }
+            }
+        } else {
+            //DUNNO; Should the active state be able to still trigger stacked states?
+            //DUNNO; Should I be able to add non stacked states to a stacked state
+
+            foreach (ControllerState state in m_activeState.StackedStates) {
+                if (state.EnterOnCondition()) {
+                    state.LogicalEnter();
+                    state.EffectualEnter();
+
+                    m_stateStartedStackedFrame = GameManager.Instance.Frame;
+                    m_activeStackedState = state;
+                    break;
+                }
             }
         }
 
         m_activeState.HandleFixedUpdate();
+
+        if (m_activeStackedState != null) {
+            bool keep = m_activeStackedState.HandleFixedUpdate();
+            if (!keep) {
+                m_activeStackedState = null;
+            }
+        }
 
         // moving
         {

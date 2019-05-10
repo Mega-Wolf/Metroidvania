@@ -55,7 +55,7 @@ public class PlayerGrounded : ControllerState {
         return f_ground.TryStickToGround();
     }
 
-    public override void HandleFixedUpdate() {
+    public override bool HandleFixedUpdate() {
 
         f_controller.Velocity = Vector2.zero;
 
@@ -75,7 +75,7 @@ public class PlayerGrounded : ControllerState {
 
         }
 
-        return;
+        return true;
 
         // TODO Heal
 

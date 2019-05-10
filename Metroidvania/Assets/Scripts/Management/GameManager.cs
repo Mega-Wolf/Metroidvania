@@ -29,6 +29,9 @@ public class GameManager : Singleton<GameManager> {
 
     private void FixedUpdate() {
         //TODO; not when paused
+        //T** The InputManager also has a pause funtion, but that does something differently
+        //T** However, that should be remembered, because the InputManager MUST NOT be updated when the game is paused
+
         ++m_frame;
     }
 
