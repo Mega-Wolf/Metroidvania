@@ -67,14 +67,17 @@ public class Controller : MonoBehaviour {
         // ?
 
         if (m_activeStackedState != null) {
-            InputManager.Instance.IgnoreInput = m_activeStackedState.ConsumesInput;
+            InputManager.Instance.IgnoreInput = m_activeStackedState.ConsumesInputAndEffects;
         }
 
         foreach (ControllerState state in m_activeState.FutureStates) {
             bool entered = state.EnterOnCondition(/*m_activeState*/);
             if (entered) {
                 state.LogicalEnter();
-                state.EffectualEnter();
+
+                if (m_activeStackedState == null || !m_activeStackedState.ConsumesInputAndEffects) {
+                    state.EffectualEnter();
+                }
 
                 //m_lastState = m_activeState;
                 m_stateStartedFrame = GameManager.Instance.Frame;

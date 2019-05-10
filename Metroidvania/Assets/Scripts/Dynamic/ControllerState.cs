@@ -17,7 +17,7 @@ public abstract class ControllerState {
     public List<ControllerState> StackedStates { get { return f_stackedStates; } }
 
     // This specifies if the ControllerState should consume inputs when it is the stacked state
-    public virtual bool ConsumesInput { get { return true; } }
+    public virtual bool ConsumesInputAndEffects { get { return true; } }
 
     #endregion
 
