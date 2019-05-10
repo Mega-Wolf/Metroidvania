@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2338722034794685469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2338722034794685471}
+  - component: {fileID: 2338722034794685470}
+  - component: {fileID: 2338722034794685456}
+  - component: {fileID: 859950417}
+  m_Layer: 0
+  m_Name: Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2338722034794685471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338722034794685469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3960639, y: 0.7959458, z: -0.046875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2338722034794685470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338722034794685469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4e8bc911b804d43bbf3ba51dc716af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxAbsSlope: 35
+  m_maxRelAngle: 210
+  m_showOnlySelected: 0
+  m_allowedColor: {r: 0, g: 0.5, b: 0, a: 1}
+  m_unallowedColor: {r: 0.5, g: 0, b: 0, a: 1}
+  m_narrowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_visualisationText: 1
+  m_visualisationAngles: 1
+--- !u!114 &2338722034794685456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338722034794685469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28649244f206035479713ab0acb9a325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_eInputManager: 0
+  f_buttons:
+  - Right
+  - Left
+  - Jump
+--- !u!114 &859950417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338722034794685469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9cbab907f76da84788935a5d12a45a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

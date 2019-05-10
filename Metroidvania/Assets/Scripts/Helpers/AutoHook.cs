@@ -84,8 +84,19 @@ public class AutohookPropertyDrawer : PropertyDrawer {
         var parentComponentType = property.serializedObject.targetObject.GetType();
         // ... then, using reflection well get the raw field info of the property this
         // SerializedProperty represents...
-        var fieldInfo = parentComponentType.GetField(property.propertyPath, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-        // ... using that we can return the raw .net type!
+
+
+        FieldInfo fieldInfo;
+
+        while (true) {
+            fieldInfo = parentComponentType.GetField(property.propertyPath, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            // ... using that we can return the raw .net type!
+
+            if (parentComponentType.BaseType == null || fieldInfo != null) {
+                break;
+            }
+            parentComponentType = parentComponentType.BaseType;
+        }
 
         return fieldInfo?.FieldType;
     }

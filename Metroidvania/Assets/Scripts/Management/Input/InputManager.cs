@@ -12,7 +12,7 @@ public interface IInputManager {
     void HandleUpdate();
 
     bool GetButton(string virtualKey);
-    bool GetButtonDown(string virtualKey);
+    bool GetButtonDown(string virtualKey, InputManager.EDelayType delayType);
     bool GetButtonUp(string virtualKey);
 }
 
@@ -20,7 +20,39 @@ public interface IInputManager {
 /// This class combined all the different input types and makes it possible to play the game in normal and edit mode
 /// It is also possible to save and reload inputs here
 /// </summary>
-public abstract class InputManager : Singleton<InputManager> {
+public class InputManager : Singleton<InputManager> {
+
+    #region [Consts]
+
+    public const int LATE_DOWN = 5;
+
+    #endregion
+
+    #region [Types]
+
+    private enum EInputManager {
+        Hardware,
+        Virtual
+    }
+
+    public enum EDelayType {
+        None, // when walking left / right
+        OnlyWhenDown,   // when jumping, since that has to be done in order to be effective
+        OnlyWhenUp, // dunno
+        Always // when casting a spell, I don't care if I already released it
+    }
+
+    #endregion
+
+    #region [MemberFields]
+
+    [SerializeField]
+    private EInputManager f_eInputManager;
+
+    [SerializeField]
+    private string[] f_buttons;
+
+    #endregion
 
     #region [PrivateVariables]
 
@@ -35,6 +67,22 @@ public abstract class InputManager : Singleton<InputManager> {
 
     public bool IsPaused { get { return m_isPaused; } }
     public int ReplayFrame { get { return m_replayFrame; } }
+
+    #endregion
+
+    #region [Init]
+
+    protected override void Awake() {
+        base.Awake();
+        switch (f_eInputManager) {
+            case EInputManager.Hardware:
+                f_inputManager = new HardwareInputManager(new InputSave(), f_buttons);
+                break;
+            case EInputManager.Virtual:
+                f_inputManager = new VirtualInputManager(new InputSave(), f_buttons);
+                break;
+        }
+    }
 
     #endregion
 
@@ -91,8 +139,8 @@ public abstract class InputManager : Singleton<InputManager> {
     /// <summary>
     /// Returns true if the virtual button with the given name was pressed this frame
     /// </summary>
-    public bool GetButtonDown(string virtualKey) {
-        return f_inputManager.GetButtonDown(virtualKey);
+    public bool GetButtonDown(string virtualKey, EDelayType delayType = EDelayType.None) {
+        return f_inputManager.GetButtonDown(virtualKey, delayType);
     }
 
     /// <summary>

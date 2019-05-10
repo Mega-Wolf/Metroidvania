@@ -8,32 +8,27 @@ using UnityEngine;
 /// </summary>
 public class HardwareInputManager : IInputManager {
 
-    #region [MemberFields]
-
-    [SerializeField]
-    private string[] f_buttons;
-
-    #endregion
-
     #region [FinalVariables]
 
     //private Dictionary<string, float> f_axisValues = new Dictionary<string, float>();
     private Dictionary<string, bool> f_buttonValuesLastFrame = new Dictionary<string, bool>();
     private Dictionary<string, bool> f_buttonValues = new Dictionary<string, bool>();
 
+    private Dictionary<string, int> f_lastDown = new Dictionary<string, int>();
+
     private InputSave f_inputSave;
+
+    private string[] f_buttons;
 
     #endregion
 
     #region [Constructors]
 
-    public HardwareInputManager(InputSave inputSave) {
+    public HardwareInputManager(InputSave inputSave, string[] buttons) {
         f_inputSave = inputSave;
+        f_buttons = buttons;
 
-        foreach (string button in f_buttons) {
-            f_buttonValues[button] = false;
-            f_buttonValuesLastFrame[button] = false;
-        }
+        Clear();
     }
 
     #endregion
@@ -46,6 +41,12 @@ public class HardwareInputManager : IInputManager {
 
             if (newValue != f_buttonValues[button]) {
                 f_inputSave.AddButtonInput(button, newValue);
+                //TODO; ignore when menu
+
+                if (newValue) {
+                    // remember when this happened
+                    f_lastDown[button] = GameManager.Instance.Frame;
+                }
             }
 
             f_buttonValuesLastFrame[button] = f_buttonValues[button];
@@ -62,11 +63,24 @@ public class HardwareInputManager : IInputManager {
     }
 
     public void PauseReplay() {
+        Clear();
         f_inputSave.Split();
     }
 
     public void StopReplay() {
         //TODO; I have no idea what I should do here; save?
+    }
+
+    #endregion
+
+    #region [PrivateMethods]
+
+    private void Clear() {
+        foreach (string button in f_buttons) {
+            f_buttonValues[button] = false;
+            f_buttonValuesLastFrame[button] = false;
+            f_lastDown[button] = int.MinValue;
+        }
     }
 
     #endregion
@@ -79,8 +93,20 @@ public class HardwareInputManager : IInputManager {
         return f_buttonValues[virtualKey];
     }
 
-    public bool GetButtonDown(string virtualKey) {
-        return f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey];
+    public bool GetButtonDown(string virtualKey, InputManager.EDelayType delayType) {
+        if (f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey]) {
+            f_lastDown[virtualKey] = int.MinValue;
+            return true;
+        }
+
+        if ((delayType == InputManager.EDelayType.Always || (delayType == InputManager.EDelayType.OnlyWhenDown && f_buttonValues[virtualKey]) || (delayType == InputManager.EDelayType.OnlyWhenUp && !f_buttonValues[virtualKey])) && f_lastDown[virtualKey] + InputManager.LATE_DOWN >= GameManager.Instance.Frame) {
+            f_lastDown[virtualKey] = int.MinValue;
+            return true;
+        }
+
+        return false;
+
+        //return f_buttonValues[virtualKey] && !f_buttonValuesLastFrame[virtualKey];
     }
 
     public bool GetButtonUp(string virtualKey) {

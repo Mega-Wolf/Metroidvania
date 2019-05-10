@@ -1,0 +1,42 @@
+This shall be an overview of how the movements would be designed if they were a state machine
+Some stuff are animations some just static images
+The state machine approach seems good but it also seems difficult to actually set it up
+
+
+
+Grounded
+- Idling -> Walking, Healing
+- Walking
+- Healing -> Idling (finsihed or aborting)
+
+
+
+
+
+
+Air
+- Rising
+- Falling
+
+
+
+
+Wall
+- Idling
+- Climbing
+
+
+
+Hits can start during air and take back to the old state
+
+
+
+Those are all animations:
+
+- Idling (still picture)
+- Walking
+
+- Idle -> walking
+- Walking -> Idle
+
+- Hit in several directions
