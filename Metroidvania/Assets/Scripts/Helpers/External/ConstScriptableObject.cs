@@ -13,12 +13,14 @@ public abstract class ConstScriptableObject : ScriptableObject { }
 [CustomPropertyDrawer(typeof(ConstScriptableObject), true)]
 public class ConstScriptableObjectDrawer : PropertyDrawer {
 
-    private Color constColor = Color.magenta / 2;
-    private Color nonDefaultColor = Color.red / 2;
+    private Color constColor = Color.magenta;
+    private Color nonDefaultColor = Color.red;
 
-    private static Dictionary<Type, ScriptableObject> f_constSOs = new Dictionary<Type, ScriptableObject>();
+    public static Dictionary<Type, ScriptableObject> f_defaultSOs = new Dictionary<Type, ScriptableObject>();
+    public static Dictionary<ScriptableObject, ScriptableObject> f_backupSOs = new Dictionary<ScriptableObject, ScriptableObject>();
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
+
         float totalHeight = EditorGUIUtility.singleLineHeight;
 
         //TODO check that sometime in the future
@@ -31,14 +33,14 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
             if (data == null) {
                 return EditorGUIUtility.singleLineHeight;
             }
-            SerializedObject serializedObject = new SerializedObject(data);
-            SerializedProperty prop = serializedObject.GetIterator();
+            SerializedObject serializedObjectOriginal = new SerializedObject(data);
+            SerializedProperty prop = serializedObjectOriginal.GetIterator();
             if (prop.NextVisible(true)) {
                 do {
                     if (prop.name == "m_Script") {
                         continue;
                     }
-                    var subProp = serializedObject.FindProperty(prop.name);
+                    var subProp = serializedObjectOriginal.FindProperty(prop.name);
                     float height = EditorGUI.GetPropertyHeight(subProp, null, true) + EditorGUIUtility.standardVerticalSpacing;
                     totalHeight += height;
                 }
@@ -51,9 +53,8 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
     }
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-
         ScriptableObject defaultSO;
-        if (!f_constSOs.TryGetValue(fieldInfo.FieldType, out defaultSO)) {
+        if (!f_defaultSOs.TryGetValue(fieldInfo.FieldType, out defaultSO)) {
             defaultSO = UnityEditor.AssetDatabase.LoadAssetAtPath(ConstsEditor.PATH + "/" + fieldInfo.FieldType + ".asset", typeof(ScriptableObject)) as ScriptableObject;
             if (defaultSO == null) {
                 defaultSO = ScriptableObject.CreateInstance(fieldInfo.FieldType);
@@ -63,15 +64,37 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
                 AssetDatabase.Refresh();
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             }
-            f_constSOs[fieldInfo.FieldType] = defaultSO;
-            if (property.serializedObject == null) {
-                property.objectReferenceValue = defaultSO;
-                property.serializedObject.ApplyModifiedProperties();
+            f_defaultSOs[fieldInfo.FieldType] = defaultSO;
+        }
+        if (property.objectReferenceValue == null) {
+            property.objectReferenceValue = defaultSO;
+            property.serializedObject.ApplyModifiedProperties();
+        }
+
+        ScriptableObject originalSO = (ScriptableObject)property.objectReferenceValue;
+
+        ScriptableObject backupSO;
+        if (!f_backupSOs.TryGetValue((ScriptableObject)property.objectReferenceValue, out backupSO)) {
+            string pathOriginal = AssetDatabase.GetAssetPath(property.objectReferenceValue);
+            int pos = pathOriginal.LastIndexOf("/");
+            string path = pathOriginal.Substring(0, pos) + "/Dynamic/" + pathOriginal.Substring(pos + 1);
+
+            backupSO = UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(ScriptableObject)) as ScriptableObject;
+            if (backupSO == null) {
+                backupSO = ScriptableObject.CreateInstance(fieldInfo.FieldType);
+                AssetDatabase.CreateAsset(backupSO, path);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             }
+            f_backupSOs[(ScriptableObject)property.objectReferenceValue] = backupSO;
         }
 
         EditorGUI.BeginProperty(position, label, property);
         if (property.objectReferenceValue != null) {
+
+            bool modified = !originalSO.Equals(backupSO);
+
             property.isExpanded = EditorGUI.Foldout(new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight), property.isExpanded, property.displayName, true);
             Color dummyBackgroundColor = GUI.backgroundColor;
             if (property.objectReferenceValue == defaultSO) {
@@ -79,10 +102,13 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
             } else {
                 GUI.backgroundColor = nonDefaultColor;
             }
+            if (!modified) {
+                GUI.backgroundColor /= 2;
+            }
 
+            //TODO; dont render when playing
             EditorGUI.PropertyField(new Rect(EditorGUIUtility.labelWidth + 14, position.y, position.width - EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight), property, GUIContent.none, true);
             GUI.backgroundColor = dummyBackgroundColor;
-
             if (GUI.changed) {
                 property.serializedObject.ApplyModifiedProperties();
             }
@@ -90,38 +116,87 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
                 EditorGUIUtility.ExitGUI();
             }
 
+            GUI.Button(new Rect(position.x + position.width - 20, position.y, 20, EditorGUIUtility.singleLineHeight), "R");
+            GUI.Button(new Rect(position.x + position.width - 2 * 20, position.y, 20, EditorGUIUtility.singleLineHeight), "A");
+
+            //TODO END
+
             if (property.isExpanded) {
                 // Draw a background that shows us clearly which fields are part of the ScriptableObject
                 Color dummyColor = GUI.color;
                 if (property.objectReferenceValue == defaultSO) {
-                    GUI.color = constColor / 1.5f;
+                    GUI.color = constColor / 3;
                 } else {
-                    GUI.color = nonDefaultColor / 1.5f;
+                    GUI.color = nonDefaultColor / 3;
                 }
-                GUI.Box(new Rect(0, position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing - 1, Screen.width, position.height - EditorGUIUtility.singleLineHeight - EditorGUIUtility.standardVerticalSpacing), "");
+
+                GUI.Box(new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing - 1, (position.width - 2 * 20f) * (2 / 3f), position.height - EditorGUIUtility.singleLineHeight - EditorGUIUtility.standardVerticalSpacing), "");
+                GUI.color = Color.grey;
+                GUI.Box(new Rect(position.x + (position.width - 2 * 20) * (2 / 3f), position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing - 1, (position.width - 2 * 20f) / 3f, position.height - EditorGUIUtility.singleLineHeight - EditorGUIUtility.standardVerticalSpacing), "");
                 GUI.color = dummyColor;
 
                 EditorGUI.indentLevel++;
-                var data = (ScriptableObject)property.objectReferenceValue;
-                SerializedObject serializedObject = new SerializedObject(data);
+                SerializedObject serializedObjectOriginal = new SerializedObject(originalSO);
+                SerializedObject serializedObjectBackup = new SerializedObject(backupSO);
 
                 // Iterate over all the values and draw them
-                SerializedProperty prop = serializedObject.GetIterator();
+                SerializedProperty propOriginal = serializedObjectOriginal.GetIterator();
+                SerializedProperty propBackup = serializedObjectBackup.GetIterator();
+
                 float y = position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-                if (prop.NextVisible(true)) {
+                if (propOriginal.NextVisible(true)) {
+                    propBackup.NextVisible(true);
                     do {
                         // Don't bother drawing the class file
-                        if (prop.name == "m_Script") {
+                        if (propOriginal.name == "m_Script") {
                             continue;
                         }
-                        float height = EditorGUI.GetPropertyHeight(prop, new GUIContent(prop.displayName), true);
-                        EditorGUI.PropertyField(new Rect(position.x, y, position.width, height), prop, true);
+
+                        float height = EditorGUI.GetPropertyHeight(propOriginal, new GUIContent(propOriginal.displayName), true);
+                        EditorGUI.PropertyField(new Rect(position.x, y, (position.width - 2 * 20f) * 2 / 3f, height), propOriginal, true);
+                        //EditorGUI.PropertyField(new Rect(position.x + (position.width - 2 * 20) * 2 / 3f, y, (position.width - 2 * 20) / 3, height), propBackup, GUIContent.none, true);
+
+                        //TODO; List
+                        if (propBackup.type == "vector" && propOriginal.isExpanded) {
+                            //Vector
+                            propBackup.Next(true);
+                            //Array
+                            propBackup.Next(true);
+
+                            float yy = y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+                            EditorGUI.PropertyField(new Rect(position.x + (position.width - 2 * 20) * 2 / 3f, yy, 100, EditorGUIUtility.singleLineHeight), propBackup, GUIContent.none, false);
+                            //propBackup.intValue = EditorGUI.IntField(new Rect(position.x + (position.width - 2 * 20) * 2 / 3f, yy, 100, EditorGUIUtility.singleLineHeight), propBackup.intValue);
+
+                            int amount = propBackup.intValue;
+
+                            yy += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+                            for (int i = 0; i < amount; ++i) {
+                                propBackup.Next(true);
+                                EditorGUI.PropertyField(new Rect(14 + position.x + (position.width - 2 * 20) * 2 / 3f, yy, 100, EditorGUIUtility.singleLineHeight), propBackup, GUIContent.none, true);
+                                yy += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                            }
+                        } else {
+                            EditorGUI.PropertyField(new Rect(position.x + (position.width - 2 * 20) * 2 / 3f, y, (position.width - 2 * 20) / 3f, height), propBackup, GUIContent.none, false);
+                        }
+
+                        if (!SerializedProperty.DataEquals(propOriginal, propBackup)) {
+                            if (GUI.Button(new Rect(position.x + position.width - 20, y, 20, height), "R")) {
+                                serializedObjectOriginal.CopyFromSerializedProperty(propBackup);
+                            }
+                            if (GUI.Button(new Rect(position.x + position.width - 2 * 20, y, 20, height), "A")) {
+                                serializedObjectBackup.CopyFromSerializedProperty(propOriginal);
+                            }
+                        }
+
                         y += height + EditorGUIUtility.standardVerticalSpacing;
                     }
-                    while (prop.NextVisible(false));
+                    while (propOriginal.NextVisible(false) | propBackup.NextVisible(false));
                 }
                 if (GUI.changed) {
-                    serializedObject.ApplyModifiedProperties();
+                    serializedObjectOriginal.ApplyModifiedProperties();
+                    serializedObjectBackup.ApplyModifiedProperties();
                 }
 
                 EditorGUI.indentLevel--;
@@ -129,7 +204,10 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
         } else {
             Debug.LogError("For some reason, this ConstScriptableObject does not have a reference.");
         }
-        property.serializedObject.ApplyModifiedProperties();
+
+        // not sure why this is done as well
+        //property.serializedObject.ApplyModifiedProperties();
+
         EditorGUI.EndProperty();
     }
 
