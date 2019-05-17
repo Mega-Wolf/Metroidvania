@@ -7,15 +7,22 @@ using UnityEditor;
 using UnityEngine;
 using System;
 using System.Reflection;
+using NaughtyAttributes.Editor;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class AutohookAttribute : PropertyAttribute {
+    public readonly bool CheckAlsoInChildren = true;
+
+    public AutohookAttribute() { }
+    public AutohookAttribute(bool checkAlsoInChildren) {
+        CheckAlsoInChildren = checkAlsoInChildren;
+    }
 }
 
 #if UNITY_EDITOR
 
 [CustomPropertyDrawer(typeof(AutohookAttribute))]
-public class AutohookPropertyDrawer : PropertyDrawer {
+public class AutohookPropertyDrawer : UnityEditor.PropertyDrawer {
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
         // First, lets attempt to find a valid component we could hook into this property
@@ -66,7 +73,16 @@ public class AutohookPropertyDrawer : PropertyDrawer {
             // ...then use GetComponent(type) to see if there is one on our object.
             var component = (Component)root.targetObject;
 
-            return component.GetComponent(type);
+            Component ret = component.GetComponent(type);
+
+            if (ret == null) {
+                AutohookAttribute autohookAttribute = PropertyUtility.GetAttribute<AutohookAttribute>(property);
+                if (autohookAttribute.CheckAlsoInChildren) {
+                    return component.GetComponentInChildren(type);
+                }
+            }
+
+            return ret;
         } else {
             Debug.Log("OH NO handle fails here better pls");
         }

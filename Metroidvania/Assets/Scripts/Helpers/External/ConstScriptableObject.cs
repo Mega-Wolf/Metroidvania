@@ -82,10 +82,12 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
             backupSO = UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(ScriptableObject)) as ScriptableObject;
             if (backupSO == null) {
                 backupSO = ScriptableObject.CreateInstance(fieldInfo.FieldType);
-                AssetDatabase.CreateAsset(backupSO, path);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+                try {
+                    AssetDatabase.CreateAsset(backupSO, path);
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                    AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+                } catch { }
             }
             f_backupSOs[(ScriptableObject)property.objectReferenceValue] = backupSO;
         }
