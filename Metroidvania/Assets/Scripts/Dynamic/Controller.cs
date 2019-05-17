@@ -10,6 +10,7 @@ public class Controller : MonoBehaviour {
     #region [Consts]
 
     private const int MAX_COLLISION_ITERATIONS = 3;
+    private const float IMPACT_LENGTH = 5f;
 
     #endregion
 
@@ -127,9 +128,18 @@ public class Controller : MonoBehaviour {
             bool keep = m_activeStackedState.HandleFixedUpdate();
             if (!keep) {
                 m_activeStackedState = null;
+                m_activeState.EffectualEnter();
             }
         }
 
+        Move();
+    }
+
+    #endregion
+
+    #region [PrivateMethods]
+
+    private void Move() {
         // moving
         {
             Vector2 origin;
@@ -205,7 +215,6 @@ public class Controller : MonoBehaviour {
 
         f_animator.SetFloat("X", Velocity.x);
         f_animator.SetFloat("Y", Velocity.y);
-
     }
 
     #endregion
@@ -214,6 +223,22 @@ public class Controller : MonoBehaviour {
 
     public void SetStartState(ControllerState state) {
         m_activeState = state;
+    }
+
+    public void ReactOnImpact(Vector2 hitNormal) {
+        //TODO; I might have to set backwards
+        //T** However,the normal states set backwards themselves, so it would be weird
+        //For now I just don't change anything at all and just abort the current specialstate
+
+        
+        m_activeStackedState = null;
+        m_activeState.EffectualEnter();
+
+        //Vector2 dummyVelocity = Velocity;
+        Velocity = -hitNormal * IMPACT_LENGTH;
+
+        Move();
+        //Velocity = dummyVelocity;
     }
 
     #endregion

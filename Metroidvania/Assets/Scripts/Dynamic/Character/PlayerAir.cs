@@ -42,8 +42,7 @@ public class PlayerAir : ControllerState {
 
     #region [Constructors]
 
-    public PlayerAir(Controller controller) : base(controller) {
-    }
+    public PlayerAir(Controller controller) : base(controller) {}
 
     #endregion
 

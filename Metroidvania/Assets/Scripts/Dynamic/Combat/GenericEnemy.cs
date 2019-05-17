@@ -46,8 +46,7 @@ public class GenericEnemy : MonoBehaviour, IDamagable {
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        //TODO
-        //f_controller.AbortSpecial / play Hit state
+        f_controller.ReactOnImpact(hitNormal);
     }
 
     #endregion
