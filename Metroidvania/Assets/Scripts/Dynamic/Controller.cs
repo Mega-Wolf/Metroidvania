@@ -15,9 +15,6 @@ public class Controller : MonoBehaviour {
 
     #region [MemberFields]
 
-    [SerializeField, Autohook]
-    private Animator f_animator;
-
     [SerializeField]
     private Transform f_visuals;
 
@@ -26,6 +23,13 @@ public class Controller : MonoBehaviour {
 
     [SerializeField]
     private float f_halfWidth;
+
+    #endregion
+
+    #region [FinalVariables]
+
+    [SerializeField, Autohook]
+    private Animator f_animator;
 
     #endregion
 

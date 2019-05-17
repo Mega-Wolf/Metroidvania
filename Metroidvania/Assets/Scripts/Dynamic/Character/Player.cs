@@ -1,5 +1,9 @@
 using UnityEngine;
 
+// why is that its own class
+// it could also just use the controller; because that wouln't change anything about it?
+// Will think about that
+
 public class Player : Controller {
 
     #region [Init]
