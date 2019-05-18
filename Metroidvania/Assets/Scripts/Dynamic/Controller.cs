@@ -4,7 +4,6 @@ using UnityEngine;
 /// <summary>
 /// This class controlls a "state machine" of a character
 /// </summary>
-[RequireComponent(typeof(Animator))]
 public class Controller : MonoBehaviour {
 
     #region [Consts]
