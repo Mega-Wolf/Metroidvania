@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1502349203}
-  - component: {fileID: 5923217598081804217}
+  - component: {fileID: 470989765}
   m_Layer: 0
   m_Name: Consts
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 2338722034794685471}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5923217598081804217
+--- !u!114 &470989765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,10 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1502349202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d133d4422e63214089e77658490dca2, type: 3}
+  m_Script: {fileID: 11500000, guid: bb6ee6000b3725b4eb6691a58f6201fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
+  HealthBar: {fileID: 11400000, guid: c4d6b1ec6171e034490957f490e1617c, type: 2}
 --- !u!1 &2338722034794685469
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   - Right
   - Left
   - Jump
+  - Fight
 --- !u!114 &859950417
 MonoBehaviour:
   m_ObjectHideFlags: 0
