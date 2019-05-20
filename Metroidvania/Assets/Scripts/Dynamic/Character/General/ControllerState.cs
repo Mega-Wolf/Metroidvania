@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public abstract class ControllerState {
+public abstract class ControllerState : MonoBehaviour {
 
     #region [FinalVariables]
 
     private List<ControllerState> f_futureStates = new List<ControllerState>();
     private List<ControllerState> f_stackedStates = new List<ControllerState>();
 
+    [SerializeField, Autohook(AutohookAttribute.AutohookMode.AllParents)]
     protected Controller f_controller;
 
     #endregion
@@ -18,14 +20,6 @@ public abstract class ControllerState {
 
     // This specifies if the ControllerState should consume inputs when it is the stacked state
     public virtual bool ConsumesInputAndEffects { get { return true; } }
-
-    #endregion
-
-    #region [Constructors]
-
-    public ControllerState(Controller player) {
-        f_controller = player;
-    }
 
     #endregion
 
@@ -73,12 +67,5 @@ public abstract class ControllerState {
     //public abstract void Leave();
 
     #endregion
-
-
-#if UNITY_EDITOR
-
-    public virtual void OnDrawGizmos() { }
-
-#endif
 
 }

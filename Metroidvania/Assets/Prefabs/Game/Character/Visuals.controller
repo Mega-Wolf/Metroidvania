@@ -56,7 +56,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CharHitUpwards
+  m_Name: CharHitUp
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -82,7 +82,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CharHitSideways
+  m_Name: CharHitSide
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

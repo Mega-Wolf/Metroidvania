@@ -16,9 +16,10 @@ public class GroundMovementRaycast {
 
     #region [FinalVariables]
 
-    private Controller f_controller;
+    private PlayerSO f_playerSO;
+    private float f_speed { get { return f_playerSO.WALK_SPEED; } }
 
-    private float f_speed;
+    private Controller f_controller;
     private float f_halfWidth;
     private float f_halfHeight;
 
@@ -26,11 +27,11 @@ public class GroundMovementRaycast {
 
     #region [Constructors]
 
-    public GroundMovementRaycast(Controller controller, float height, float halfWidth, float speed) {
+    public GroundMovementRaycast(Controller controller, float height, float halfWidth) {
         f_controller = controller;
         f_halfWidth = halfWidth;
         f_halfHeight = height / 2;
-        f_speed = speed;
+        f_playerSO = Consts.Instance.PlayerSO;
     }
 
     #endregion

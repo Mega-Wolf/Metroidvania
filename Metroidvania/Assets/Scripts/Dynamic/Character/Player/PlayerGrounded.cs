@@ -4,10 +4,8 @@ public class PlayerGrounded : ControllerState {
 
     #region [Consts]
 
-    private const float EXTENDS = 0.05f * 2f;
-    private const float EXTRA_RAY_LENGTH = 0.1f;
-
-    private const float SPEED = 3f;
+    [SerializeField]
+    private PlayerSO f_playerSO;
 
     #endregion
 
@@ -17,21 +15,21 @@ public class PlayerGrounded : ControllerState {
 
     #endregion
 
-    #region [Constructors]
+    #region [Init]
 
-    public PlayerGrounded(Controller controller) : base(controller) {
-        f_ground = new GroundMovementRaycast(controller, controller.Height, controller.HalfWidth, SPEED);
+    private void Awake() {
+        f_ground = new GroundMovementRaycast(f_controller, f_controller.Height, f_controller.HalfWidth);
     }
-
+    
     #endregion
 
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
 
-    public override void OnDrawGizmos() {
-        f_ground.OnDrawGizmos();
-    }
+//     public void OnDrawGizmos() {
+//         f_ground.OnDrawGizmos();
+//     }
 
-#endif
+// #endif
 
     #region [Override]
 

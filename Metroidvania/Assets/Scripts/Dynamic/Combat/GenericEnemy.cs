@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GenericEnemy : MonoBehaviour, IDamagable {
+public class GenericEnemy : Controller, IDamagable {
 
     #region [MemberFields]
 
@@ -15,6 +15,9 @@ public class GenericEnemy : MonoBehaviour, IDamagable {
     [SerializeField]
     private LootDrop f_loot;
 
+    [SerializeField]
+    private Damage[] f_allAttacks;
+
     #endregion
 
     #region [FinalVariables]
@@ -23,7 +26,7 @@ public class GenericEnemy : MonoBehaviour, IDamagable {
     private Health f_health;
 
     [SerializeField, Autohook]
-    private Controller f_controller;
+    private DummyState f_dummyState;
 
     #endregion
 
@@ -38,15 +41,22 @@ public class GenericEnemy : MonoBehaviour, IDamagable {
     private void Awake() {
         m_health = f_maxHealth;
 
+        SetStartState(f_dummyState);
+    }
+
+    private void Start() {
         f_health.Init(f_maxHealth, f_weight);
+        f_health.Add(this);
     }
 
     #endregion
 
+    // trigger hit with someone will happen with just adding a hit to this
+
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        f_controller.ReactOnImpact(hitNormal);
+        ReactOnImpact(hitNormal);
     }
 
     #endregion

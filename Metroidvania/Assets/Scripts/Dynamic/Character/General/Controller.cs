@@ -1,6 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public partial class Consts {
+
+    public ControllerSO ControllerSO;
+
+}
+
 /// <summary>
 /// This class controlls a "state machine" of a character
 /// </summary>
@@ -8,15 +14,14 @@ public class Controller : MonoBehaviour {
 
     #region [Consts]
 
-    private const int MAX_COLLISION_ITERATIONS = 3;
-    private const float IMPACT_LENGTH = 5f;
+    public ControllerSO CONTROLLER_SO;
 
     #endregion
 
     #region [MemberFields]
 
     [SerializeField]
-    private Transform f_visuals;
+    private Transform f_mirror;
 
     [SerializeField]
     private float f_height;
@@ -108,7 +113,7 @@ public class Controller : MonoBehaviour {
         } else {
             //DUNNO; Should the active state be able to still trigger stacked states?
             //DUNNO; Should I be able to add non stacked states to a stacked state
-
+            
             foreach (ControllerState state in m_activeState.StackedStates) {
                 if (state.EnterOnCondition()) {
                     state.LogicalEnter();
@@ -164,7 +169,7 @@ public class Controller : MonoBehaviour {
             // Trying to move
             // When there is a collision, the character only gets moved a bit and the velocity changes
             // It is then tried again if the character can move
-            for (int i = 0; i < MAX_COLLISION_ITERATIONS; ++i) {
+            for (int i = 0; i < CONTROLLER_SO.MAX_COLLISION_ITERATIONS; ++i) {
 
                 hit = Physics2D.BoxCast(origin, new Vector2(HalfWidth * 2f - 0.05f, boxHeight - 0.05f), transform.eulerAngles.z, Velocity, Velocity.magnitude / 60f, GROUND_MASK);
 
@@ -207,7 +212,7 @@ public class Controller : MonoBehaviour {
 
             if (right != 0) {
                 right *= Backwards ? -1 : 1;
-                f_visuals.localScale = new Vector3(right, 1, 1);
+                f_mirror.localScale = new Vector3(right, 1, 1);
             }
 
         }
@@ -229,25 +234,17 @@ public class Controller : MonoBehaviour {
         //T** However,the normal states set backwards themselves, so it would be weird
         //For now I just don't change anything at all and just abort the current specialstate
 
-        
+
         m_activeStackedState = null;
         m_activeState.EffectualEnter();
 
         //Vector2 dummyVelocity = Velocity;
-        Velocity = -hitNormal * IMPACT_LENGTH;
+        Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH * 60;
 
         Move();
         //Velocity = dummyVelocity;
     }
 
     #endregion
-
-#if UNITY_EDITOR
-
-    private void OnDrawGizmos() {
-        m_activeState?.OnDrawGizmos();
-    }
-
-#endif
 
 }

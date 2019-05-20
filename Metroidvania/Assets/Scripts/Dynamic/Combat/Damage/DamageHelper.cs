@@ -9,6 +9,6 @@ public enum EDamageReceiver {
 
 public static class DamageHelper {
 
-    public static List<ContactPoint2D> ContactList { get; } = new List<ContactPoint2D>(10);
+    public static List<Collider2D> ContactList { get; } = new List<Collider2D>(10);
 
 }
