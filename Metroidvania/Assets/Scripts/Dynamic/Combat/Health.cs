@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// Every fightable entity will have:
@@ -59,6 +60,15 @@ using UnityEngine;
 /// 
 /// Player 
 ///     
+/// 
+/// 
+/// Data about a GenericEnemy:
+/// Different Animations (Sprites + Sound)
+/// Loot Data
+/// Health, Speed
+/// Attacks (damage, frames); additionally (d epending on the attack: )
+/// - Hit:  start frame, end frame, collider, damage
+/// - Shoot: damage, direction, speed, start frame, 
 
 /// <summary>
 /// This class handles getting damage
@@ -66,12 +76,19 @@ using UnityEngine;
 /// </summary>
 public class Health : MonoBehaviour {
 
+    #region [Consts]
+
+    // [SerializeField, Autohook(AutohookAttribute.AutohookMode.AllParents)]
+    // private 
+
+    #endregion
+
     #region [FinalVariables]
 
     [SerializeField, Autohook]
     private HealthBar f_healthBar;
 
-    private IDamagable[] f_damagables;
+    private HashSet<IDamagable> f_damagables = new HashSet<IDamagable>();
 
     private int f_maxHealth;
     private float f_weight;
@@ -92,6 +109,10 @@ public class Health : MonoBehaviour {
 
     #region [Init]
 
+    public void Add(IDamagable damagable) {
+        f_damagables.Add(damagable);
+    }
+
     public void Init(int maxHealth, float weight) {
         f_weight = weight;
 
@@ -100,8 +121,9 @@ public class Health : MonoBehaviour {
         f_healthBar.Init(maxHealth);
 
         //DUNNO Do I really want to do it like that
-        //I could do it in Awake/Start/OnVallidate; that however would mean, that Ican't do it on runtime again
-        f_damagables = GetComponents<IDamagable>();
+        //I could do it in Awake/Start/OnVallidate; that however would mean, that I can't do it on runtime again
+        //Attention; this stuff does sit somewhere completely different
+        
     }
 
     #endregion
@@ -112,8 +134,8 @@ public class Health : MonoBehaviour {
         m_health = Mathf.Max(m_health - amount, 0);
         f_healthBar.SetHealth(m_health);
 
-        for (int i = 0; i < f_damagables.Length; ++i) {
-            f_damagables[i].TakeDamage(-amount, m_health, f_maxHealth, hitNormal);
+        foreach (IDamagable damagable in f_damagables) {
+            damagable.TakeDamage(-amount, m_health, f_maxHealth, hitNormal);
         }
 
         // if weight != 0 => moveable => Controller
@@ -129,8 +151,8 @@ public class Health : MonoBehaviour {
         m_health = Mathf.Min(m_health + amount, f_maxHealth);
         f_healthBar.SetHealth(m_health);
 
-        for (int i = 0; i < f_damagables.Length; ++i) {
-            f_damagables[i].TakeDamage(amount, m_health, f_maxHealth, Vector2.zero);
+        foreach (IDamagable damagable in f_damagables) {
+            damagable.TakeDamage(amount, m_health, f_maxHealth, Vector2.zero);
         }
     }
 
