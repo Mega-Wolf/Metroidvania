@@ -11,11 +11,19 @@ using NaughtyAttributes.Editor;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class AutohookAttribute : PropertyAttribute {
-    public readonly bool CheckAlsoInChildren = true;
+
+    public enum AutohookMode {
+        OnlySameLevel,
+        AlsoChildren,
+        AlsoParent,
+        AllParents
+    }
+
+    public readonly AutohookMode Mode = AutohookMode.AlsoChildren;
 
     public AutohookAttribute() { }
-    public AutohookAttribute(bool checkAlsoInChildren) {
-        CheckAlsoInChildren = checkAlsoInChildren;
+    public AutohookAttribute(AutohookMode mode) {
+        Mode = mode;
     }
 }
 
@@ -75,12 +83,29 @@ public class AutohookPropertyDrawer : UnityEditor.PropertyDrawer {
 
             Component ret = component.GetComponent(type);
 
-            if (ret == null) {
-                AutohookAttribute autohookAttribute = PropertyUtility.GetAttribute<AutohookAttribute>(property);
-                if (autohookAttribute.CheckAlsoInChildren) {
-                    return component.GetComponentInChildren(type);
-                }
+            if (ret != null) {
+                return ret;
             }
+
+            AutohookAttribute autohookAttribute = PropertyUtility.GetAttribute<AutohookAttribute>(property);
+            switch (autohookAttribute.Mode) {
+                case AutohookAttribute.AutohookMode.AlsoChildren:
+                    return component.GetComponentInChildren(type);
+                case AutohookAttribute.AutohookMode.AlsoParent:
+                    return component.GetComponentInParent(type);
+                case AutohookAttribute.AutohookMode.AllParents: {
+                        Transform t = component.transform.parent;
+                        while (t != null) {
+                            ret = t.GetComponent(type);
+                            if (ret != null) {
+                                return ret;
+                            }
+                            t = t.parent;
+                        }
+                        return null;
+                    }
+            }
+
 
             return ret;
         } else {
