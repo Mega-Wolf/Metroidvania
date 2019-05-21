@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GenericEnemy : Controller, IDamagable {
 
+    private const int DEAD_FRAMES = 100;
+
     #region [MemberFields]
 
     //TODO all that stuff in SO
@@ -25,11 +27,16 @@ public class GenericEnemy : Controller, IDamagable {
     [SerializeField, Autohook]
     private Health f_health;
 
+    [SerializeField, Autohook]
+    private SpriteRenderer f_spriteRenderer;
+
     #endregion
 
     #region [PrivateVariables]
 
     private float m_health;
+    private bool m_living = true;
+    private int m_deadFrames;
 
     #endregion
 
@@ -47,6 +54,22 @@ public class GenericEnemy : Controller, IDamagable {
 
     #endregion
 
+    #region [Updates]
+
+    protected override void FixedUpdate() {
+        if (m_living) {
+            base.FixedUpdate();
+        } else {
+            if (m_deadFrames == DEAD_FRAMES) {
+                Destroy(gameObject);
+            }
+
+            ++m_deadFrames;
+        }
+    }
+
+    #endregion
+
     // trigger hit with someone will happen with just adding a hit to this
 
     #region [Override]
@@ -54,6 +77,10 @@ public class GenericEnemy : Controller, IDamagable {
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         if (healthAfter == 0) {
             Consts.Instance.Player.Energy += f_loot.DropEnergy;
+            m_living = false;
+            f_health.gameObject.SetActive(false);
+            Animator.enabled = false;
+            f_spriteRenderer.color = Color.black;
             return;
         }
 

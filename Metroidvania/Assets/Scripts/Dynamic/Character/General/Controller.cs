@@ -88,7 +88,7 @@ public class Controller : MonoBehaviour {
 
     #region [Updates]
 
-    private void FixedUpdate() {
+    protected virtual void FixedUpdate() {
 
         // check collisions
         // check the active collisions
