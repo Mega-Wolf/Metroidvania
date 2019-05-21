@@ -5,7 +5,7 @@ public abstract class ControllerState : MonoBehaviour {
 
     #region [FinalVariables]
 
-    private List<ControllerState> f_futureStates = new List<ControllerState>();
+    protected List<ControllerState> f_futureStates = new List<ControllerState>();
     private List<ControllerState> f_stackedStates = new List<ControllerState>();
 
     [SerializeField, Autohook(AutohookAttribute.AutohookMode.AllParents)]
@@ -18,7 +18,7 @@ public abstract class ControllerState : MonoBehaviour {
     public List<ControllerState> FutureStates { get { return f_futureStates; } }
     public List<ControllerState> StackedStates { get { return f_stackedStates; } }
 
-    // This specifies if the ControllerState should consume inputs when it is the stacked state
+    // This specifies if the ControllerState should consume inputs when it is in the stacked state
     public virtual bool ConsumesInputAndEffects { get { return true; } }
 
     #endregion

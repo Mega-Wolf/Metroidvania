@@ -29,12 +29,17 @@ public class Controller : MonoBehaviour {
     [SerializeField]
     private float f_halfWidth;
 
+    [SerializeField]
+    private bool f_needsGroundMovement;
+
     #endregion
 
     #region [FinalVariables]
 
     [SerializeField, Autohook]
     private Animator f_animator;
+
+    private GroundMovementRaycast f_groundMovement;
 
     #endregion
 
@@ -61,9 +66,23 @@ public class Controller : MonoBehaviour {
     public bool Backwards { get; set; }
     public bool Grounded { get; set; }
 
+    // This does not work
+    //public Vector2 LookDirection { get { return f_mirror.right; } }
+
     //public ControllerState LastState { get { return m_lastState; } }
     public int StateStartedFrame { get { return m_stateStartedFrame; } }
     public int StateStartedStackedFrame { get { return m_stateStartedStackedFrame; } }
+    public GroundMovementRaycast GroundMovement { get { return f_groundMovement; } }
+
+    #endregion
+
+    #region [Init]
+
+    protected virtual void Awake() {
+        if (f_needsGroundMovement) {
+            f_groundMovement = new GroundMovementRaycast(this, f_height, HalfWidth);
+        }
+    }
 
     #endregion
 
@@ -113,7 +132,7 @@ public class Controller : MonoBehaviour {
         } else {
             //DUNNO; Should the active state be able to still trigger stacked states?
             //DUNNO; Should I be able to add non stacked states to a stacked state
-            
+
             foreach (ControllerState state in m_activeState.StackedStates) {
                 if (state.EnterOnCondition()) {
                     state.LogicalEnter();
@@ -229,7 +248,7 @@ public class Controller : MonoBehaviour {
         m_activeState = state;
     }
 
-    public void ReactOnImpact(Vector2 hitNormal) {
+    public void ReactOnImpact(Vector2 hitNormal, bool shorter = false) {
         //TODO; I might have to set backwards
         //T** However,the normal states set backwards themselves, so it would be weird
         //For now I just don't change anything at all and just abort the current specialstate
@@ -240,6 +259,10 @@ public class Controller : MonoBehaviour {
 
         //Vector2 dummyVelocity = Velocity;
         Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH * 60;
+
+        if (shorter) {
+            Velocity *= 0.5f;
+        }
 
         Move();
         //Velocity = dummyVelocity;
