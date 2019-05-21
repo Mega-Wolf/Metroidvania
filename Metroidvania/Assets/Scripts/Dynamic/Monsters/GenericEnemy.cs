@@ -7,6 +7,9 @@ public class GenericEnemy : Controller, IDamagable {
     //TODO all that stuff in SO
 
     [SerializeField]
+    private bool f_noImpact;
+
+    [SerializeField]
     private int f_maxHealth;
 
     [SerializeField]
@@ -15,18 +18,12 @@ public class GenericEnemy : Controller, IDamagable {
     [SerializeField]
     private LootDrop f_loot;
 
-    [SerializeField]
-    private Damage[] f_allAttacks;
-
     #endregion
 
     #region [FinalVariables]
 
     [SerializeField, Autohook]
     private Health f_health;
-
-    [SerializeField, Autohook]
-    private DummyState f_dummyState;
 
     #endregion
 
@@ -38,13 +35,12 @@ public class GenericEnemy : Controller, IDamagable {
 
     #region [Init]
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         m_health = f_maxHealth;
-
-        SetStartState(f_dummyState);
     }
 
-    private void Start() {
+    protected virtual void Start() {
         f_health.Init(f_maxHealth, f_weight);
         f_health.Add(this);
     }
@@ -56,7 +52,10 @@ public class GenericEnemy : Controller, IDamagable {
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        ReactOnImpact(hitNormal);
+        if (!f_noImpact) {
+            ReactOnImpact(hitNormal);
+        }
+
     }
 
     #endregion

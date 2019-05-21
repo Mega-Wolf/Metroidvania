@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cf7737a3ef6c941a7786916c30a232, type: 3}
+  m_Name: RhinoSO
+  m_EditorClassIdentifier: 
+  WalkSpeed: {fileID: 11400000, guid: 91c68023f59fb1840bf9fcd56ee42d15, type: 2}
+  ChargeSpeed: {fileID: 11400000, guid: 6a93ba22d64a87d4897dabd6c7eb536d, type: 2}
+  ChargeDamage: {fileID: 11400000, guid: 3c30c94b329937749873bf15ba03b5f7, type: 2}
+  ChargeAttention: {fileID: 11400000, guid: 18b5924b2d7755140a27455261a2dda2, type: 2}
+  ChargeCooldown: {fileID: 11400000, guid: 1f1aa28395f3d674b898fc8b84129009, type: 2}

@@ -5,28 +5,14 @@ public class PlayerGrounded : ControllerState {
     #region [Consts]
 
     [SerializeField]
-    private PlayerSO f_playerSO;
+    private FloatSO SPEED;
 
-    #endregion
-
-    #region [FinalVariables]
-
-    private GroundMovementRaycast f_ground;
-
-    #endregion
-
-    #region [Init]
-
-    private void Awake() {
-        f_ground = new GroundMovementRaycast(f_controller, f_controller.Height, f_controller.HalfWidth);
-    }
-    
     #endregion
 
 // #if UNITY_EDITOR
 
 //     public void OnDrawGizmos() {
-//         f_ground.OnDrawGizmos();
+//         f_ground?.OnDrawGizmos();
 //     }
 
 // #endif
@@ -45,12 +31,12 @@ public class PlayerGrounded : ControllerState {
 
     public override bool EnterOnCondition() {
 
-        if (f_controller.Velocity.y >= 0) {
+        if (f_controller.Velocity.y > 0) {
             return false;
         }
 
         // The following checks if the player touches the ground
-        return f_ground.TryStickToGround();
+        return f_controller.GroundMovement.TryStickToGround();
     }
 
     public override bool HandleFixedUpdate() {
@@ -68,7 +54,7 @@ public class PlayerGrounded : ControllerState {
             }
 
             if (move != 0) {
-                f_ground.Move(move == 1);
+                f_controller.GroundMovement.Move(move * SPEED);
             }
 
         }
