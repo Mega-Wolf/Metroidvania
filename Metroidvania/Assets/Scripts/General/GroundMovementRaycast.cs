@@ -3,6 +3,38 @@ using UnityEngine;
 
 public class GroundMovementRaycast {
 
+    #region [Static]
+
+    public enum GroundTouch {
+        Left = 1,
+        HalfLeft = 2,
+        Centre= 4,
+        HalfRight = 8,
+        Right = 16
+    }
+
+    public static int AirDirection(GroundTouch gt) {
+        int ret= 0;
+
+        if ((gt & GroundTouch.Left) == 0) {
+            ret -= 1;
+        }
+        if ((gt & GroundTouch.HalfLeft) == 0) {
+            ret -= 2;
+        }
+        
+        if ((gt & GroundTouch.HalfRight) == 0) {
+            ret += 2;
+        }
+        if ((gt & GroundTouch.Right) == 0) {
+            ret += 1;
+        }
+
+        return ret;
+    }
+
+    #endregion
+
     #region [Consts]
 
     //TODO; they will come as an input
@@ -16,9 +48,6 @@ public class GroundMovementRaycast {
 
     #region [FinalVariables]
 
-    private PlayerSO f_playerSO;
-    private float f_speed { get { return f_playerSO.WALK_SPEED; } }
-
     private Controller f_controller;
     private float f_halfWidth;
     private float f_halfHeight;
@@ -31,7 +60,6 @@ public class GroundMovementRaycast {
         f_controller = controller;
         f_halfWidth = halfWidth;
         f_halfHeight = height / 2;
-        f_playerSO = Consts.Instance.PlayerSO;
     }
 
     #endregion
@@ -68,11 +96,13 @@ public class GroundMovementRaycast {
 
     #region [PublicMethods]
 
-    public void Move(bool forward) {
+    public GroundTouch Move(float speed) {
 
         // Do 5 downward raycasts
         // Downward = downward in regards to character
         {
+            GroundTouch ret = 0;
+
             Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down);
 
             LayerMask GROUND_MASK = LayerMask.GetMask("Default");
@@ -84,15 +114,33 @@ public class GroundMovementRaycast {
             RaycastHit2D hitHR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
             RaycastHit2D hitR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth + OUTER_EXTEND, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
 
-            if (forward) {
+
+            if (hitL) {
+                ret |= GroundTouch.Left;
+            }
+            if (hitHL) {
+                ret |= GroundTouch.HalfLeft;
+            }
+            if (hitC) {
+                ret |= GroundTouch.Centre;
+            }
+            if (hitHR) {
+                ret |= GroundTouch.HalfRight;
+            }
+            if (hitR) {
+                ret |= GroundTouch.Right;
+            }
+
+
+            if (speed > 0) {
                 if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
                     Debug.Log("Abort Right: " + Vector2.Angle(Vector2.right, hitR.point - hitHR.point));
-                    return;
+                    return ret;
                 }
             } else {
                 if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
                     Debug.Log("Abort Left: " + Vector2.Angle(Vector2.left, hitL.point - hitHL.point));
-                    return;
+                    return ret;
                 }
             }
 
@@ -136,32 +184,33 @@ public class GroundMovementRaycast {
 
             // preparing the velocity change for the transform
             // this is a bit complicated due too many different cases
-            if (forward) {
+            if (speed > 0) {
                 if (hitHR) {
-                    f_controller.Velocity = middleVector * f_speed;
+                    f_controller.Velocity = middleVector * speed;
                 } else if (hitC) {
-                    f_controller.Velocity = (hitC.point - hitHL.point).normalized * f_speed;
+                    f_controller.Velocity = (hitC.point - hitHL.point).normalized * speed;
                 } else {
-                    f_controller.Velocity = (hitHL.point - hitL.point).normalized * f_speed;
+                    f_controller.Velocity = (hitHL.point - hitL.point).normalized * speed;
                 }
             } else {
                 if (hitHL) {
-                    f_controller.Velocity = -middleVector * f_speed;
+                    f_controller.Velocity = -middleVector * -speed;
                 } else if (hitC) {
-                    f_controller.Velocity = (hitC.point - hitHR.point).normalized * f_speed;
+                    f_controller.Velocity = (hitC.point - hitHR.point).normalized * -speed;
                 } else {
-                    f_controller.Velocity = (hitHR.point - hitR.point).normalized * f_speed;
+                    f_controller.Velocity = (hitHR.point - hitR.point).normalized * -speed;
                 }
             }
 
             if (!(hitL && hitR && hitHL && hitHR)) {
-                return;
+                return ret;
             }
 
             Vector2 intersection = MathExtension.Inters(hitL.point, hitHL.point, hitR.point, hitHR.point);
 
             Debug.DrawLine(intersection, intersection + Vector2.up * 0.1f, Color.red);
 
+            return ret;
         }
 
     }

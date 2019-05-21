@@ -39,7 +39,7 @@ public class Damage : MonoBehaviour {
 
     private void FixedUpdate() {
         List<Collider2D> colliderList = DamageHelper.ContactList;
-        colliderList.Clear();
+        //colliderList.Clear();
 
         ContactFilter2D cf = new ContactFilter2D();
         cf.SetLayerMask((int)f_eDamageReceiver);
@@ -69,6 +69,10 @@ public class Damage : MonoBehaviour {
     #endregion
 
     #region [PublicMethods]
+
+    public void UpdateHitDirection(Vector2 hitDirection) {
+        m_direction = hitDirection;
+    }
 
     public void ExecuteHit(int damage, Vector2 direction) {
         m_damage = damage;

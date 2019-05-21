@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
-  FPS: 3
+  f_fps: 6
   f_fullFrames: 7
   f_attackStartFrame: 4
   f_attackLastFrame: 6
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
-  FPS: 6
+  f_fps: 3
   f_fullFrames: 13
   f_attackStartFrame: 10
   f_attackLastFrame: 12
@@ -612,6 +612,7 @@ MonoBehaviour:
   f_mirror: {fileID: 8876319897970463777}
   f_height: 1
   f_halfWidth: 0.23
+  f_needsGroundMovement: 1
   f_animator: {fileID: 7771545843328568495}
   f_hittingSide: {fileID: 4405016749867855738}
   f_hittingUp: {fileID: 5639803550999260236}
@@ -632,7 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
-  f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
+  SPEED: {fileID: 11400000, guid: 13243582dfd0b9047a4e8df22873c2c0, type: 2}
 --- !u!114 &439656555
 MonoBehaviour:
   m_ObjectHideFlags: 0

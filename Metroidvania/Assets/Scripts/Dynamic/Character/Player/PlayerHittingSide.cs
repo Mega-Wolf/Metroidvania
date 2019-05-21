@@ -57,7 +57,10 @@ public class PlayerHittingSide : ControllerState, IDamager {
     public override bool HandleFixedUpdate() {
         if (m_frame >= f_attackStartFrame * FPS && !m_hit) {
             m_hit = true;
-            f_damage.ExecuteHit(f_playerSO.SIDE_DAMAGE, f_controller.transform.right);
+            f_damage.ExecuteHit(f_playerSO.SIDE_DAMAGE, /*f_controller.LookDirection */ f_controller.Velocity);
+
+            //TODO; this looks ugly since it should set backwards = true
+            //f_controller.ReactOnImpact(-f_controller.transform.right, true);
         }
 
         ++m_frame;

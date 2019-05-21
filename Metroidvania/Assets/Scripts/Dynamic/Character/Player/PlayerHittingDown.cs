@@ -58,7 +58,7 @@ public class PlayerHittingDown : ControllerState, IDamager {
     public override bool HandleFixedUpdate() {
         if (m_frame >= f_startFrame * FPS && !m_hit) {
             m_hit = true;
-            f_damage.ExecuteHit(Consts.Instance.PlayerSO.DOWN_DAMAGE, Vector2.right);
+            f_damage.ExecuteHit(Consts.Instance.PlayerSO.DOWN_DAMAGE, Vector2.down);
         }
 
         ++m_frame;
@@ -71,7 +71,7 @@ public class PlayerHittingDown : ControllerState, IDamager {
     public void Damaged(Health health) {
         if (!m_damaged) {
             m_damaged = true;
-            f_controller.Velocity = new Vector2(f_controller.Velocity.x, Consts.Instance.PlayerSO.PLAYER_AIR.JUMP_SPEED / 2f);
+            f_controller.Velocity = new Vector2(f_controller.Velocity.x, Consts.Instance.PlayerSO.PLAYER_AIR.JUMP_SPEED / 1.5f);
         }
     }
 

@@ -30,7 +30,9 @@ public class Player : Controller, IDamagable {
 
     #region [Init]
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         f_air.AddTransitionGoal("Grounded", f_grounded);
         f_grounded.AddTransitionGoal("Air", f_air);
 
