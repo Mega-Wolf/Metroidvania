@@ -217,42 +217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_followed: {fileID: 2064314872}
---- !u!21 &1088909902
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Healthbar (Instance)
-  m_Shader: {fileID: 4800000, guid: 07024b5d0c0f44f438833d6d130cee42, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3001
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Higher: 1
-    - _HigherType: 0
-    - _Lower: 1
-    - _New: 1
-    - _Real: 1
-    - _Show: 1
-    m_Colors:
-    - _Background: {r: 0, g: 0, b: 0, a: 1}
-    - _Empty: {r: 1, g: 0, b: 0, a: 1}
-    - _Filling: {r: 0, g: 1, b: 1, a: 1}
-    - _Full: {r: 0, g: 1, b: 0, a: 1}
-    - _Losing: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1478665168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,11 +353,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2614484485865169865, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1088909902}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a44f541cb8ca4b543bffa3f3ec0949b8, type: 3}
 --- !u!4 &2064314872 stripped
@@ -468,38 +427,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982858292537315794, guid: 423f7d835e8a80540b43a7c011c426bc,
-        type: 3}
-      propertyPath: CHARGE_SPEED
-      value: 
-      objectReference: {fileID: 11400000, guid: 6a93ba22d64a87d4897dabd6c7eb536d,
-        type: 2}
-    - target: {fileID: 3982858292537315794, guid: 423f7d835e8a80540b43a7c011c426bc,
-        type: 3}
-      propertyPath: f_damageReceiver
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982858292537315794, guid: 423f7d835e8a80540b43a7c011c426bc,
-        type: 3}
-      propertyPath: f_chargeReactor
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982858292537315794, guid: 423f7d835e8a80540b43a7c011c426bc,
-        type: 3}
-      propertyPath: CHARGE_COOLTIME
-      value: 
-      objectReference: {fileID: 11400000, guid: 1f1aa28395f3d674b898fc8b84129009,
-        type: 2}
-    - target: {fileID: 3538001225777314767, guid: 423f7d835e8a80540b43a7c011c426bc,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 2.5833843
-      objectReference: {fileID: 0}
-    - target: {fileID: 3538001225777314767, guid: 423f7d835e8a80540b43a7c011c426bc,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 4.3634133
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423f7d835e8a80540b43a7c011c426bc, type: 3}

@@ -2,17 +2,17 @@ using NaughtyAttributes;
 using UnityEngine;
 
 public partial class Consts {
-    public HealthBarSO HealthBar;
+    public BarSO HealthBar;
 }
 
-public class HealthBar : MonoBehaviour {
+public class Bar : MonoBehaviour {
 
     #region [Consts]
 
     [SerializeField]
-    private HealthBarSO f_healthBarSO;
+    private BarSO f_barSO;
 
-    private float TIME_HEALTH_CHANGE { get { return f_healthBarSO.TimeHealthChange; } }
+    private float TIME_VALUE_CHANGE { get { return f_barSO.TimeValueChange; } }
 
     #endregion
 
@@ -27,14 +27,14 @@ public class HealthBar : MonoBehaviour {
 
     MaterialPropertyBlock f_matProp;
 
-    private int f_maxHealth;
+    private int f_maxValue;
 
     #endregion
 
     #region [PrivateVariables]
 
-    private int m_health;
-    private int m_showHealth;
+    private int m_value;
+    private int m_showValue;
     private float m_changeTime;
 
     #endregion
@@ -45,10 +45,10 @@ public class HealthBar : MonoBehaviour {
         f_matProp = new MaterialPropertyBlock();
     }
 
-    public void Init(int maxHealth) {
-        f_maxHealth = maxHealth;
-        m_health = maxHealth;
-        m_showHealth = maxHealth;
+    public void Init(int maxValue) {
+        f_maxValue = maxValue;
+        m_value = maxValue;
+        m_showValue = maxValue;
         f_renderer.enabled = false;
 
         UpdateShaderProperties();
@@ -60,8 +60,8 @@ public class HealthBar : MonoBehaviour {
     #region [Updates]
 
     private void Update() {
-        if (m_changeTime + TIME_HEALTH_CHANGE <= Time.time) {
-            m_showHealth = m_health;
+        if (m_changeTime + TIME_VALUE_CHANGE <= Time.time) {
+            m_showValue = m_value;
             UpdateShaderProperties();
             enabled = false;
         }
@@ -73,14 +73,14 @@ public class HealthBar : MonoBehaviour {
 
     private void UpdateShaderProperties() {
         
-        if (m_health == f_maxHealth && m_showHealth == f_maxHealth)  {
+        if (m_value == f_maxValue && m_showValue == f_maxValue)  {
             f_renderer.enabled = false;
             return;
         }
 
         f_renderer.GetPropertyBlock(f_matProp);
-        f_matProp.SetFloat("_Real", m_health / (float)f_maxHealth);
-        f_matProp.SetFloat("_Show", m_showHealth / (float)f_maxHealth);
+        f_matProp.SetFloat("_Real", m_value / (float)f_maxValue);
+        f_matProp.SetFloat("_Show", m_showValue / (float)f_maxValue);
         f_renderer.SetPropertyBlock(f_matProp);
     }
 
@@ -88,11 +88,11 @@ public class HealthBar : MonoBehaviour {
 
     #region [PublicMethods]
 
-    public void SetHealth(int health) {
+    public void Set(int value) {
         f_renderer.enabled = true;
 
-        m_showHealth = m_health;
-        m_health = health;
+        m_showValue = m_value;
+        m_value = value;
 
         m_changeTime = Time.time;
         UpdateShaderProperties();
