@@ -353,16 +353,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100154037815179645, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100154037815179645, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
-        type: 3}
-      propertyPath: f_invincibleFrames
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a44f541cb8ca4b543bffa3f3ec0949b8, type: 3}
 --- !u!4 &2064314872 stripped
@@ -450,6 +440,27 @@ PrefabInstance:
       objectReference: {fileID: 7420751502927090055}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423f7d835e8a80540b43a7c011c426bc, type: 3}
+--- !u!1 &1695229013419253724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1936558667578863348, guid: 423f7d835e8a80540b43a7c011c426bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1695229013419253722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1695229013419253725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695229013419253724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52631c1be1a36b542847279572b1178b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_collider: {fileID: 6075273321910085486}
+  f_eDamageReceiver: 256
+  f_damage: 1
 --- !u!1001 &2338722034237146616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,6 +530,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb13290dcd16594b910eac76d49c4f0, type: 3}
+--- !u!61 &6075273321910085486 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6075273321910085486, guid: 423f7d835e8a80540b43a7c011c426bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1695229013419253722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &7420751502927090055 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7420751502927090055, guid: 423f7d835e8a80540b43a7c011c426bc,

@@ -24,7 +24,7 @@ public class InvincibleHealth : Health {
     #region [PrivateVariables]
 
     private int m_invincibleTime = -1;
-    //private int m_lastDamage;
+    private int m_lastDamage;
 
     #endregion
 
@@ -51,6 +51,12 @@ public class InvincibleHealth : Health {
             enabled = true;
             //f_spriteRenderer.color = Color.white / 2f;
             m_invincibleTime = 0;
+            m_lastDamage = amount;
+        } else {
+            if (amount > m_lastDamage) {
+                base.TakeDamage(amount - m_lastDamage, hitNormal);
+                m_lastDamage = amount;
+            }
         }
     }
 
