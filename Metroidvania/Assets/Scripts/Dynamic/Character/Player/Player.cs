@@ -60,6 +60,8 @@ public class Player : Controller, IDamagable {
     protected override void Awake() {
         base.Awake();
 
+        Consts.Instance.Player = this;
+
         f_air.AddTransitionGoal("Grounded", f_grounded);
         f_grounded.AddTransitionGoal("Air", f_air);
 

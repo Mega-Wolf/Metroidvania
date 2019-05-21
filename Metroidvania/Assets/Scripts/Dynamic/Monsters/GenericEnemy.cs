@@ -52,6 +52,11 @@ public class GenericEnemy : Controller, IDamagable {
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
+        if (healthAfter == 0) {
+            Consts.Instance.Player.Energy += f_loot.DropEnergy;
+            return;
+        }
+
         if (!f_noImpact) {
             ReactOnImpact(hitNormal);
         }
