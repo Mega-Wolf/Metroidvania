@@ -1,5 +1,4 @@
 using UnityEngine;
-using NaughtyAttributes.Editor;
 using System.Collections.Generic;
 
 public class Damage : MonoBehaviour {
