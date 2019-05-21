@@ -4,11 +4,18 @@ public class Player : Controller, IDamagable {
 
     #region [MemberFields]
 
+    //TODO
+    [SerializeField]
+    private int f_maxEnergy;
+
     [SerializeField]
     private PlayerHittingSide f_hittingSide;
 
     [SerializeField]
     private PlayerHittingUp f_hittingUp;
+
+    [SerializeField]
+    private Bar f_energyBar;
 
     #endregion
 
@@ -25,6 +32,26 @@ public class Player : Controller, IDamagable {
 
     [SerializeField, Autohook]
     private Health f_health;
+
+    #endregion
+
+    #region [PrivateVariables]
+
+    private int m_energy;
+
+    #endregion
+
+    #region [Properties]
+
+    public int Energy {
+        get {
+            return m_energy;
+        }
+        set {
+            m_energy = Mathf.Min(value, f_maxEnergy);
+            f_energyBar.Set(m_energy);
+        }
+    }
 
     #endregion
 
@@ -56,7 +83,8 @@ public class Player : Controller, IDamagable {
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        //TODO
+        //TODO; that looks awful
+        //ReactOnImpact(-hitNormal);
     }
 
     #endregion

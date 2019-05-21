@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_barSO: {fileID: 11400000, guid: a67b0555e9e108b4185f50f2c0117b78, type: 2}
+  f_hideWhenFull: 0
   f_renderer: {fileID: 1512055666}
 --- !u!1 &160423150600892307
 GameObject:
@@ -709,8 +710,10 @@ MonoBehaviour:
   f_halfWidth: 0.23
   f_needsGroundMovement: 1
   f_animator: {fileID: 7771545843328568495}
+  f_maxEnergy: 20
   f_hittingSide: {fileID: 4405016749867855738}
   f_hittingUp: {fileID: 5639803550999260236}
+  f_energyBar: {fileID: 1512055665}
   f_air: {fileID: 439656555}
   f_grounded: {fileID: 439656556}
   f_hittingDown: {fileID: 2064314868}
@@ -944,4 +947,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_barSO: {fileID: 11400000, guid: a67b0555e9e108b4185f50f2c0117b78, type: 2}
+  f_hideWhenFull: 1
   f_renderer: {fileID: 2614484485865169865}
