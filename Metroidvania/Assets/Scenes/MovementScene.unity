@@ -353,6 +353,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100154037815179645, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100154037815179645, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: f_invincibleFrames
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a44f541cb8ca4b543bffa3f3ec0949b8, type: 3}
 --- !u!4 &2064314872 stripped
@@ -433,6 +443,11 @@ PrefabInstance:
       propertyPath: f_loot.DropEnergy
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5937407499129944361, guid: 423f7d835e8a80540b43a7c011c426bc,
+        type: 3}
+      propertyPath: f_spriteRenderer
+      value: 
+      objectReference: {fileID: 7420751502927090055}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423f7d835e8a80540b43a7c011c426bc, type: 3}
 --- !u!1001 &2338722034237146616
@@ -504,3 +519,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb13290dcd16594b910eac76d49c4f0, type: 3}
+--- !u!212 &7420751502927090055 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7420751502927090055, guid: 423f7d835e8a80540b43a7c011c426bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1695229013419253722}
+  m_PrefabAsset: {fileID: 0}

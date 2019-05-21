@@ -717,7 +717,7 @@ MonoBehaviour:
   f_air: {fileID: 439656555}
   f_grounded: {fileID: 439656556}
   f_hittingDown: {fileID: 2064314868}
-  f_health: {fileID: 273509900}
+  f_health: {fileID: 100154037815179645}
 --- !u!114 &439656556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,8 +824,8 @@ GameObject:
   - component: {fileID: 6020998608072767530}
   - component: {fileID: 2614484485865169865}
   - component: {fileID: 273509902}
-  - component: {fileID: 273509900}
   - component: {fileID: 5930479966760466147}
+  - component: {fileID: 100154037815179645}
   m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
@@ -921,19 +921,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 12}
   m_EdgeRadius: 0
---- !u!114 &273509900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8942961343710430855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad1a9be7c29e7394fb7c88bf02514213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  f_healthBar: {fileID: 5930479966760466147}
 --- !u!114 &5930479966760466147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -949,3 +936,17 @@ MonoBehaviour:
   f_barSO: {fileID: 11400000, guid: a67b0555e9e108b4185f50f2c0117b78, type: 2}
   f_hideWhenFull: 1
   f_renderer: {fileID: 2614484485865169865}
+--- !u!114 &100154037815179645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942961343710430855}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48936a6ce9ed2e7449d8a94e4f0aacf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_healthBar: {fileID: 5930479966760466147}
+  f_invincibleFrames: 50

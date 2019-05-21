@@ -72,7 +72,7 @@ using UnityEngine;
 
 /// <summary>
 /// This class handles getting damage
-/// It will turn invincible after getting hit
+/// It will NOT turn invincible after getting hit
 /// </summary>
 public class Health : MonoBehaviour {
 
@@ -130,7 +130,7 @@ public class Health : MonoBehaviour {
 
     #region [PublicMethods]
 
-    public void TakeDamage(int amount, Vector2 hitNormal /* , damageDealer(not always possible (projectils), maybe damageDealer = hitEffect) */ ) {
+    public virtual void TakeDamage(int amount, Vector2 hitNormal /* , damageDealer(not always possible (projectils), maybe damageDealer = hitEffect) */ ) {
         m_health = Mathf.Max(m_health - amount, 0);
         f_healthBar.Set(m_health);
 
