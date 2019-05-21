@@ -18,12 +18,15 @@ public class Bar : MonoBehaviour {
 
     #region [MemberFields]
 
-    [SerializeField, Autohook]
-    private SpriteRenderer f_renderer;
+    [SerializeField]
+    private bool f_hideWhenFull = true;
 
     #endregion
 
     #region [FinalVariables]
+
+    [SerializeField, Autohook]
+    private SpriteRenderer f_renderer;
 
     MaterialPropertyBlock f_matProp;
 
@@ -72,9 +75,11 @@ public class Bar : MonoBehaviour {
     #region [PrivateMethods]
 
     private void UpdateShaderProperties() {
-        
-        if (m_value == f_maxValue && m_showValue == f_maxValue)  {
-            f_renderer.enabled = false;
+
+        if (m_value == f_maxValue && m_showValue == f_maxValue) {
+            if (f_hideWhenFull) {
+                f_renderer.enabled = false;
+            }
             return;
         }
 
