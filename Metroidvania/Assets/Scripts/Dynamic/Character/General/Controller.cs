@@ -117,8 +117,6 @@ public class Controller : MonoBehaviour {
             }
         }
 
-        InputManager.Instance.IgnoreInput = false;
-
         if (m_activeStackedState != null) {
             foreach (ControllerState state in m_activeStackedState.StackedStates) {
                 if (state.EnterOnCondition()) {
@@ -157,6 +155,10 @@ public class Controller : MonoBehaviour {
                 m_activeState.EffectualEnter();
             }
         }
+
+        //TODO; For hold effects in special states; that won't work now
+        //T** Therefore I dhould define better when stuff is blocked (maybe only in m_activeStates)
+        InputManager.Instance.IgnoreInput = false;
 
         Move();
     }
