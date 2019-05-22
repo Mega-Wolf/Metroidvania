@@ -50,4 +50,6 @@ public partial class Consts : Singleton<Consts> {
 
     public Player Player;
 
+    public PersonalCamera Camera { get; set; }
+
 }

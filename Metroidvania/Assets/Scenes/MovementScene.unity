@@ -138,6 +138,8 @@ GameObject:
   - component: {fileID: 637496684}
   - component: {fileID: 637496683}
   - component: {fileID: 637496686}
+  - component: {fileID: 637496687}
+  - component: {fileID: 637496688}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -223,6 +225,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_followed: {fileID: 2064314872}
+--- !u!114 &637496687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637496682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae3129aea005b54fb4e0d57ee9bc84f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_simpleFollowCam: {fileID: 637496686}
+  f_cameraMover: {fileID: 637496688}
+  Velocity: {x: 0, y: 0}
+--- !u!114 &637496688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637496682}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e139d5f518c03043945e79025acc0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1478665168
 PrefabInstance:
   m_ObjectHideFlags: 0

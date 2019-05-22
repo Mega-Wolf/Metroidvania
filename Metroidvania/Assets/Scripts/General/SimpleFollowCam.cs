@@ -14,7 +14,11 @@ public class SimpleFollowCam : MonoBehaviour {
     #region [Updates]
 
     private void LateUpdate() {
-        transform.position = m_followed.position - Vector3.forward * 10;
+        transform.position = m_followed.position - 10 * Vector3.forward;
+
+        //Vector3 goal = Vector2.SmoothDamp(transform.position, m_followed.position, ref Consts.Instance.Camera.Velocity, CAMERA_TIME, MAX_SPEED);
+        //goal.z = -10;
+        //transform.position = goal;
     }
 
     #endregion
