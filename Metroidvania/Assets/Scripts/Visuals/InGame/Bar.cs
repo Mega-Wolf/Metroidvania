@@ -48,11 +48,17 @@ public class Bar : MonoBehaviour {
         f_matProp = new MaterialPropertyBlock();
     }
 
-    public void Init(int maxValue) {
+    public void Init(int maxValue, int startValue = -1) {
         f_maxValue = maxValue;
+        //f_renderer.enabled = false;
+
         m_value = maxValue;
-        m_showValue = maxValue;
-        f_renderer.enabled = false;
+
+        if (startValue != -1) {
+            m_showValue = startValue;
+        } else {
+            m_showValue = maxValue;
+        }
 
         UpdateShaderProperties();
         enabled = false;
