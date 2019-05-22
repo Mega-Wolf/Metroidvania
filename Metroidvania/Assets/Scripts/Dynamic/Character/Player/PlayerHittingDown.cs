@@ -75,6 +75,8 @@ public class PlayerHittingDown : ControllerState, IDamager {
         }
     }
 
+    public override void Abort() { }
+
     #endregion
 
 }

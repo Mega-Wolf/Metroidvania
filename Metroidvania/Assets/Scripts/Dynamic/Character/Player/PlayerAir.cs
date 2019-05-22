@@ -146,7 +146,7 @@ public class PlayerAir : ControllerState {
     }
 
 
-    // public override void Leave() { }
+    public override void Abort() { }
 
     #endregion
 

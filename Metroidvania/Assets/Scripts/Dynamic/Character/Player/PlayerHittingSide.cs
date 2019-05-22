@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerHittingSide : ControllerState, IDamager {
+public class PlayerHittingSide : ControllerState {
 
     #region [Consts]
 
@@ -75,9 +75,7 @@ public class PlayerHittingSide : ControllerState, IDamager {
         m_hit = false;
     }
 
-    public void Damaged(Health health) {
-        
-    }
+    public override void Abort() { }
 
     #endregion
 

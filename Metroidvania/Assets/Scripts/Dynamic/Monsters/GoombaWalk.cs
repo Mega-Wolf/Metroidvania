@@ -68,6 +68,8 @@ public class GoombaWalk : ControllerState {
         return true;
     }
 
+    public override void Abort() { }
+
     #endregion
 
 }

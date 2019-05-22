@@ -136,7 +136,11 @@ public class Charge : ControllerState, IDamager {
         f_futureStates = m_futureStatesHelper;
     }
 
+    public override void Abort() { }
+
     #endregion
+
+    #region [PrivateMethods]
 
     private void Cancel() {
         f_controller.Velocity = Vector2.zero;
@@ -144,5 +148,7 @@ public class Charge : ControllerState, IDamager {
         f_damage.Abort();
         f_controller.Animator.Play("Smash");
     }
+
+    #endregion
 
 }

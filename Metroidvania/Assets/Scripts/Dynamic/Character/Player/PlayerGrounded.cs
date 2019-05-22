@@ -61,13 +61,11 @@ public class PlayerGrounded : ControllerState {
 
         return true;
 
-        // TODO Heal
-
-        // TODO Hit sideways up
-
         // TODO fall through
 
     }
+
+    public override void Abort() { }
 
     #endregion
 }
