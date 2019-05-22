@@ -4,11 +4,18 @@ public class Player : Controller, IDamagable {
 
     #region [MemberFields]
 
+    //TODO
+    [SerializeField]
+    private int f_maxEnergy;
+
     [SerializeField]
     private PlayerHittingSide f_hittingSide;
 
     [SerializeField]
     private PlayerHittingUp f_hittingUp;
+
+    [SerializeField]
+    private Bar f_energyBar;
 
     #endregion
 
@@ -24,7 +31,32 @@ public class Player : Controller, IDamagable {
     private PlayerHittingDown f_hittingDown;
 
     [SerializeField, Autohook]
+    private PlayerHealing f_healing;
+
+    [SerializeField, Autohook]
     private Health f_health;
+
+    #endregion
+
+    #region [PrivateVariables]
+
+    private int m_energy;
+
+    #endregion
+
+    #region [Properties]
+
+    public int Energy {
+        get {
+            return m_energy;
+        }
+        set {
+            m_energy = Mathf.Min(value, f_maxEnergy);
+            f_energyBar.Set(m_energy);
+        }
+    }
+
+    public Health Health { get { return f_health; } }
 
     #endregion
 
@@ -32,6 +64,11 @@ public class Player : Controller, IDamagable {
 
     protected override void Awake() {
         base.Awake();
+
+        f_energyBar.Init(f_maxEnergy, 0);
+        Energy = 10; //TESTING
+
+        Consts.Instance.Player = this;
 
         f_air.AddTransitionGoal("Grounded", f_grounded);
         f_grounded.AddTransitionGoal("Air", f_air);
@@ -42,6 +79,7 @@ public class Player : Controller, IDamagable {
 
         f_grounded.AddTransitionGoal("CharHittingUp", f_hittingUp, true);
         f_grounded.AddTransitionGoal("CharHittingSide", f_hittingSide, true);
+        f_grounded.AddTransitionGoal("Healing", f_healing, true);
 
         SetStartState(f_grounded);
     }
@@ -56,7 +94,8 @@ public class Player : Controller, IDamagable {
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        //TODO
+        //TODO; that looks awful
+        ReactOnImpact(-hitNormal);
     }
 
     #endregion

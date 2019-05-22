@@ -88,7 +88,7 @@ public class Controller : MonoBehaviour {
 
     #region [Updates]
 
-    private void FixedUpdate() {
+    protected virtual void FixedUpdate() {
 
         // check collisions
         // check the active collisions
@@ -101,6 +101,7 @@ public class Controller : MonoBehaviour {
         foreach (ControllerState state in m_activeState.FutureStates) {
             bool entered = state.EnterOnCondition(/*m_activeState*/);
             if (entered) {
+                m_activeState.Abort();
                 state.LogicalEnter();
 
                 if (m_activeStackedState == null || !m_activeStackedState.ConsumesInputAndEffects) {
@@ -121,6 +122,7 @@ public class Controller : MonoBehaviour {
         if (m_activeStackedState != null) {
             foreach (ControllerState state in m_activeStackedState.StackedStates) {
                 if (state.EnterOnCondition()) {
+                    m_activeStackedState?.Abort();
                     state.LogicalEnter();
                     state.EffectualEnter();
 
@@ -135,6 +137,7 @@ public class Controller : MonoBehaviour {
 
             foreach (ControllerState state in m_activeState.StackedStates) {
                 if (state.EnterOnCondition()) {
+                    m_activeStackedState?.Abort();
                     state.LogicalEnter();
                     state.EffectualEnter();
 
@@ -249,23 +252,27 @@ public class Controller : MonoBehaviour {
     }
 
     public void ReactOnImpact(Vector2 hitNormal, bool shorter = false) {
+
+        if (m_activeStackedState) {
+            m_activeStackedState.Abort();
+            m_activeStackedState = null;
+            m_activeState.EffectualEnter();
+        }
+
+        // TODO I commented that whole thing out
         //TODO; I might have to set backwards
         //T** However,the normal states set backwards themselves, so it would be weird
         //For now I just don't change anything at all and just abort the current specialstate
 
+        // //Vector2 dummyVelocity = Velocity;
+        // Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH * 60;
 
-        m_activeStackedState = null;
-        m_activeState.EffectualEnter();
+        // if (shorter) {
+        //     Velocity *= 0.5f;
+        // }
 
-        //Vector2 dummyVelocity = Velocity;
-        Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH * 60;
-
-        if (shorter) {
-            Velocity *= 0.5f;
-        }
-
-        Move();
-        //Velocity = dummyVelocity;
+        // Move();
+        // //Velocity = dummyVelocity;
     }
 
     #endregion

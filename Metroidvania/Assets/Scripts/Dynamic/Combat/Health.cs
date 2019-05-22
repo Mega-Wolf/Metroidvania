@@ -72,7 +72,7 @@ using UnityEngine;
 
 /// <summary>
 /// This class handles getting damage
-/// It will turn invincible after getting hit
+/// It will NOT turn invincible after getting hit
 /// </summary>
 public class Health : MonoBehaviour {
 
@@ -86,7 +86,7 @@ public class Health : MonoBehaviour {
     #region [FinalVariables]
 
     [SerializeField, Autohook]
-    private HealthBar f_healthBar;
+    private Bar f_healthBar;
 
     private HashSet<IDamagable> f_damagables = new HashSet<IDamagable>();
 
@@ -130,9 +130,9 @@ public class Health : MonoBehaviour {
 
     #region [PublicMethods]
 
-    public void TakeDamage(int amount, Vector2 hitNormal /* , damageDealer(not always possible (projectils), maybe damageDealer = hitEffect) */ ) {
+    public virtual void TakeDamage(int amount, Vector2 hitNormal /* , damageDealer(not always possible (projectils), maybe damageDealer = hitEffect) */ ) {
         m_health = Mathf.Max(m_health - amount, 0);
-        f_healthBar.SetHealth(m_health);
+        f_healthBar.Set(m_health);
 
         foreach (IDamagable damagable in f_damagables) {
             damagable.TakeDamage(-amount, m_health, f_maxHealth, hitNormal);
@@ -149,7 +149,7 @@ public class Health : MonoBehaviour {
 
     public void Heal(int amount) {
         m_health = Mathf.Min(m_health + amount, f_maxHealth);
-        f_healthBar.SetHealth(m_health);
+        f_healthBar.Set(m_health);
 
         foreach (IDamagable damagable in f_damagables) {
             damagable.TakeDamage(amount, m_health, f_maxHealth, Vector2.zero);

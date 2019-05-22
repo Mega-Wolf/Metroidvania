@@ -11,6 +11,9 @@
         _Filling("Filling", Color) = (1,1,1,1)
         _Background("Background", Color) = (1,1,1,1)
 
+        [MaterialToggle]
+        _UseBackground("UseBackground", float) = 0
+
         [HideInInspector]
         _Real("Real", float) = 1
 
@@ -20,8 +23,9 @@
     SubShader
     {
         Tags {
-            "RenderType"="Overlay"
-            "Queue" = "Geometry+1"
+            //"RenderType"="Transparent"
+            "RenderType"= "Opaque"
+            "Queue" = "Transparent"
         }
 
         Pass
@@ -29,6 +33,7 @@
             ZTest Off
             Lighting Off
             Cull Off
+            //Blend SrcAlpha OneMinusSrcAlpha
 
             CGPROGRAM
             #pragma vertex vert
@@ -60,6 +65,7 @@
             fixed4 _Losing;
             fixed4 _Filling;
             fixed4 _Background;
+            bool _UseBackground;
 
             UNITY_INSTANCING_BUFFER_START(Props)
             UNITY_DEFINE_INSTANCED_PROP(float, _Real)
@@ -107,8 +113,11 @@
                     } else if (x <= show) {
                         finalColor = _Losing;
                     } else {
-                        //finalColor = _Background;
-                        finalColor = col / 2.5;
+                        if (_UseBackground) {
+                            finalColor = _Background;
+                        } else {
+                            finalColor = col / 2.5;
+                        }
                     }
                 } else {
                     if (x <= show) {
@@ -116,8 +125,11 @@
                     } else if (x <= real) {
                         finalColor = _Filling;
                     } else {
-                        //finalColor = _Background;
-                        finalColor = col / 2.5;
+                        if (_UseBackground) {
+                            finalColor = _Background;
+                        } else {
+                            finalColor = col / 2.5;
+                        }
                     }
                 }
 

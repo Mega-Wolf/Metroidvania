@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBarSO : ConstScriptableObject {
+public class BarSO : ConstScriptableObject {
 
-    public float TimeHealthChange;
+    public float TimeValueChange;
 
     public override bool Equals(object obj) {
         if (obj == null || GetType() != obj.GetType()) {
             return false;
         }
 
-        HealthBarSO other = obj as HealthBarSO;
+        BarSO other = obj as BarSO;
 
         return
-            TimeHealthChange == other.TimeHealthChange;
+            TimeValueChange == other.TimeValueChange;
     }
 
     public override int GetHashCode() {
-        return (int)(TimeHealthChange * 1000);
+        return (int)(TimeValueChange * 1000);
     }
 
 }

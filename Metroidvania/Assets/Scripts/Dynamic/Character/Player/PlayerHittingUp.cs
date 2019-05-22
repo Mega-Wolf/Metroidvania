@@ -72,6 +72,8 @@ public class PlayerHittingUp : ControllerState {
         m_hit = false;
     }
 
+    public override void Abort() { }
+
     #endregion
 
 }

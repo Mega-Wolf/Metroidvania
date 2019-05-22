@@ -64,7 +64,13 @@ public abstract class ControllerState : MonoBehaviour {
     /// </summary>
     public abstract bool HandleFixedUpdate();
 
-    //public abstract void Leave();
+
+    //TODO; I would probably need an Effectual and Logical Abort
+
+    /// <summary>
+    /// This function is called when the State is left
+    /// </summary>
+    public abstract void Abort();
 
     #endregion
 

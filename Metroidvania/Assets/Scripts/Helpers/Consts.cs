@@ -46,4 +46,8 @@ public class ConstsEditor : Editor {
 
 }
 
-public partial class Consts : Singleton<Consts> { }
+public partial class Consts : Singleton<Consts> {
+
+    public Player Player;
+
+}
