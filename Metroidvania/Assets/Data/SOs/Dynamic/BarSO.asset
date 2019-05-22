@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8407f5535c981004ab0dc85f5a2ffc17, type: 3}
   m_Name: BarSO
   m_EditorClassIdentifier: 
-  TimeValueChange: 12
+  TimeValueChange: 0.3

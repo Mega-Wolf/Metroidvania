@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!212 &250281391 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2429031716828590630, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2064314864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &637496682
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +359,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5930479966760466147, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: f_hideWhenFull
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4639175045503171142, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: f_spriteRenderer
+      value: 
+      objectReference: {fileID: 250281391}
+    - target: {fileID: 3429993150532274524, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429031716828590630, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429031716828590630, guid: a44f541cb8ca4b543bffa3f3ec0949b8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 252bee7b6eda5d24b9304a2f46f041ab, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a44f541cb8ca4b543bffa3f3ec0949b8, type: 3}
 --- !u!4 &2064314872 stripped
@@ -431,7 +462,7 @@ PrefabInstance:
     - target: {fileID: 5937407499129944361, guid: 423f7d835e8a80540b43a7c011c426bc,
         type: 3}
       propertyPath: f_loot.DropEnergy
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5937407499129944361, guid: 423f7d835e8a80540b43a7c011c426bc,
         type: 3}
@@ -446,7 +477,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1695229013419253722}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1695229013419253725
+--- !u!114 &1695229013419253726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

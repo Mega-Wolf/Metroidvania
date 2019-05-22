@@ -31,6 +31,9 @@ public class Player : Controller, IDamagable {
     private PlayerHittingDown f_hittingDown;
 
     [SerializeField, Autohook]
+    private PlayerHealing f_healing;
+
+    [SerializeField, Autohook]
     private Health f_health;
 
     #endregion
@@ -53,12 +56,17 @@ public class Player : Controller, IDamagable {
         }
     }
 
+    public Health Health { get { return f_health; } }
+
     #endregion
 
     #region [Init]
 
     protected override void Awake() {
         base.Awake();
+
+        f_energyBar.Init(f_maxEnergy, 0);
+        Energy = 10; //TESTING
 
         Consts.Instance.Player = this;
 
@@ -71,6 +79,7 @@ public class Player : Controller, IDamagable {
 
         f_grounded.AddTransitionGoal("CharHittingUp", f_hittingUp, true);
         f_grounded.AddTransitionGoal("CharHittingSide", f_hittingSide, true);
+        f_grounded.AddTransitionGoal("Healing", f_healing, true);
 
         SetStartState(f_grounded);
     }
@@ -86,7 +95,7 @@ public class Player : Controller, IDamagable {
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         //TODO; that looks awful
-        //ReactOnImpact(-hitNormal);
+        ReactOnImpact(-hitNormal);
     }
 
     #endregion
