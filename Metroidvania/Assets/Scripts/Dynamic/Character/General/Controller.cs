@@ -24,6 +24,9 @@ public class Controller : MonoBehaviour {
     private Transform f_mirror;
 
     [SerializeField]
+    protected SpriteRenderer f_spriteRenderer;
+
+    [SerializeField]
     private float f_height;
 
     [SerializeField]
@@ -46,7 +49,7 @@ public class Controller : MonoBehaviour {
     #region [PrivateVariables]
 
     private ControllerState m_activeState;
-    private ControllerState m_activeStackedState;
+    protected ControllerState m_activeStackedState;
 
     //private ControllerState m_lastState;
     private int m_stateStartedFrame;
@@ -59,6 +62,7 @@ public class Controller : MonoBehaviour {
     // collision results
 
     public Animator Animator { get { return f_animator; } }
+    public SpriteRenderer SpriteRenderer { get { return f_spriteRenderer; } }
     public float Height { get { return f_height; } }
     public float HalfWidth { get { return f_halfWidth * 0.75f; } }
 
@@ -151,6 +155,7 @@ public class Controller : MonoBehaviour {
         if (m_activeStackedState != null) {
             bool keep = m_activeStackedState.HandleFixedUpdate();
             if (!keep) {
+                m_activeStackedState.Abort();
                 m_activeStackedState = null;
                 m_activeState.EffectualEnter();
             }
@@ -266,17 +271,25 @@ public class Controller : MonoBehaviour {
         //T** However,the normal states set backwards themselves, so it would be weird
         //For now I just don't change anything at all and just abort the current specialstate
 
-        // //Vector2 dummyVelocity = Velocity;
-        // Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH * 60;
+        //Vector2 dummyVelocity = Velocity;
+        // Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH;
 
         // if (shorter) {
         //     Velocity *= 0.5f;
         // }
 
-        // Move();
-        // //Velocity = dummyVelocity;
+        //Move();
+        //Velocity = dummyVelocity;
     }
 
     #endregion
+
+#if UNITY_EDITOR
+
+    private void OnDrawGizmos() {
+        f_groundMovement?.OnDrawGizmos();
+    }
+
+#endif
 
 }

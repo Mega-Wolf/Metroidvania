@@ -27,9 +27,6 @@ public class GenericEnemy : Controller, IDamagable {
     [SerializeField, Autohook]
     private Health f_health;
 
-    [SerializeField, Autohook]
-    private SpriteRenderer f_spriteRenderer;
-
     #endregion
 
     #region [PrivateVariables]

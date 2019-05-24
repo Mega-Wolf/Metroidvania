@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CONTROLLER_SO: {fileID: 11400000, guid: b37a69a5af94f59449ecfe606d08a6dc, type: 2}
   f_mirror: {fileID: 2149566981061622866}
+  f_spriteRenderer: {fileID: 7420751502927090055}
   f_height: 0.45
   f_halfWidth: 0.35
   f_needsGroundMovement: 1
@@ -69,6 +70,8 @@ MonoBehaviour:
   f_noImpact: 1
   f_maxHealth: 20
   f_weight: 0
+  f_loot:
+    DropEnergy: 7
   f_health: {fileID: 5573254992643832628}
   f_rhinoSO: {fileID: 11400000, guid: a877788053e11114e99f0235c3ee45d2, type: 2}
   f_goomba: {fileID: 2004938594520073101}
@@ -101,6 +104,7 @@ GameObject:
   - component: {fileID: 6075273321910085486}
   - component: {fileID: 5573254992643832628}
   - component: {fileID: 1695229013419253725}
+  - component: {fileID: 1695229013419253726}
   m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
@@ -222,7 +226,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_barSO: {fileID: 11400000, guid: a67b0555e9e108b4185f50f2c0117b78, type: 2}
+  f_hideWhenFull: 1
   f_renderer: {fileID: 4806270875199835066}
+--- !u!114 &1695229013419253726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936558667578863348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52631c1be1a36b542847279572b1178b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_collider: {fileID: 6075273321910085486}
+  f_eDamageReceiver: 256
+  f_damage: 1
 --- !u!1 &2071237683134527576
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +400,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.31875, y: 0.98125}
+  m_Size: {x: 1.12, y: 0.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

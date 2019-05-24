@@ -31,6 +31,7 @@ public class PlayerAir : ControllerState {
     #region [Override]
 
     public override void EffectualEnter() {
+        f_controller.Backwards = false;
         if (m_playJumpAnimation) {
             m_playJumpAnimation = false;
             f_controller.Animator.Play("Jump");
@@ -41,7 +42,6 @@ public class PlayerAir : ControllerState {
 
     public override void LogicalEnter() {
         f_controller.Grounded = false;
-        f_controller.Backwards = false;
         f_controller.transform.rotation = Quaternion.identity;
     }
 
@@ -85,7 +85,7 @@ public class PlayerAir : ControllerState {
     public override bool HandleFixedUpdate() {
 
         // Late jump (coyote time)
-        if (m_coyoteable && (f_controller.StateStartedFrame + f_playerAir.COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
+        if (m_coyoteable && f_controller.Velocity.y <= 0 && (f_controller.StateStartedFrame + f_playerAir.COYOTE_FRAMES >= GameManager.Instance.Frame) && InputManager.Instance.GetButtonDown("Jump", InputManager.EDelayType.OnlyWhenDown)) {
             m_coyoteable = false;
             m_playJumpAnimation = true;
 

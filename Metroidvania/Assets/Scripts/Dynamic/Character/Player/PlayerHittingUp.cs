@@ -51,6 +51,7 @@ public class PlayerHittingUp : ControllerState {
     }
 
     public override void EffectualEnter() {
+        f_controller.Backwards = false;
         f_controller.Animator.PlayInFixedTime("CharHitUp");
     }
 

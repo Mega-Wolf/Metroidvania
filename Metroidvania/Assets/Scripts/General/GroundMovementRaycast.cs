@@ -38,7 +38,7 @@ public class GroundMovementRaycast {
     #region [Consts]
 
     //TODO; they will come as an input
-    private float MAX_ABS_SLOPE = 360;
+    private float MAX_ABS_SLOPE = 25.1f;
     private float MAX_REL_ANGLE = 360;
 
     private const float EXTRA_RAY_LENGTH = 0.1f;
@@ -143,7 +143,6 @@ public class GroundMovementRaycast {
                     return ret;
                 }
             }
-
 
             Vector2 middleVector = (hitHR.point - hitHL.point).normalized;
 

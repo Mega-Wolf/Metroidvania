@@ -34,6 +34,9 @@ public class Player : Controller, IDamagable {
     private PlayerHealing f_healing;
 
     [SerializeField, Autohook]
+    private CharacterHitted f_hitted;
+
+    [SerializeField, Autohook]
     private Health f_health;
 
     #endregion
@@ -96,6 +99,9 @@ public class Player : Controller, IDamagable {
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         //TODO; that looks awful
         ReactOnImpact(-hitNormal);
+        // m_activeStackedState = f_hitted;
+        // m_activeStackedState.LogicalEnter();
+        // m_activeStackedState.EffectualEnter();
     }
 
     #endregion

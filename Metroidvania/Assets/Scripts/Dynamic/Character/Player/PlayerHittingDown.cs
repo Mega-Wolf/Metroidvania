@@ -52,6 +52,7 @@ public class PlayerHittingDown : ControllerState, IDamager {
     }
 
     public override void EffectualEnter() {
+        f_controller.Backwards = false;
         f_controller.Animator.PlayInFixedTime("CharHitDown");
     }
 

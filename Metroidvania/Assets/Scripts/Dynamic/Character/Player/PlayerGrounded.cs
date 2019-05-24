@@ -20,12 +20,12 @@ public class PlayerGrounded : ControllerState {
     #region [Override]
 
     public override void EffectualEnter() {
+        f_controller.Backwards = false;
         f_controller.Animator.Play("Landing");
     }
 
     public override void LogicalEnter() {
         f_controller.Grounded = true;
-        f_controller.Backwards = false;
         f_controller.Velocity = Vector2.zero;
     }
 
