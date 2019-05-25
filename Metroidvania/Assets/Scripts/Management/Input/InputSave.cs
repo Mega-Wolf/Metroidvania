@@ -1,11 +1,42 @@
 using System.Collections.Generic;
+using UnityEngine;
 /// <summary>
 /// This class saves InputData collected by the game
 /// </summary>
+[System.Serializable]
 public class InputSave {
 
     #region [Types]
 
+    [System.Serializable]
+    public class NestedInputData {
+
+        public List<InputData> List;
+
+        public NestedInputData(List<InputData> list) {
+            List = list;
+        }
+
+        public static implicit operator List<InputData>(NestedInputData nid) {
+            return nid.List;
+        }
+
+        public static implicit operator NestedInputData(List<InputData> list) {
+            return new NestedInputData(list);
+        }
+
+        // public InputData this[int index] {
+        //     get {
+        //         return List[index];
+        //     }
+        //     set {
+        //         List[index] = value;
+        //     }
+        // }
+
+    }
+
+    [System.Serializable]
     public struct InputData {
 
         public string Button;
@@ -30,9 +61,10 @@ public class InputSave {
 
     #endregion
 
-    #region [PrivateVariables]
+    #region [FinalVariables]
 
-    private List<List<InputData>> f_captures = new List<List<InputData>>();
+    [SerializeField]
+    private List<NestedInputData> f_captures = new List<NestedInputData>();
 
     #endregion
 
@@ -50,7 +82,7 @@ public class InputSave {
     //T** At leat replaying shold probably be in an own class
 
     public void AddButtonInput(string button, bool value) {
-        f_captures[f_captures.Count - 1].Add(new InputData(button, value));
+        f_captures[f_captures.Count - 1].List.Add(new InputData(button, value));
     }
 
     public void Split() {

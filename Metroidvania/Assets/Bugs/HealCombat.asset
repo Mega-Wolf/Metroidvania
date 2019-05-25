@@ -1,0 +1,611 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3355f9a12639aa2498082ffaa5a3237f, type: 3}
+  m_Name: HealCombat
+  m_EditorClassIdentifier: 
+  InputSave:
+    f_captures:
+    - List:
+      - Button: Right
+        Value: 1
+        Frame: 44
+      - Button: Jump
+        Value: 1
+        Frame: 95
+      - Button: Jump
+        Value: 0
+        Frame: 119
+      - Button: Jump
+        Value: 1
+        Frame: 219
+      - Button: Jump
+        Value: 0
+        Frame: 248
+      - Button: Right
+        Value: 0
+        Frame: 351
+      - Button: Heal
+        Value: 1
+        Frame: 415
+      - Button: Heal
+        Value: 0
+        Frame: 418
+      - Button: Right
+        Value: 1
+        Frame: 501
+      - Button: Right
+        Value: 0
+        Frame: 511
+      - Button: Heal
+        Value: 1
+        Frame: 542
+      - Button: Heal
+        Value: 0
+        Frame: 546
+      - Button: Right
+        Value: 1
+        Frame: 586
+      - Button: Jump
+        Value: 1
+        Frame: 597
+      - Button: Jump
+        Value: 0
+        Frame: 611
+      - Button: Right
+        Value: 0
+        Frame: 613
+      - Button: Down
+        Value: 1
+        Frame: 615
+      - Button: Fight
+        Value: 1
+        Frame: 617
+      - Button: Left
+        Value: 1
+        Frame: 636
+      - Button: Down
+        Value: 0
+        Frame: 637
+      - Button: Fight
+        Value: 0
+        Frame: 638
+      - Button: Jump
+        Value: 1
+        Frame: 664
+      - Button: Jump
+        Value: 0
+        Frame: 677
+      - Button: Down
+        Value: 1
+        Frame: 693
+      - Button: Fight
+        Value: 1
+        Frame: 693
+      - Button: Left
+        Value: 0
+        Frame: 695
+      - Button: Right
+        Value: 1
+        Frame: 716
+      - Button: Fight
+        Value: 0
+        Frame: 716
+      - Button: Down
+        Value: 0
+        Frame: 719
+      - Button: Jump
+        Value: 1
+        Frame: 739
+      - Button: Jump
+        Value: 0
+        Frame: 765
+      - Button: Jump
+        Value: 1
+        Frame: 794
+      - Button: Left
+        Value: 1
+        Frame: 799
+      - Button: Right
+        Value: 0
+        Frame: 801
+      - Button: Jump
+        Value: 0
+        Frame: 811
+      - Button: Left
+        Value: 0
+        Frame: 821
+      - Button: Right
+        Value: 1
+        Frame: 822
+      - Button: Right
+        Value: 0
+        Frame: 841
+      - Button: Jump
+        Value: 1
+        Frame: 861
+      - Button: Jump
+        Value: 0
+        Frame: 874
+      - Button: Left
+        Value: 1
+        Frame: 888
+      - Button: Left
+        Value: 0
+        Frame: 936
+      - Button: Jump
+        Value: 1
+        Frame: 977
+      - Button: Jump
+        Value: 0
+        Frame: 982
+      - Button: Left
+        Value: 1
+        Frame: 1024
+      - Button: Left
+        Value: 0
+        Frame: 1031
+      - Button: Jump
+        Value: 1
+        Frame: 1062
+      - Button: Jump
+        Value: 0
+        Frame: 1069
+      - Button: Fight
+        Value: 1
+        Frame: 1103
+      - Button: Fight
+        Value: 0
+        Frame: 1108
+      - Button: Fight
+        Value: 1
+        Frame: 1185
+      - Button: Fight
+        Value: 0
+        Frame: 1188
+      - Button: Left
+        Value: 1
+        Frame: 1252
+      - Button: Jump
+        Value: 1
+        Frame: 1256
+      - Button: Jump
+        Value: 0
+        Frame: 1264
+      - Button: Left
+        Value: 0
+        Frame: 1265
+      - Button: Down
+        Value: 1
+        Frame: 1270
+      - Button: Fight
+        Value: 1
+        Frame: 1272
+      - Button: Fight
+        Value: 0
+        Frame: 1288
+      - Button: Fight
+        Value: 1
+        Frame: 1293
+      - Button: Fight
+        Value: 0
+        Frame: 1297
+      - Button: Fight
+        Value: 1
+        Frame: 1301
+      - Button: Fight
+        Value: 0
+        Frame: 1304
+      - Button: Down
+        Value: 0
+        Frame: 1308
+      - Button: Fight
+        Value: 1
+        Frame: 1308
+      - Button: Fight
+        Value: 0
+        Frame: 1311
+      - Button: Fight
+        Value: 1
+        Frame: 1314
+      - Button: Fight
+        Value: 0
+        Frame: 1326
+      - Button: Fight
+        Value: 1
+        Frame: 1334
+      - Button: Fight
+        Value: 0
+        Frame: 1336
+      - Button: Fight
+        Value: 1
+        Frame: 1341
+      - Button: Fight
+        Value: 0
+        Frame: 1346
+      - Button: Fight
+        Value: 1
+        Frame: 1392
+      - Button: Fight
+        Value: 0
+        Frame: 1395
+      - Button: Fight
+        Value: 1
+        Frame: 1434
+      - Button: Fight
+        Value: 0
+        Frame: 1435
+      - Button: Left
+        Value: 1
+        Frame: 1484
+      - Button: Jump
+        Value: 1
+        Frame: 1484
+      - Button: Jump
+        Value: 0
+        Frame: 1493
+      - Button: Left
+        Value: 0
+        Frame: 1503
+      - Button: Down
+        Value: 1
+        Frame: 1504
+      - Button: Fight
+        Value: 1
+        Frame: 1505
+      - Button: Right
+        Value: 1
+        Frame: 1524
+      - Button: Fight
+        Value: 0
+        Frame: 1524
+      - Button: Down
+        Value: 0
+        Frame: 1525
+      - Button: Right
+        Value: 0
+        Frame: 1535
+      - Button: Fight
+        Value: 1
+        Frame: 1536
+      - Button: Right
+        Value: 1
+        Frame: 1547
+      - Button: Fight
+        Value: 0
+        Frame: 1568
+      - Button: Fight
+        Value: 1
+        Frame: 1616
+      - Button: Fight
+        Value: 0
+        Frame: 1636
+      - Button: Jump
+        Value: 1
+        Frame: 1666
+      - Button: Jump
+        Value: 0
+        Frame: 1677
+      - Button: Right
+        Value: 0
+        Frame: 1679
+      - Button: Down
+        Value: 1
+        Frame: 1679
+      - Button: Fight
+        Value: 1
+        Frame: 1680
+      - Button: Down
+        Value: 0
+        Frame: 1710
+      - Button: Fight
+        Value: 0
+        Frame: 1710
+      - Button: Left
+        Value: 1
+        Frame: 1728
+      - Button: Fight
+        Value: 1
+        Frame: 1730
+      - Button: Fight
+        Value: 0
+        Frame: 1755
+      - Button: Jump
+        Value: 1
+        Frame: 1823
+      - Button: Jump
+        Value: 0
+        Frame: 1844
+      - Button: Left
+        Value: 0
+        Frame: 1847
+      - Button: Down
+        Value: 1
+        Frame: 1849
+      - Button: Fight
+        Value: 1
+        Frame: 1849
+      - Button: Right
+        Value: 1
+        Frame: 1879
+      - Button: Down
+        Value: 0
+        Frame: 1880
+      - Button: Fight
+        Value: 0
+        Frame: 1880
+      - Button: Fight
+        Value: 1
+        Frame: 1891
+      - Button: Fight
+        Value: 0
+        Frame: 1914
+      - Button: Right
+        Value: 0
+        Frame: 1986
+      - Button: Jump
+        Value: 1
+        Frame: 2026
+      - Button: Jump
+        Value: 0
+        Frame: 2031
+      - Button: Right
+        Value: 1
+        Frame: 2058
+      - Button: Right
+        Value: 0
+        Frame: 2063
+      - Button: Jump
+        Value: 1
+        Frame: 2099
+      - Button: Jump
+        Value: 0
+        Frame: 2115
+      - Button: Right
+        Value: 1
+        Frame: 2117
+      - Button: Fight
+        Value: 1
+        Frame: 2137
+      - Button: Fight
+        Value: 0
+        Frame: 2161
+      - Button: Right
+        Value: 0
+        Frame: 2176
+      - Button: Fight
+        Value: 1
+        Frame: 2176
+      - Button: Fight
+        Value: 0
+        Frame: 2180
+      - Button: Left
+        Value: 1
+        Frame: 2195
+      - Button: Fight
+        Value: 1
+        Frame: 2300
+      - Button: Left
+        Value: 0
+        Frame: 2302
+      - Button: Fight
+        Value: 0
+        Frame: 2312
+      - Button: Fight
+        Value: 1
+        Frame: 2342
+      - Button: Fight
+        Value: 0
+        Frame: 2348
+      - Button: Left
+        Value: 1
+        Frame: 2379
+      - Button: Jump
+        Value: 1
+        Frame: 2396
+      - Button: Jump
+        Value: 0
+        Frame: 2412
+      - Button: Left
+        Value: 0
+        Frame: 2417
+      - Button: Down
+        Value: 1
+        Frame: 2419
+      - Button: Fight
+        Value: 1
+        Frame: 2423
+      - Button: Right
+        Value: 1
+        Frame: 2448
+      - Button: Fight
+        Value: 0
+        Frame: 2448
+      - Button: Down
+        Value: 0
+        Frame: 2453
+      - Button: Fight
+        Value: 1
+        Frame: 2462
+      - Button: Fight
+        Value: 0
+        Frame: 2487
+      - Button: Right
+        Value: 0
+        Frame: 2561
+      - Button: Fight
+        Value: 1
+        Frame: 2564
+      - Button: Fight
+        Value: 0
+        Frame: 2567
+      - Button: Fight
+        Value: 1
+        Frame: 2600
+      - Button: Fight
+        Value: 0
+        Frame: 2607
+      - Button: Fight
+        Value: 1
+        Frame: 2614
+      - Button: Fight
+        Value: 0
+        Frame: 2617
+      - Button: Fight
+        Value: 1
+        Frame: 2658
+      - Button: Fight
+        Value: 0
+        Frame: 2663
+      - Button: Fight
+        Value: 1
+        Frame: 2714
+      - Button: Fight
+        Value: 0
+        Frame: 2716
+      - Button: Fight
+        Value: 1
+        Frame: 2798
+      - Button: Fight
+        Value: 0
+        Frame: 2802
+      - Button: Jump
+        Value: 1
+        Frame: 2870
+      - Button: Right
+        Value: 1
+        Frame: 2876
+      - Button: Jump
+        Value: 0
+        Frame: 2876
+      - Button: Right
+        Value: 0
+        Frame: 2883
+      - Button: Down
+        Value: 1
+        Frame: 2883
+      - Button: Fight
+        Value: 1
+        Frame: 2887
+      - Button: Fight
+        Value: 0
+        Frame: 2907
+      - Button: Right
+        Value: 1
+        Frame: 2908
+      - Button: Down
+        Value: 0
+        Frame: 2909
+      - Button: Jump
+        Value: 1
+        Frame: 2949
+      - Button: Jump
+        Value: 0
+        Frame: 2973
+      - Button: Jump
+        Value: 1
+        Frame: 2982
+      - Button: Jump
+        Value: 0
+        Frame: 2996
+      - Button: Right
+        Value: 0
+        Frame: 3018
+      - Button: Jump
+        Value: 1
+        Frame: 3029
+      - Button: Right
+        Value: 1
+        Frame: 3046
+      - Button: Jump
+        Value: 0
+        Frame: 3055
+      - Button: Right
+        Value: 0
+        Frame: 3194
+      - Button: Right
+        Value: 1
+        Frame: 3209
+      - Button: Right
+        Value: 0
+        Frame: 3244
+      - Button: Heal
+        Value: 1
+        Frame: 3254
+      - Button: Heal
+        Value: 0
+        Frame: 3255
+      - Button: Left
+        Value: 1
+        Frame: 3335
+      - Button: Left
+        Value: 0
+        Frame: 3373
+      - Button: Jump
+        Value: 1
+        Frame: 3376
+      - Button: Jump
+        Value: 0
+        Frame: 3385
+      - Button: Right
+        Value: 1
+        Frame: 3400
+      - Button: Right
+        Value: 0
+        Frame: 3410
+      - Button: Jump
+        Value: 1
+        Frame: 3421
+      - Button: Left
+        Value: 1
+        Frame: 3430
+      - Button: Jump
+        Value: 0
+        Frame: 3432
+      - Button: Left
+        Value: 0
+        Frame: 3450
+      - Button: Right
+        Value: 1
+        Frame: 3474
+      - Button: Right
+        Value: 0
+        Frame: 3485
+      - Button: Heal
+        Value: 1
+        Frame: 3493
+      - Button: Heal
+        Value: 0
+        Frame: 3496
+      - Button: Right
+        Value: 1
+        Frame: 3576
+      - Button: Jump
+        Value: 1
+        Frame: 3581
+      - Button: Jump
+        Value: 0
+        Frame: 3615
+      - Button: Right
+        Value: 0
+        Frame: 3628
+      - Button: Left
+        Value: 1
+        Frame: 3635
+      - Button: Jump
+        Value: 1
+        Frame: 3687
+      - Button: Jump
+        Value: 0
+        Frame: 3702
+      - Button: Left
+        Value: 0
+        Frame: 3710

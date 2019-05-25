@@ -46,6 +46,10 @@ public class VirtualInputManager : IInputManager {
 
     public void HandleUpdate() {
 
+        foreach (string button in f_buttons) {
+            f_buttonValuesLastFrame[button] = f_buttonValues[button];
+        }
+
         while (m_positionInLayer < m_currentLayer.Count) {
             InputData id = m_currentLayer[m_positionInLayer];
 
@@ -54,11 +58,9 @@ public class VirtualInputManager : IInputManager {
             if (frameNumber == id.Frame) {
                 SetButton(id.Button, id.Value);
                 ++m_positionInLayer;
+            } else {
+                break;
             }
-        }
-
-        foreach (string button in f_buttons) {
-            f_buttonValuesLastFrame[button] = f_buttonValues[button];
         }
     }
 

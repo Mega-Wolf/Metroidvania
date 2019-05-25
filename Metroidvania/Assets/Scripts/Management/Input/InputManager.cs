@@ -50,6 +50,9 @@ public class InputManager : Singleton<InputManager> {
     private EInputManager f_eInputManager;
 
     [SerializeField]
+    private InputSaveSO f_inputSaveSO;
+
+    [SerializeField]
     private string[] f_buttons;
 
     #endregion
@@ -76,11 +79,16 @@ public class InputManager : Singleton<InputManager> {
     protected override void Awake() {
         base.Awake();
         switch (f_eInputManager) {
-            case EInputManager.Hardware:
-                f_inputManager = new HardwareInputManager(new InputSave(), f_buttons);
+            case EInputManager.Hardware: {
+                    InputSave inputSave = new InputSave();
+                    f_inputSaveSO.InputSave = inputSave;
+                    f_inputManager = new HardwareInputManager(inputSave, f_buttons);
+                }
+
                 break;
             case EInputManager.Virtual:
-                f_inputManager = new VirtualInputManager(new InputSave(), f_buttons);
+                f_inputManager = new VirtualInputManager(f_inputSaveSO.InputSave, f_buttons);
+                f_inputManager.StartReplay();
                 break;
         }
     }
