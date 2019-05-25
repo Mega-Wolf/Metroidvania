@@ -1,6 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO
+//BUGS
+// When landing...
+// ... on an edge: The landing is not recognised: The character falls through the floor, gets set back up and then falls through again
+//     (attention: I have to make sure that I am not at an angle)
+//     Possible solution: When the first one touches, I cast a raycast and check where the other one touches; that determines the angle of it
+// ... on an inside edge: The character adjusts to the wall although it normally would not be allowed to come that close to it -.-
+//     ignore the tilt when too big
+//     also: when walking towards wall: maybe allow to walk closer towards it if tilting is forbidden
+
+
+
 public class GroundMovementRaycast {
 
     #region [Static]
