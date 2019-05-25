@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3355f9a12639aa2498082ffaa5a3237f, type: 3}
+  m_Name: WeirdGlitchAtEdge
+  m_EditorClassIdentifier: 
+  InputSave:
+    f_captures:
+    - List:
+      - Button: Right
+        Value: 1
+        Frame: 71
+      - Button: Jump
+        Value: 1
+        Frame: 117
+      - Button: Jump
+        Value: 0
+        Frame: 125
+      - Button: Jump
+        Value: 1
+        Frame: 155
+      - Button: Jump
+        Value: 0
+        Frame: 185
+      - Button: Jump
+        Value: 1
+        Frame: 206
+      - Button: Jump
+        Value: 0
+        Frame: 229
+      - Button: Jump
+        Value: 1
+        Frame: 271
+      - Button: Jump
+        Value: 0
+        Frame: 303
+      - Button: Right
+        Value: 0
+        Frame: 380
+      - Button: Left
+        Value: 1
+        Frame: 389
+      - Button: Jump
+        Value: 1
+        Frame: 394
+      - Button: Jump
+        Value: 0
+        Frame: 420
+      - Button: Left
+        Value: 0
+        Frame: 429
+      - Button: Right
+        Value: 1
+        Frame: 431
+      - Button: Right
+        Value: 0
+        Frame: 466
+      - Button: Jump
+        Value: 1
+        Frame: 472
+      - Button: Left
+        Value: 1
+        Frame: 474
+      - Button: Jump
+        Value: 0
+        Frame: 494
+      - Button: Left
+        Value: 0
+        Frame: 520
+      - Button: Right
+        Value: 1
+        Frame: 578
+      - Button: Right
+        Value: 0
+        Frame: 615
