@@ -120,11 +120,11 @@ public class Charge : ControllerState, IDamager {
         } else {
             if (m_cooldown == CHARGE_COOLTIME) {
                 f_futureStates = m_futureStatesHelper;
+                m_cooldown = -1;
             }
 
             ++m_cooldown;
         }
-
 
         return true;
     }
