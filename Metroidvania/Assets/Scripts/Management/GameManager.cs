@@ -13,6 +13,14 @@ public class GameManager : Singleton<GameManager> {
     // However, GameMode probably means doing nothing; so I just keep both in here
     // It probably should set the InputManager and maybe load a game (or replay)
 
+    #region [MemberFields]
+
+    [SerializeField]
+    [Range(0f, 10f)]
+    private float m_speed = 1;
+
+    #endregion
+
     #region [PrivateVariables]
 
     private int m_frame = 0;
@@ -31,6 +39,15 @@ public class GameManager : Singleton<GameManager> {
         //TODO; not when paused
         //T** The InputManager also has a pause funtion, but that does something differently
         //T** However, that should be remembered, because the InputManager MUST NOT be updated when the game is paused
+
+
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            Time.timeScale = 10;
+        } else if (Input.GetKey(KeyCode.LeftControl)) {
+            Time.timeScale = 3;
+        } else {
+            Time.timeScale = m_speed;
+        }
 
         ++m_frame;
     }

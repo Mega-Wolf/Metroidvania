@@ -85,7 +85,7 @@ public class Health : MonoBehaviour {
 
     #region [FinalVariables]
 
-    [SerializeField, Autohook]
+    [SerializeField, Autohook(AutohookAttribute.AutohookMode.SiblingsAndChildren)]
     private Bar f_healthBar;
 
     private HashSet<IDamagable> f_damagables = new HashSet<IDamagable>();
