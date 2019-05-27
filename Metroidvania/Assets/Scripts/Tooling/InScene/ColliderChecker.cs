@@ -56,7 +56,7 @@ public class ColliderChecker : MonoBehaviour {
     #region [PrivateVariables]
 
     private EdgeCollider2D[] m_edgeColliders;
-    private PolygonCollider2D[] m_polygonColliders;
+    private List<PolygonCollider2D> m_polygonColliders;
 
     #endregion
 
@@ -65,7 +65,15 @@ public class ColliderChecker : MonoBehaviour {
     [Button("Refresh")]
     private void OnValidate() {
         m_edgeColliders = GameObject.FindObjectsOfType<EdgeCollider2D>();
-        m_polygonColliders = GameObject.FindObjectsOfType<PolygonCollider2D>();
+
+        PolygonCollider2D[] allPolies = GameObject.FindObjectsOfType<PolygonCollider2D>();
+        m_polygonColliders = new List<PolygonCollider2D>();
+
+        foreach (PolygonCollider2D collider in allPolies) {
+            if (collider.gameObject.GetComponent<Health>() == null) {
+                m_polygonColliders.Add(collider);
+            }
+        }
     }
 
     #endregion
