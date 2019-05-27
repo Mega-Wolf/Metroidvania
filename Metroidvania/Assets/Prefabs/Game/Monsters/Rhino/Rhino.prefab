@@ -72,7 +72,7 @@ MonoBehaviour:
   f_weight: 0
   f_loot:
     DropEnergy: 7
-  f_health: {fileID: 5573254992643832628}
+  f_health: {fileID: 205669568434164427}
   f_rhinoSO: {fileID: 11400000, guid: a877788053e11114e99f0235c3ee45d2, type: 2}
   f_goomba: {fileID: 2004938594520073101}
   f_charge: {fileID: 3982858292537315794}
@@ -101,10 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3852033956687417433}
   - component: {fileID: 4806270875199835066}
-  - component: {fileID: 6075273321910085486}
-  - component: {fileID: 5573254992643832628}
   - component: {fileID: 1695229013419253725}
-  - component: {fileID: 1695229013419253726}
   m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
@@ -119,7 +116,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936558667578863348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 0.75, y: 0.075, z: 1}
   m_Children: []
@@ -174,45 +171,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6075273321910085486
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936558667578863348}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 4.3361588}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 5.919884}
-  m_EdgeRadius: 0
---- !u!114 &5573254992643832628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936558667578863348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad1a9be7c29e7394fb7c88bf02514213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  f_healthBar: {fileID: 1695229013419253725}
 --- !u!114 &1695229013419253725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,21 +186,6 @@ MonoBehaviour:
   f_barSO: {fileID: 11400000, guid: a67b0555e9e108b4185f50f2c0117b78, type: 2}
   f_hideWhenFull: 1
   f_renderer: {fileID: 4806270875199835066}
---- !u!114 &1695229013419253726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936558667578863348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52631c1be1a36b542847279572b1178b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  f_collider: {fileID: 6075273321910085486}
-  f_eDamageReceiver: 256
-  f_damage: 1
 --- !u!1 &2071237683134527576
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +261,10 @@ GameObject:
   - component: {fileID: 6740949540824060809}
   - component: {fileID: 946281386218071260}
   - component: {fileID: 7420751502927090055}
-  m_Layer: 0
+  - component: {fileID: 264145934348612299}
+  - component: {fileID: 205669568434164427}
+  - component: {fileID: 2137025125557648693}
+  m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,6 +352,79 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!60 &264145934348612299
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4364514035640224408}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.7, y: 0.45}
+    newSize: {x: 1.12, y: 0.72}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.20625, y: 0}
+      - {x: 0.25625, y: 0.0375}
+      - {x: 0.35, y: 0.16250001}
+      - {x: 0.35, y: 0.39375}
+      - {x: 0.31875, y: 0.4375}
+      - {x: 0.26875, y: 0.425}
+      - {x: 0.15, y: 0.38125}
+      - {x: 0.06875, y: 0.39375}
+      - {x: -0.05, y: 0.45000002}
+      - {x: -0.15625, y: 0.45000002}
+      - {x: -0.23125, y: 0.43125}
+      - {x: -0.26250002, y: 0.38125}
+      - {x: -0.3375, y: 0.275}
+      - {x: -0.3375, y: 0.25625}
+      - {x: -0.35, y: 0.2}
+      - {x: -0.35, y: 0.0625}
+      - {x: -0.275, y: 0}
+      - {x: -0.081250004, y: 0}
+      - {x: -0.0375, y: 0.025}
+      - {x: 0.0625, y: 0}
+--- !u!114 &205669568434164427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4364514035640224408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1a9be7c29e7394fb7c88bf02514213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_healthBar: {fileID: 1695229013419253725}
+--- !u!114 &2137025125557648693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4364514035640224408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52631c1be1a36b542847279572b1178b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_collider: {fileID: 264145934348612299}
+  f_eDamageReceiver: 256
+  f_damage: 2
 --- !u!1 &6031951565578680945
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +476,7 @@ MonoBehaviour:
   CHARGE_DAMAGE: {fileID: 11400000, guid: 3c30c94b329937749873bf15ba03b5f7, type: 2}
   CHARGE_SPEED: {fileID: 11400000, guid: 6a93ba22d64a87d4897dabd6c7eb536d, type: 2}
   CHARGE_COOLTIME: {fileID: 11400000, guid: 1f1aa28395f3d674b898fc8b84129009, type: 2}
-  m_stopAtEdges: 1
+  m_stopAtEdges: 0
   f_damageReceiver: 256
   f_chargeRange: {fileID: 3538001225777314767}
   f_chargeHit: {fileID: 3183223492869237112}

@@ -13,10 +13,12 @@ using NaughtyAttributes.Editor;
 public class AutohookAttribute : PropertyAttribute {
 
     public enum AutohookMode {
-        OnlySameLevel,
+        OnlyGO,
         AlsoChildren,
         AlsoParent,
-        AllParents
+        AllParents,
+        SiblingsAndChildren,
+        UpwardsAllChildren
     }
 
     public readonly AutohookMode Mode = AutohookMode.AlsoChildren;
@@ -97,6 +99,20 @@ public class AutohookPropertyDrawer : UnityEditor.PropertyDrawer {
                         Transform t = component.transform.parent;
                         while (t != null) {
                             ret = t.GetComponent(type);
+                            if (ret != null) {
+                                return ret;
+                            }
+                            t = t.parent;
+                        }
+                        return null;
+                    }
+                case AutohookAttribute.AutohookMode.SiblingsAndChildren: {
+                        return component.transform.parent?.GetComponentInChildren(type);
+                    }
+                case AutohookAttribute.AutohookMode.UpwardsAllChildren: {
+                        Transform t = component.transform.parent;
+                        while (t != null) {
+                            ret = t.GetComponentInChildren(type);
                             if (ret != null) {
                                 return ret;
                             }

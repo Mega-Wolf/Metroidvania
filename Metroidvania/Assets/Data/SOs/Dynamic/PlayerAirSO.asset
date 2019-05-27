@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36aa3f897f08acf438f5038c4ceafa7d, type: 3}
   m_Name: PlayerAirSO
   m_EditorClassIdentifier: 
-  COYOTE_FRAMES: 5
-  JUMP_HEIGHT: 2.5
-  JUMP_HALF_DURATION: 0.45
+  coyoteFrames: 5
+  jumpHeight: 2.7
+  jumpHalfDuration: 0.45

@@ -88,7 +88,7 @@ public class Charge : ControllerState, IDamager {
         m_futureStatesHelper = f_futureStates;
         f_futureStates = m_emptyFutureDummy;
 
-        f_controller.Grounded = true;
+        //f_controller.Grounded = true;
         f_controller.Backwards = false;
 
         f_damage.ExecuteHit(CHARGE_DAMAGE, /*f_controller.LookDirection */ f_controller.Velocity);
@@ -101,8 +101,23 @@ public class Charge : ControllerState, IDamager {
     }
 
     public override bool HandleFixedUpdate() {
+        //TODO; this is such a hack
+        if (InputManager.Instance.IgnoreInput) {
+            return true;
+        }
+
+        if (!f_controller.Grounded) {
+            return true;
+        }
 
         if (m_cooldown == -1) {
+            if (f_controller.Backwards) {
+                f_controller.Backwards = false;
+                // if (f_controller.Velocity.x != 0) {
+                //     m_walkingRight = 
+                // }
+            }
+
             if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
                 Cancel();
             }
@@ -120,11 +135,11 @@ public class Charge : ControllerState, IDamager {
         } else {
             if (m_cooldown == CHARGE_COOLTIME) {
                 f_futureStates = m_futureStatesHelper;
+                m_cooldown = -1;
             }
 
             ++m_cooldown;
         }
-
 
         return true;
     }
@@ -136,7 +151,9 @@ public class Charge : ControllerState, IDamager {
         f_futureStates = m_futureStatesHelper;
     }
 
-    public override void Abort() { }
+    public override void Abort() {
+        //f_controller.Velocity = Vector2.zero;
+    }
 
     #endregion
 

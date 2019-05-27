@@ -79,10 +79,10 @@ public class GroundMovementRaycast {
 #if UNITY_EDITOR
     public void OnDrawGizmos() {
 
-        Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down);
+        Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down).normalized;
 
         LayerMask GROUND_MASK = LayerMask.GetMask("Default");
-        float RAY_LENGTH = f_halfHeight + EXTRA_RAY_LENGTH;
+        float RAY_LENGTH = f_halfHeight * f_controller.transform.localScale.y + EXTRA_RAY_LENGTH;
 
         RaycastHit2D hitL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth - OUTER_EXTEND, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
         RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
@@ -118,7 +118,7 @@ public class GroundMovementRaycast {
             Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down);
 
             LayerMask GROUND_MASK = LayerMask.GetMask("Default");
-            float RAY_LENGTH = f_halfHeight + EXTRA_RAY_LENGTH;
+            float RAY_LENGTH = f_halfHeight * f_controller.transform.localScale.y + EXTRA_RAY_LENGTH;
 
             RaycastHit2D hitL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth - OUTER_EXTEND, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
             RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), transformedDownward, RAY_LENGTH, GROUND_MASK);
@@ -146,12 +146,12 @@ public class GroundMovementRaycast {
 
             if (speed > 0) {
                 if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
-                    Debug.Log("Abort Right: " + Vector2.Angle(Vector2.right, hitR.point - hitHR.point));
+                    Debug.Log("Abort Right: " + Vector2.Angle(Vector2.right, hitR.point - hitHR.point), f_controller);
                     return ret;
                 }
             } else {
                 if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
-                    Debug.Log("Abort Left: " + Vector2.Angle(Vector2.left, hitL.point - hitHL.point));
+                    Debug.Log("Abort Left: " + Vector2.Angle(Vector2.left, hitL.point - hitHL.point), f_controller);
                     return ret;
                 }
             }
@@ -213,6 +213,12 @@ public class GroundMovementRaycast {
                 }
             }
 
+            //TODO; clean up the above; it doesn't seem right
+            // this means only one side touched
+            if (ret ==  GroundTouch.Left || ret ==  GroundTouch.HalfLeft || ret ==  GroundTouch.Centre || ret ==  GroundTouch.HalfRight || ret ==  GroundTouch.Right) {
+                f_controller.Velocity = f_controller.transform.right* speed;
+            }
+
             if (!(hitL && hitR && hitHL && hitHR)) {
                 return ret;
             }
@@ -229,7 +235,7 @@ public class GroundMovementRaycast {
     public bool TryStickToGround() {
 
         LayerMask GROUND_MASK = LayerMask.GetMask("Default");
-        float RAY_LENGTH = f_halfHeight + EXTRA_RAY_LENGTH;
+        float RAY_LENGTH = f_halfHeight * f_controller.transform.localScale.y + EXTRA_RAY_LENGTH;
 
         RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);
         RaycastHit2D hitC = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, GROUND_MASK);

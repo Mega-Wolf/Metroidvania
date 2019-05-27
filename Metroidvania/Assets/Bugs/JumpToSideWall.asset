@@ -1,0 +1,401 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3355f9a12639aa2498082ffaa5a3237f, type: 3}
+  m_Name: JumpToSideWall
+  m_EditorClassIdentifier: 
+  InputSave:
+    f_captures:
+    - List:
+      - Button: Right
+        Value: 1
+        Frame: 3
+      - Button: Right
+        Value: 0
+        Frame: 8
+      - Button: Right
+        Value: 1
+        Frame: 28
+      - Button: Right
+        Value: 0
+        Frame: 53
+      - Button: Right
+        Value: 1
+        Frame: 70
+      - Button: Right
+        Value: 0
+        Frame: 336
+      - Button: Right
+        Value: 1
+        Frame: 348
+      - Button: Jump
+        Value: 1
+        Frame: 399
+      - Button: Jump
+        Value: 0
+        Frame: 440
+      - Button: Jump
+        Value: 1
+        Frame: 473
+      - Button: Jump
+        Value: 0
+        Frame: 493
+      - Button: Jump
+        Value: 1
+        Frame: 522
+      - Button: Jump
+        Value: 0
+        Frame: 542
+      - Button: Jump
+        Value: 1
+        Frame: 656
+      - Button: Jump
+        Value: 0
+        Frame: 719
+      - Button: Right
+        Value: 0
+        Frame: 762
+      - Button: Left
+        Value: 1
+        Frame: 768
+      - Button: Jump
+        Value: 1
+        Frame: 802
+      - Button: Jump
+        Value: 0
+        Frame: 819
+      - Button: Jump
+        Value: 1
+        Frame: 827
+      - Button: Jump
+        Value: 0
+        Frame: 846
+      - Button: Left
+        Value: 0
+        Frame: 859
+      - Button: Right
+        Value: 1
+        Frame: 879
+      - Button: Jump
+        Value: 1
+        Frame: 883
+      - Button: Right
+        Value: 0
+        Frame: 900
+      - Button: Jump
+        Value: 0
+        Frame: 901
+      - Button: Left
+        Value: 1
+        Frame: 902
+      - Button: Jump
+        Value: 1
+        Frame: 909
+      - Button: Jump
+        Value: 0
+        Frame: 922
+      - Button: Left
+        Value: 0
+        Frame: 933
+      - Button: Right
+        Value: 1
+        Frame: 943
+      - Button: Jump
+        Value: 1
+        Frame: 952
+      - Button: Jump
+        Value: 0
+        Frame: 991
+      - Button: Right
+        Value: 0
+        Frame: 1006
+      - Button: Left
+        Value: 1
+        Frame: 1007
+      - Button: Jump
+        Value: 1
+        Frame: 1020
+      - Button: Jump
+        Value: 0
+        Frame: 1043
+      - Button: Left
+        Value: 0
+        Frame: 1068
+      - Button: Right
+        Value: 1
+        Frame: 1084
+      - Button: Jump
+        Value: 1
+        Frame: 1095
+      - Button: Jump
+        Value: 0
+        Frame: 1136
+      - Button: Jump
+        Value: 1
+        Frame: 1205
+      - Button: Jump
+        Value: 0
+        Frame: 1271
+      - Button: Right
+        Value: 0
+        Frame: 1287
+      - Button: Left
+        Value: 1
+        Frame: 1293
+      - Button: Jump
+        Value: 1
+        Frame: 1321
+      - Button: Jump
+        Value: 0
+        Frame: 1364
+      - Button: Left
+        Value: 0
+        Frame: 1372
+      - Button: Right
+        Value: 1
+        Frame: 1377
+      - Button: Jump
+        Value: 1
+        Frame: 1385
+      - Button: Jump
+        Value: 0
+        Frame: 1444
+      - Button: Right
+        Value: 0
+        Frame: 1461
+      - Button: Left
+        Value: 1
+        Frame: 1462
+      - Button: Jump
+        Value: 1
+        Frame: 1473
+      - Button: Jump
+        Value: 0
+        Frame: 1498
+      - Button: Jump
+        Value: 1
+        Frame: 1507
+      - Button: Jump
+        Value: 0
+        Frame: 1522
+      - Button: Jump
+        Value: 1
+        Frame: 1553
+      - Button: Jump
+        Value: 0
+        Frame: 1616
+      - Button: Left
+        Value: 0
+        Frame: 1619
+      - Button: Right
+        Value: 1
+        Frame: 1657
+      - Button: Jump
+        Value: 1
+        Frame: 1670
+      - Button: Jump
+        Value: 0
+        Frame: 1749
+      - Button: Right
+        Value: 0
+        Frame: 1752
+      - Button: Left
+        Value: 1
+        Frame: 1797
+      - Button: Jump
+        Value: 1
+        Frame: 1801
+      - Button: Jump
+        Value: 0
+        Frame: 1843
+      - Button: Left
+        Value: 0
+        Frame: 1889
+      - Button: Left
+        Value: 1
+        Frame: 1902
+      - Button: Left
+        Value: 0
+        Frame: 1906
+      - Button: Right
+        Value: 1
+        Frame: 1926
+      - Button: Jump
+        Value: 1
+        Frame: 1927
+      - Button: Jump
+        Value: 0
+        Frame: 1971
+      - Button: Right
+        Value: 0
+        Frame: 1981
+      - Button: Left
+        Value: 1
+        Frame: 1989
+      - Button: Left
+        Value: 0
+        Frame: 2036
+      - Button: Left
+        Value: 1
+        Frame: 2045
+      - Button: Left
+        Value: 0
+        Frame: 2051
+      - Button: Right
+        Value: 1
+        Frame: 2065
+      - Button: Jump
+        Value: 1
+        Frame: 2074
+      - Button: Jump
+        Value: 0
+        Frame: 2144
+      - Button: Right
+        Value: 0
+        Frame: 2160
+      - Button: Left
+        Value: 1
+        Frame: 2174
+      - Button: Jump
+        Value: 1
+        Frame: 2197
+      - Button: Jump
+        Value: 0
+        Frame: 2258
+      - Button: Left
+        Value: 0
+        Frame: 2265
+      - Button: Right
+        Value: 1
+        Frame: 2306
+      - Button: Jump
+        Value: 1
+        Frame: 2353
+      - Button: Right
+        Value: 0
+        Frame: 2419
+      - Button: Jump
+        Value: 0
+        Frame: 2419
+      - Button: Left
+        Value: 1
+        Frame: 2421
+      - Button: Jump
+        Value: 1
+        Frame: 2448
+      - Button: Jump
+        Value: 0
+        Frame: 2488
+      - Button: Left
+        Value: 0
+        Frame: 2506
+      - Button: Right
+        Value: 1
+        Frame: 2510
+      - Button: Jump
+        Value: 1
+        Frame: 2547
+      - Button: Jump
+        Value: 0
+        Frame: 2591
+      - Button: Jump
+        Value: 1
+        Frame: 2606
+      - Button: Jump
+        Value: 0
+        Frame: 2633
+      - Button: Jump
+        Value: 1
+        Frame: 2739
+      - Button: Jump
+        Value: 0
+        Frame: 2820
+      - Button: Jump
+        Value: 1
+        Frame: 2830
+      - Button: Jump
+        Value: 0
+        Frame: 2885
+      - Button: Jump
+        Value: 1
+        Frame: 2951
+      - Button: Jump
+        Value: 0
+        Frame: 3004
+      - Button: Jump
+        Value: 1
+        Frame: 3016
+      - Button: Jump
+        Value: 0
+        Frame: 3092
+      - Button: Jump
+        Value: 1
+        Frame: 3095
+      - Button: Jump
+        Value: 0
+        Frame: 3119
+      - Button: Right
+        Value: 0
+        Frame: 3214
+      - Button: Right
+        Value: 1
+        Frame: 3270
+      - Button: Right
+        Value: 0
+        Frame: 3294
+      - Button: Left
+        Value: 1
+        Frame: 3310
+      - Button: Left
+        Value: 0
+        Frame: 3329
+      - Button: Right
+        Value: 1
+        Frame: 3334
+      - Button: Right
+        Value: 0
+        Frame: 3363
+      - Button: Left
+        Value: 1
+        Frame: 3374
+      - Button: Jump
+        Value: 1
+        Frame: 3408
+      - Button: Jump
+        Value: 0
+        Frame: 3471
+      - Button: Jump
+        Value: 1
+        Frame: 3526
+      - Button: Jump
+        Value: 0
+        Frame: 3597
+      - Button: Left
+        Value: 0
+        Frame: 3612
+      - Button: Right
+        Value: 1
+        Frame: 3620
+      - Button: Right
+        Value: 0
+        Frame: 3631
+      - Button: Left
+        Value: 1
+        Frame: 3677
+      - Button: Jump
+        Value: 1
+        Frame: 3711
+      - Button: Jump
+        Value: 0
+        Frame: 3779
+      - Button: Left
+        Value: 0
+        Frame: 3792

@@ -48,7 +48,7 @@ public class Controller : MonoBehaviour {
 
     #region [PrivateVariables]
 
-    private ControllerState m_activeState;
+    protected ControllerState m_activeState;
     protected ControllerState m_activeStackedState;
 
     //private ControllerState m_lastState;
@@ -172,7 +172,7 @@ public class Controller : MonoBehaviour {
 
     #region [PrivateMethods]
 
-    private void Move() {
+    protected virtual void Move() {
         // moving
         {
             Vector2 origin;
@@ -248,6 +248,7 @@ public class Controller : MonoBehaviour {
 
         f_animator.SetFloat("X", Velocity.x);
         f_animator.SetFloat("Y", Velocity.y);
+
     }
 
     #endregion
@@ -256,6 +257,8 @@ public class Controller : MonoBehaviour {
 
     public void SetStartState(ControllerState state) {
         m_activeState = state;
+        m_activeState.LogicalEnter();
+        m_activeState.EffectualEnter();
     }
 
     public void ReactOnImpact(Vector2 hitNormal, bool shorter = false) {
@@ -272,13 +275,13 @@ public class Controller : MonoBehaviour {
         //For now I just don't change anything at all and just abort the current specialstate
 
         //Vector2 dummyVelocity = Velocity;
-        // Velocity = -hitNormal * CONTROLLER_SO.IMPACT_LENGTH;
+        Velocity = hitNormal * CONTROLLER_SO.IMPACT_LENGTH;
 
         // if (shorter) {
         //     Velocity *= 0.5f;
         // }
 
-        //Move();
+        Move();
         //Velocity = dummyVelocity;
     }
 

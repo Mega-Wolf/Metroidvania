@@ -188,7 +188,7 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.075, z: 1}
   m_Children: []
   m_Father: {fileID: 6449748120253437211}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1512055666
 SpriteRenderer:
@@ -430,9 +430,9 @@ MonoBehaviour:
   f_controller: {fileID: 439656557}
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
   f_fps: 6
-  f_fullFrames: 7
-  f_attackStartFrame: 4
-  f_attackLastFrame: 6
+  f_fullFrames: 4
+  f_attackStartFrame: 2
+  f_attackLastFrame: 3
   f_damage: {fileID: 208158981937746322}
 --- !u!1 &3527801692014099975
 GameObject:
@@ -552,10 +552,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
-  f_fps: 3
-  f_fullFrames: 13
-  f_attackStartFrame: 10
-  f_attackLastFrame: 12
+  f_fps: 6
+  f_fullFrames: 3
+  f_attackStartFrame: 1
+  f_attackLastFrame: 2
   f_damage: {fileID: 4737915331603448298}
 --- !u!1 &6515037716661281515
 GameObject:
@@ -688,8 +688,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8876319897970463777}
-  - {fileID: 1512055664}
   - {fileID: 6020998608072767530}
+  - {fileID: 1512055664}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -955,6 +955,7 @@ GameObject:
   - component: {fileID: 273509902}
   - component: {fileID: 5930479966760466147}
   - component: {fileID: 100154037815179645}
+  - component: {fileID: 1401937282}
   m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
@@ -974,7 +975,7 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.075, z: 1}
   m_Children: []
   m_Father: {fileID: 6449748120253437211}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2614484485865169865
 SpriteRenderer:
@@ -1079,3 +1080,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_healthBar: {fileID: 5930479966760466147}
   f_invincibleFrames: 50
+--- !u!50 &1401937282
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942961343710430855}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
