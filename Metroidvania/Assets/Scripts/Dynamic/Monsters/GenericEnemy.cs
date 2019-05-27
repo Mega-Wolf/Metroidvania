@@ -71,11 +71,16 @@ public class GenericEnemy : Controller, IDamagable {
 
     #region [Override]
 
-    public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
+    public virtual void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         if (healthAfter <= 0) {
             Consts.Instance.Player.Energy += f_loot.DropEnergy;
             m_living = false;
-            f_health.gameObject.SetActive(false);
+
+            Damage[] damages = GetComponentsInChildren<Damage>();
+            foreach (Damage damage in damages) {
+                damage.enabled = false;
+            }
+
             Animator.enabled = false;
             f_spriteRenderer.color = Color.black;
             return;
@@ -83,6 +88,10 @@ public class GenericEnemy : Controller, IDamagable {
 
         if (!f_noImpact) {
             ReactOnImpact(hitNormal);
+            if (hitNormal.sqrMagnitude > 0) {
+                float angle = Vector2.Angle(hitNormal, transform.right);
+                Backwards = angle < 90 ? true : false;
+            }
         }
 
     }
@@ -90,7 +99,7 @@ public class GenericEnemy : Controller, IDamagable {
     protected override void Move() {
         Grounded = GroundMovement.TryStickToGround();
         if (!Grounded) {
-            Velocity = new Vector2(Velocity.x, Velocity.y - 10f / 60f);
+            Velocity = new Vector2(Velocity.x, Velocity.y - 20f / 60f);
         }
         base.Move();
     }

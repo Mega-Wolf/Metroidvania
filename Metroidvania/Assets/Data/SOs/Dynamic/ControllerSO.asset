@@ -15,4 +15,4 @@ MonoBehaviour:
   extends: 0.1
   extraRayLength: 0.1
   maxCollisionIterations: 3
-  impactLength: 0.33333334
+  impactLength: 2.4999998

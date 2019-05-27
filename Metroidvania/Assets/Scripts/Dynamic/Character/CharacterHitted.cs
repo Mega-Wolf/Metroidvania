@@ -27,7 +27,8 @@ public class CharacterHitted : ControllerState {
 
     public override void LogicalEnter() {
         m_currentHittedDuration = 0;
-        m_enterVelocity = f_controller.Velocity;
+        //m_enterVelocity = f_controller.Velocity;
+        //f_controller.Velocity = Vector2.zero;
     }
 
     public override bool EnterOnCondition() {

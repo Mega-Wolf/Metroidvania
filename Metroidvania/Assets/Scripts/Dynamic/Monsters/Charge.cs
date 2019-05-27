@@ -101,12 +101,23 @@ public class Charge : ControllerState, IDamager {
     }
 
     public override bool HandleFixedUpdate() {
+        //TODO; this is such a hack
+        if (InputManager.Instance.IgnoreInput) {
+            return true;
+        }
 
         if (!f_controller.Grounded) {
             return true;
         }
 
         if (m_cooldown == -1) {
+            if (f_controller.Backwards) {
+                f_controller.Backwards = false;
+                // if (f_controller.Velocity.x != 0) {
+                //     m_walkingRight = 
+                // }
+            }
+
             if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
                 Cancel();
             }
@@ -140,7 +151,9 @@ public class Charge : ControllerState, IDamager {
         f_futureStates = m_futureStatesHelper;
     }
 
-    public override void Abort() { }
+    public override void Abort() {
+        //f_controller.Velocity = Vector2.zero;
+    }
 
     #endregion
 

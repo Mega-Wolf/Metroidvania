@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 499126111828576562, guid: 423f7d835e8a80540b43a7c011c426bc,
         type: 3}
       propertyPath: m_Name
-      value: Rhino (6)
+      value: RhinoBoss
       objectReference: {fileID: 0}
     - target: {fileID: 4573921723474771304, guid: 423f7d835e8a80540b43a7c011c426bc,
         type: 3}

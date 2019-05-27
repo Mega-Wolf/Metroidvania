@@ -48,10 +48,20 @@ public class GoombaWalk : ControllerState {
     }
 
     public override bool HandleFixedUpdate() {
+
+        //TODO; this is such a hack
+        if (InputManager.Instance.IgnoreInput) {
+            return true;
+        }
+
         if (!f_controller.Grounded) {
             return true;
         }
 
+        if (f_controller.Backwards) {
+            f_controller.Backwards = false;
+        }
+        
         if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
             m_walkingRight = !m_walkingRight;
         }
@@ -72,7 +82,9 @@ public class GoombaWalk : ControllerState {
         return true;
     }
 
-    public override void Abort() { }
+    public override void Abort() {
+        //f_controller.Velocity = Vector2.zero;
+    }
 
     #endregion
 

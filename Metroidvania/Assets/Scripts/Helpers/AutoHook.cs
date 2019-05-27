@@ -17,7 +17,8 @@ public class AutohookAttribute : PropertyAttribute {
         AlsoChildren,
         AlsoParent,
         AllParents,
-        SiblingsAndChildren
+        SiblingsAndChildren,
+        UpwardsAllChildren
     }
 
     public readonly AutohookMode Mode = AutohookMode.AlsoChildren;
@@ -106,8 +107,19 @@ public class AutohookPropertyDrawer : UnityEditor.PropertyDrawer {
                         return null;
                     }
                 case AutohookAttribute.AutohookMode.SiblingsAndChildren: {
-                    return component.transform.parent?.GetComponentInChildren(type);
-                }
+                        return component.transform.parent?.GetComponentInChildren(type);
+                    }
+                case AutohookAttribute.AutohookMode.UpwardsAllChildren: {
+                        Transform t = component.transform.parent;
+                        while (t != null) {
+                            ret = t.GetComponentInChildren(type);
+                            if (ret != null) {
+                                return ret;
+                            }
+                            t = t.parent;
+                        }
+                        return null;
+                    }
             }
 
 
