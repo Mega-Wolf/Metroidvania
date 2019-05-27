@@ -9,6 +9,13 @@ public class RhinoBoss : GenericEnemy {
 
     #endregion
 
+    #region [MemberFields]
+
+    [SerializeField]
+    private bool f_startRoll = false;
+
+    #endregion
+
     #region [FinalVariables]
 
     [SerializeField, Autohook]
@@ -39,10 +46,14 @@ public class RhinoBoss : GenericEnemy {
         f_goomba.AddTransitionGoal("Charge", f_charge);
         f_charge.AddTransitionGoal("Goomba", f_goomba);
 
-        //SetStartState(f_goomba);
+        if (f_startRoll) {
+            SetStartState(f_roll);
+            m_isRolling = true;
+        } else {
+            SetStartState(f_goomba);
+            m_isRolling = false;
+        }
 
-        SetStartState(f_roll);
-        m_isRolling = true;
     }
 
     #endregion
