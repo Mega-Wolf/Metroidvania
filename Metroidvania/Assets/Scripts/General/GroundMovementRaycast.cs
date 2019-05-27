@@ -213,6 +213,12 @@ public class GroundMovementRaycast {
                 }
             }
 
+            //TODO; clean up the above; it doesn't seem right
+            // this means only one side touched
+            if (ret ==  GroundTouch.Left || ret ==  GroundTouch.HalfLeft || ret ==  GroundTouch.Centre || ret ==  GroundTouch.HalfRight || ret ==  GroundTouch.Right) {
+                f_controller.Velocity = f_controller.transform.right* speed;
+            }
+
             if (!(hitL && hitR && hitHL && hitHR)) {
                 return ret;
             }

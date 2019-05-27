@@ -39,7 +39,7 @@ public class GoombaWalk : ControllerState {
     public override void LogicalEnter() {
         m_walkingRight = f_controller.Velocity.x > 0;
 
-        f_controller.Grounded = true;
+        //f_controller.Grounded = true;
         f_controller.Backwards = false;
     }
 
@@ -48,6 +48,10 @@ public class GoombaWalk : ControllerState {
     }
 
     public override bool HandleFixedUpdate() {
+        if (!f_controller.Grounded) {
+            return true;
+        }
+
         if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
             m_walkingRight = !m_walkingRight;
         }

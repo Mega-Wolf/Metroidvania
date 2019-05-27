@@ -72,7 +72,7 @@ public class GenericEnemy : Controller, IDamagable {
     #region [Override]
 
     public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        if (healthAfter == 0) {
+        if (healthAfter <= 0) {
             Consts.Instance.Player.Energy += f_loot.DropEnergy;
             m_living = false;
             f_health.gameObject.SetActive(false);
@@ -85,6 +85,14 @@ public class GenericEnemy : Controller, IDamagable {
             ReactOnImpact(hitNormal);
         }
 
+    }
+
+    protected override void Move() {
+        Grounded = GroundMovement.TryStickToGround();
+        if (!Grounded) {
+            Velocity = new Vector2(Velocity.x, Velocity.y - 10f / 60f);
+        }
+        base.Move();
     }
 
     #endregion

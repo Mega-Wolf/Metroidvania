@@ -88,7 +88,7 @@ public class Charge : ControllerState, IDamager {
         m_futureStatesHelper = f_futureStates;
         f_futureStates = m_emptyFutureDummy;
 
-        f_controller.Grounded = true;
+        //f_controller.Grounded = true;
         f_controller.Backwards = false;
 
         f_damage.ExecuteHit(CHARGE_DAMAGE, /*f_controller.LookDirection */ f_controller.Velocity);
@@ -101,6 +101,10 @@ public class Charge : ControllerState, IDamager {
     }
 
     public override bool HandleFixedUpdate() {
+
+        if (!f_controller.Grounded) {
+            return true;
+        }
 
         if (m_cooldown == -1) {
             if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {

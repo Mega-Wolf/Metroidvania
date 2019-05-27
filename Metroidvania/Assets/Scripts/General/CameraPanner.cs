@@ -9,7 +9,10 @@ public class CameraPanner : MonoBehaviour {
         //TODO; disable input (doesn't work due to COntroller stuff)
         Consts.Instance.Camera.CameraMover.MoveCamera(transform.position, () => { });
         //TODO; enable input and then start boss fight
-        Destroy(gameObject);
+        
+        
+        GetComponent<Collider2D>().enabled = false;
+        //Destroy(gameObject);
     }
 
     #endregion

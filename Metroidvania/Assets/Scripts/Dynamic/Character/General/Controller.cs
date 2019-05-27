@@ -172,7 +172,7 @@ public class Controller : MonoBehaviour {
 
     #region [PrivateMethods]
 
-    private void Move() {
+    protected virtual void Move() {
         // moving
         {
             Vector2 origin;

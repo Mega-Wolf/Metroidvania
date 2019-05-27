@@ -476,7 +476,7 @@ MonoBehaviour:
   CHARGE_DAMAGE: {fileID: 11400000, guid: 3c30c94b329937749873bf15ba03b5f7, type: 2}
   CHARGE_SPEED: {fileID: 11400000, guid: 6a93ba22d64a87d4897dabd6c7eb536d, type: 2}
   CHARGE_COOLTIME: {fileID: 11400000, guid: 1f1aa28395f3d674b898fc8b84129009, type: 2}
-  m_stopAtEdges: 1
+  m_stopAtEdges: 0
   f_damageReceiver: 256
   f_chargeRange: {fileID: 3538001225777314767}
   f_chargeHit: {fileID: 3183223492869237112}
