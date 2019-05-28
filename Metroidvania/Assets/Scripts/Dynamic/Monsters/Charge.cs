@@ -122,6 +122,13 @@ public class Charge : ControllerState, IDamager {
                 Cancel();
             }
 
+            //TODO; does not care about transform
+            if (f_controller.Velocity.x < -0.1f) {
+                m_walkingRight = false;
+            } else if (f_controller.Velocity.x > 0.1f) {
+                m_walkingRight = true;
+            } 
+
             f_controller.Velocity = Vector2.zero;
 
             GroundTouch gt = f_controller.GroundMovement.Move((m_walkingRight ? 1 : -1) * CHARGE_SPEED);

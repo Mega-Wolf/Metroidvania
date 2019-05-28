@@ -33,7 +33,7 @@ public class GoombaWalk : ControllerState {
         }
 
         // The following checks if the monster touches the ground
-        return f_controller.GroundMovement.TryStickToGround();
+        return f_controller.GroundMovement.TryStickToGround(true);
     }
 
     public override void LogicalEnter() {
@@ -61,9 +61,16 @@ public class GoombaWalk : ControllerState {
         if (f_controller.Backwards) {
             f_controller.Backwards = false;
         }
-        
+
         if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
             m_walkingRight = !m_walkingRight;
+        }
+
+        //TODO; does not care about transform
+        if (f_controller.Velocity.x < -0.1f) {
+            m_walkingRight = false;
+        } else if (f_controller.Velocity.x > 0.1f) {
+            m_walkingRight = true;
         }
 
         f_controller.Velocity = Vector2.zero;

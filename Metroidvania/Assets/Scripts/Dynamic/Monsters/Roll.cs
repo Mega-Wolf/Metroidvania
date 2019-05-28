@@ -70,6 +70,13 @@ public class Roll : ControllerState {
             m_rollingRight = !m_rollingRight;
         }
 
+        //TODO; does not care about transform
+        if (f_controller.Velocity.x < -0.1f) {
+            m_rollingRight = false;
+        } else if (f_controller.Velocity.x > 0.1f) {
+            m_rollingRight = true;
+        }
+
         f_controller.Velocity = Vector2.zero;
         f_controller.GroundMovement.Move((m_rollingRight ? 1 : -1) * m_rollSpeed);
 

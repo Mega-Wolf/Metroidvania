@@ -93,6 +93,8 @@ public class Health : MonoBehaviour {
     private int f_maxHealth;
     private float f_weight;
 
+    private Controller f_controller;
+
     #endregion
 
     #region [PrivateVariables]
@@ -104,6 +106,7 @@ public class Health : MonoBehaviour {
     #region [Properties]
 
     public int Value { get { return m_health; } }
+    public Controller Controller { get { return f_controller; } }
 
     #endregion
 
@@ -113,17 +116,19 @@ public class Health : MonoBehaviour {
         f_damagables.Add(damagable);
     }
 
-    public void Init(int maxHealth, float weight) {
+    public void Init(int maxHealth, float weight, Controller controller) {
         f_weight = weight;
 
         f_maxHealth = maxHealth;
         m_health = maxHealth;
         f_healthBar.Init(maxHealth);
 
+        f_controller = controller;
+
         //DUNNO Do I really want to do it like that
         //I could do it in Awake/Start/OnVallidate; that however would mean, that I can't do it on runtime again
         //Attention; this stuff does sit somewhere completely different
-        
+
     }
 
     #endregion
