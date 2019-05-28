@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69319915edb922c428bb2558194499fb, type: 3}
   m_Name: RhinoChargeAttention
   m_EditorClassIdentifier: 
-  f_value: 10
+  f_value: 20

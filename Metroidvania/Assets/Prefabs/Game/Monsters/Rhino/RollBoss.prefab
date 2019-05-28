@@ -273,6 +273,7 @@ MonoBehaviour:
   CHARGE_SPEED: {fileID: 11400000, guid: 6a93ba22d64a87d4897dabd6c7eb536d, type: 2}
   CHARGE_COOLTIME: {fileID: 11400000, guid: 1f1aa28395f3d674b898fc8b84129009, type: 2}
   m_stopAtEdges: 0
+  f_runOver: 0
   f_damageReceiver: 256
   f_chargeRange: {fileID: 2120069646364310455}
   f_chargeHit: {fileID: 694940950634078720}
@@ -398,10 +399,10 @@ MonoBehaviour:
   f_needsGroundMovement: 1
   f_animator: {fileID: 5118854776531644460}
   f_noImpact: 0
-  f_maxHealth: 50
+  f_maxHealth: 9
   f_weight: 0
   f_loot:
-    DropEnergy: 0
+    DropEnergy: 4
   f_health: {fileID: 5412274418773383706}
   f_rhinoSO: {fileID: 11400000, guid: a877788053e11114e99f0235c3ee45d2, type: 2}
   f_startRoll: 0
@@ -775,7 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_collider: {fileID: 6289490488264483403}
   f_eDamageReceiver: 256
-  f_damage: 5
+  f_damage: 3
 --- !u!58 &6289490488264483403
 CircleCollider2D:
   m_ObjectHideFlags: 0

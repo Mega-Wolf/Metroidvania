@@ -25,6 +25,8 @@ public class Charge : ControllerState, IDamager {
     [SerializeField]
     private bool m_stopAtEdges = true;
 
+    [SerializeField] private bool f_runOver;
+
     #endregion
 
     #region [FinalVariables]
@@ -82,6 +84,8 @@ public class Charge : ControllerState, IDamager {
     }
 
     public override void LogicalEnter() {
+        f_damage.Init(f_damageReceiver, 0, this);
+
         m_walkingRight = f_controller.Velocity.x > 0;
         m_cooldown = -1;
 
@@ -127,7 +131,7 @@ public class Charge : ControllerState, IDamager {
                 m_walkingRight = false;
             } else if (f_controller.Velocity.x > 0.1f) {
                 m_walkingRight = true;
-            } 
+            }
 
             f_controller.Velocity = Vector2.zero;
 
@@ -152,10 +156,12 @@ public class Charge : ControllerState, IDamager {
     }
 
     public void Damaged(Health health) {
-        m_walkingRight = !m_walkingRight;
-        f_controller.Velocity = new Vector2(-f_controller.Velocity.x, f_controller.Velocity.y);
-        f_damage.Abort();
-        f_futureStates = m_futureStatesHelper;
+        if (!f_runOver) {
+            m_walkingRight = !m_walkingRight;
+            f_controller.Velocity = new Vector2(-f_controller.Velocity.x, f_controller.Velocity.y);
+            f_damage.Abort();
+            f_futureStates = m_futureStatesHelper;
+        }
     }
 
     public override void Abort() {

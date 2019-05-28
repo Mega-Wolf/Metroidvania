@@ -1,8 +1,14 @@
-using System.Collections.Generic;
-using NaughtyAttributes.Editor;
+#if UNITY_EDITOR
 using UnityEditor;
+using NaughtyAttributes.Editor;
+#endif
+
+using System.Collections.Generic;
+
 using UnityEngine;
 using static Consts;
+
+#if UNITY_EDITOR
 
 [CustomEditor(typeof(Consts))]
 public class ConstsEditor : Editor {
@@ -45,6 +51,8 @@ public class ConstsEditor : Editor {
     }
 
 }
+
+#endif
 
 public partial class Consts : Singleton<Consts> {
 

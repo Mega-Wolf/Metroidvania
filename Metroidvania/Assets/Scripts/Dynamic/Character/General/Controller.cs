@@ -177,7 +177,8 @@ public class Controller : MonoBehaviour {
         {
             Vector2 origin;
             float boxHeight;
-            LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+            //LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+            LayerMask GROUND_MASK = f_groundMovement.Mask;
 
             // On the ground, the feet will be ignored, since they often walk through the floor a bit
             if (Grounded) {

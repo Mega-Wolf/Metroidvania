@@ -1,0 +1,12 @@
+Das momentane System für Monster ist mir eindeutig zu umständlich
+
+Allgemein gibt es doch folgende Möglichkeiten sich zu bewegen:
+
+GroundMovement: Erlaubt es am Boden/theoretisch auch an der Wand sich entlang zu bewegen
+Air: Herunterfallen, bis wieder Boden kommt
+Später: Luft (wird man dann sehen, wie das funktionieren wird)
+
+Die StateMachine momentan ist sehr unhandlich, da sie automatisch die States wechseln kann (siehe Umständliches nicht wechseln zu Goomba in Charge)
+
+Es wäre viel sinnvoller zu sagen, welche Bewegungsformen der Charakter unterstützt
+Dann könnte zb. auch die Information in welche Richtung sich bewegt werden soll geteilt werden

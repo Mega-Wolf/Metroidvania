@@ -1,7 +1,9 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Tools.Menu {
@@ -227,3 +229,5 @@ namespace Tools.Menu {
     }
 
 }
+
+#endif

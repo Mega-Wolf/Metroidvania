@@ -2,12 +2,12 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using NaughtyAttributes.Editor;
 #endif
 
 using UnityEngine;
 using System;
 using System.Reflection;
-using NaughtyAttributes.Editor;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class AutohookAttribute : PropertyAttribute {

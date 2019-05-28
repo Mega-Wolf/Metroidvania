@@ -46,6 +46,8 @@ public class PlayerHittingDown : ControllerState, IDamager {
     }
 
     public override void LogicalEnter() {
+        f_damage.Init(EDamageReceiver.Enemy, (int) (FPS * (f_lastFrame - f_startFrame)), this);
+
         m_frame = 0;
         m_damaged = false;
         m_hit = false;

@@ -1,9 +1,15 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class ConstScriptableObject : ScriptableObject { }
+
+
+#if UNITY_EDITOR
 
 /// <summary>
 /// Extends how ScriptableObject object references are displayed in the inspector
@@ -247,3 +253,5 @@ public class ConstScriptableObjectDrawer : PropertyDrawer {
         return false;
     }
 }
+
+#endif

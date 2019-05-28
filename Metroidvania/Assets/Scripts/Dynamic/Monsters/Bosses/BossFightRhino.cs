@@ -11,6 +11,8 @@ public class BossFightRhino : MonoBehaviour {
 
     [SerializeField] private Door[] f_doors;
 
+    [SerializeField] private GameObject pre_little;
+
     #endregion
 
     #region [FinalVariables]
@@ -56,7 +58,34 @@ public class BossFightRhino : MonoBehaviour {
 
     private IEnumerator StartFromDoor(Door door) {
 
-        for (int i = 0; i < 100; ++i) {
+        List<RhinoBoss> spawned = new List<RhinoBoss>();
+
+        //TESTING
+        if (Random.value < 0.2f) {
+            for (int i = 0; i < 100; ++i) {
+                yield return new WaitForFixedUpdate();
+            }
+            for (int i = 0; i < 4; ++i) {
+                GameObject go = Instantiate(pre_little, f_doors[i].SpawnPoint.position, Quaternion.identity);
+                yield return new WaitForFixedUpdate();
+                RhinoBoss rb = go.GetComponent<RhinoBoss>();
+                rb.SwitchState(Random.value > 0.5f);
+                rb.Velocity = f_doors[i].StartDirection;
+                go.SetActive(true);
+                spawned.Add(rb);
+            }
+
+        }
+
+        for (int i = 0; i < 25; ++i) {
+            yield return new WaitForFixedUpdate();
+        }
+
+        // foreach (RhinoBoss rb in spawned) {
+        //     rb.GroundMovement.SetGroundMask(new string[] { "Default", "MonsterTransparent" });
+        // }
+
+        for (int i = 0; i < 75; ++i) {
             yield return new WaitForFixedUpdate();
         }
 

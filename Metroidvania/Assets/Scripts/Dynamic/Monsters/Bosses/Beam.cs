@@ -18,13 +18,27 @@ public class Beam : MonoBehaviour {
         ContactFilter2D cf = new ContactFilter2D();
         cf.SetLayerMask((int)EDamageReceiver.Enemy);
         cf.useLayerMask = true;
-        if (f_nearCollider.OverlapCollider(cf, colliderList) > 0) {
-            f_spriteRenderer.enabled = true;
-            f_door.SetEnabled(true);
-        } else {
-            f_spriteRenderer.enabled = false;
-            f_door.SetEnabled(false);
+
+        f_nearCollider.OverlapCollider(cf, colliderList);
+
+        foreach (Collider2D collider in colliderList) {
+            if (collider.transform.parent.parent.localScale.x >= 1.5) {
+                f_spriteRenderer.enabled = true;
+                f_door.SetEnabled(true);
+                return;
+            }
         }
+
+        f_spriteRenderer.enabled = false;
+        f_door.SetEnabled(false);
+
+        // if (f_nearCollider.OverlapCollider(cf, colliderList) > 0) {
+        //     f_spriteRenderer.enabled = true;
+        //     f_door.SetEnabled(true);
+        // } else {
+        //     f_spriteRenderer.enabled = false;
+        //     f_door.SetEnabled(false);
+        // }
     }
 
 

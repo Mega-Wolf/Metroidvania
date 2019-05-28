@@ -7,10 +7,11 @@ public class CameraPanner : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         Consts.Instance.Camera.FollowCam.enabled = false;
         //TODO; disable input (doesn't work due to COntroller stuff)
-        Consts.Instance.Camera.CameraMover.MoveCamera(transform.position, () => { });
+        Consts.Instance.Camera.CameraMover.MoveCamera(transform.position, () => {
+            transform.GetChild(0).gameObject.SetActive(true);
+        });
         //TODO; enable input and then start boss fight
-        
-        
+
         GetComponent<Collider2D>().enabled = false;
         //Destroy(gameObject);
     }

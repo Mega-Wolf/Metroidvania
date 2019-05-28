@@ -68,6 +68,12 @@ public class GroundMovementRaycast {
 
     #endregion
 
+    #region [PublicMethods]
+
+    public LayerMask Mask { get { return f_groundMask; } }
+
+    #endregion
+
     #region [Constructors]
 
     public GroundMovementRaycast(Controller controller, float height, float halfWidth, bool isPlayer) {
@@ -115,6 +121,10 @@ public class GroundMovementRaycast {
 #endif
 
     #region [PublicMethods]
+
+    public void SetGroundMask(string[] layers) {
+        f_groundMask = LayerMask.GetMask(layers);
+    }
 
     public GroundTouch Move(float speed) {
 
