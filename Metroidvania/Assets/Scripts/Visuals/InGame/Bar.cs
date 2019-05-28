@@ -89,6 +89,11 @@ public class Bar : MonoBehaviour {
             return;
         }
 
+        if (f_matProp == null) {
+            //TODO
+            return;
+        }
+
         f_renderer.GetPropertyBlock(f_matProp);
         f_matProp.SetFloat("_Real", m_value / (float)f_maxValue);
         f_matProp.SetFloat("_Show", m_showValue / (float)f_maxValue);

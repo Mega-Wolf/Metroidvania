@@ -273,6 +273,7 @@ MonoBehaviour:
   CHARGE_SPEED: {fileID: 11400000, guid: 6a93ba22d64a87d4897dabd6c7eb536d, type: 2}
   CHARGE_COOLTIME: {fileID: 11400000, guid: 1f1aa28395f3d674b898fc8b84129009, type: 2}
   m_stopAtEdges: 0
+  f_runOver: 0
   f_damageReceiver: 256
   f_chargeRange: {fileID: 2120069646364310455}
   f_chargeHit: {fileID: 694940950634078720}
@@ -352,6 +353,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8556619508132640185}
   - component: {fileID: 9040217200863622021}
+  - component: {fileID: 9040217200863622020}
+  - component: {fileID: 9040217200863622022}
   m_Layer: 0
   m_Name: RollBoss
   m_TagString: Untagged
@@ -394,18 +397,47 @@ MonoBehaviour:
   f_height: 0.5
   f_halfWidth: 0.25
   f_needsGroundMovement: 1
-  f_animator: {fileID: 0}
-  f_noImpact: 1
-  f_maxHealth: 50
+  f_animator: {fileID: 5118854776531644460}
+  f_noImpact: 0
+  f_maxHealth: 9
   f_weight: 0
   f_loot:
-    DropEnergy: 0
+    DropEnergy: 4
   f_health: {fileID: 5412274418773383706}
   f_rhinoSO: {fileID: 11400000, guid: a877788053e11114e99f0235c3ee45d2, type: 2}
-  f_goomba: {fileID: 0}
+  f_startRoll: 0
+  f_goomba: {fileID: 9040217200863622022}
   f_charge: {fileID: 1406939374543632359}
   f_roll: {fileID: 6626154301780222783}
-  f_hitted: {fileID: 0}
+  f_hitted: {fileID: 9040217200863622020}
+--- !u!114 &9040217200863622020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704843588167369187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b769c0f37b07c547931f5fceb7c2726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_controller: {fileID: 9040217200863622021}
+--- !u!114 &9040217200863622022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704843588167369187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4ebf92425e750458d72f21eab14b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_controller: {fileID: 9040217200863622021}
+  SPEED: {fileID: 11400000, guid: 91c68023f59fb1840bf9fcd56ee42d15, type: 2}
+  m_stopAtEdges: 1
 --- !u!1 &5991727388557731365
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +582,7 @@ MonoBehaviour:
   f_normalCollider: {fileID: 562163238717836416}
   m_rotFrames: 75
   m_rollSpeed: 10
-  m_rollingRight: 0
+  m_rollingRight: 1
   f_spriteRenderer: {fileID: 7392575984077371764}
 --- !u!212 &7392575984077371764
 SpriteRenderer:
@@ -647,6 +679,7 @@ GameObject:
   - component: {fileID: 6084029455175071204}
   - component: {fileID: 6289490488264483403}
   - component: {fileID: 562163238717836416}
+  - component: {fileID: 5118854776531644460}
   m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
@@ -675,7 +708,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8455283919850390089}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -743,7 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_collider: {fileID: 6289490488264483403}
   f_eDamageReceiver: 256
-  f_damage: 5
+  f_damage: 3
 --- !u!58 &6289490488264483403
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -805,3 +838,22 @@ PolygonCollider2D:
       - {x: -0.081250004, y: 0}
       - {x: -0.0375, y: 0.025}
       - {x: 0.0625, y: 0}
+--- !u!95 &5118854776531644460
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455283919850390089}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 258ce3f915fb2b9428074c4cafac5921, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

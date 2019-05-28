@@ -89,7 +89,7 @@ public class Player : Controller, IDamagable {
 
     private void Start() {
         f_health.Add(this);
-        f_health.Init(Consts.Instance.PlayerSO.HEALTH, 0);
+        f_health.Init(Consts.Instance.PlayerSO.HEALTH, 0, this);
     }
 
     #endregion

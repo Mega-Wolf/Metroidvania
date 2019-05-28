@@ -36,7 +36,7 @@ public class PlayerGrounded : ControllerState {
         }
 
         // The following checks if the player touches the ground
-        return f_controller.GroundMovement.TryStickToGround();
+        return f_controller.GroundMovement.TryStickToGround(true);
     }
 
     public override bool HandleFixedUpdate() {

@@ -21,7 +21,8 @@ public class CameraMover : MonoBehaviour {
         goal.z = -10;
         transform.position = goal;
 
-        if (((Vector2)transform.position).Equals(m_target)) {
+        if (Vector2.Distance(transform.position, m_target) < 0.05f) {
+            transform.position = new Vector3(m_target.x, m_target.y, -10);
             enabled = false;
             m_callback();
         }

@@ -84,7 +84,7 @@ public class Controller : MonoBehaviour {
 
     protected virtual void Awake() {
         if (f_needsGroundMovement) {
-            f_groundMovement = new GroundMovementRaycast(this, f_height, HalfWidth);
+            f_groundMovement = new GroundMovementRaycast(this, f_height, HalfWidth, this is Player);
         }
     }
 
@@ -177,15 +177,16 @@ public class Controller : MonoBehaviour {
         {
             Vector2 origin;
             float boxHeight;
-            LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+            //LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+            LayerMask GROUND_MASK = f_groundMovement.Mask;
 
             // On the ground, the feet will be ignored, since they often walk through the floor a bit
             if (Grounded) {
                 origin = transform.TransformPoint(new Vector2(0, f_height * 0.75f));
-                boxHeight = f_height / 2f;
+                boxHeight = f_height / 2f * transform.localScale.y;
             } else { // in air
                 origin = transform.TransformPoint(new Vector2(0, f_height * 0.55f));
-                boxHeight = f_height * 0.9f;
+                boxHeight = f_height * 0.9f * transform.localScale.y;
 
                 //if (Vector2.Angle(transform.up, Velocity) > 45) {
                 if (Velocity.y <= 0) {
@@ -275,6 +276,10 @@ public class Controller : MonoBehaviour {
         //For now I just don't change anything at all and just abort the current specialstate
 
         //Vector2 dummyVelocity = Velocity;
+
+        //TODO; this is because the scalled monsters somewhere have wrong values
+        hitNormal.y = 0;
+
         Velocity = hitNormal * CONTROLLER_SO.IMPACT_LENGTH;
 
         // if (shorter) {

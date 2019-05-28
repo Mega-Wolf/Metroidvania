@@ -69,6 +69,7 @@ public class PlayerHittingUp : ControllerState {
     }
 
     public override void LogicalEnter() {
+        f_damage.Init(EDamageReceiver.Enemy, (int) (FPS * (f_attackLastFrame - f_attackStartFrame)), null);
         m_frame = 0;
         m_hit = false;
     }

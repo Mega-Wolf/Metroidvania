@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 // https://gist.github.com/tomkail/ba4136e6aa990f4dc94e0d39ec6a058c
 // Developed by Tom Kail at Inkle
 // Released under the MIT Licence as held at https://opensource.org/licenses/MIT
@@ -146,3 +148,5 @@ public class ScriptableObjectDrawer : PropertyDrawer {
         return false;
     }
 }
+
+#endif
