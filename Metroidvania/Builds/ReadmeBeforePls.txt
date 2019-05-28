@@ -10,6 +10,9 @@ Steuerung
 - X: Schlag (ggf. + hoch/runter)
 - A: Heilen
 
+- Strg: FastForward
+- Shift: Ultra FastForward
+
 Der obere Balken unterhalb des Charakters ist ein Energiebalken, der sich beim Besiegen von Monstern füllt und fürs Heilen verwendet werden kann.
 
 Die Bossregion ist nicht sonderlich getestet und war haupsächlich gedacht um zu testen was denn wie einfach umsetzbar ist (die Region wird noch umgebaut; die anderen beiden Bosse werden einfacher)

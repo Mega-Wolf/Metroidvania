@@ -775,6 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_collider: {fileID: 6289490488264483403}
+  f_collider2: {fileID: 562163238717836416}
   f_eDamageReceiver: 256
   f_damage: 3
 --- !u!58 &6289490488264483403

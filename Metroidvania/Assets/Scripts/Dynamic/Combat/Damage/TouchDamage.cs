@@ -5,8 +5,11 @@ public class TouchDamage : MonoBehaviour {
 
     #region [FinalVariables]
 
-    [SerializeField, Autohook]
+    [SerializeField]
     private Collider2D f_collider;
+
+    [SerializeField]
+    private Collider2D f_collider2;
 
     [SerializeField]
     private EDamageReceiver f_eDamageReceiver;
@@ -25,6 +28,11 @@ public class TouchDamage : MonoBehaviour {
         cf.useLayerMask = true;
 
         f_collider.OverlapCollider(cf, colliderList);
+
+        //TODO; this is ugly and unnecessary if the other one is enabled
+        if (colliderList.Count == 0) {
+            f_collider2.OverlapCollider(cf, colliderList);
+        }
 
         for (int i = 0; i < colliderList.Count; ++i) {
             Health health = colliderList[i].GetComponent<Health>();

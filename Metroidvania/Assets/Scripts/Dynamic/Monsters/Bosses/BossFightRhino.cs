@@ -24,6 +24,15 @@ public class BossFightRhino : MonoBehaviour {
 
     #region [Init]
 
+    private void Awake() {
+        foreach (Door door in f_doors) {
+            door.EnableColor = m_enabledDoor;
+            door.DisableColor = m_disabledDoor;
+
+            door.SetEnabled(false);
+        }
+    }
+
     private void OnValidate() {
         foreach (Door door in f_doors) {
             door.EnableColor = m_enabledDoor;
