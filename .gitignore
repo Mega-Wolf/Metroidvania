@@ -6,6 +6,7 @@ Metroidvania/Library/*
 [Bb]uild/
 ![Bb]uilds/
 !*.exe
+!*.dll
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
