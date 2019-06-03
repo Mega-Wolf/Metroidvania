@@ -32,7 +32,7 @@ public class AirMovement : Movement {
 
     #region [PublicMethods]
 
-    public void Move(Vector2 speed) {
+    public void Move(float speed) {
         f_controller.Velocity = (Goal - (Vector2)f_controller.transform.position).normalized * speed;
     }
 
