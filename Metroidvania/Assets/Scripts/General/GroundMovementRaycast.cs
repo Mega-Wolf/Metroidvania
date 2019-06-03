@@ -13,7 +13,7 @@ using UnityEngine;
 
 
 
-public class GroundMovementRaycast {
+public class GroundMovementRaycast : Movement {
 
     #region [Static]
 
@@ -70,7 +70,7 @@ public class GroundMovementRaycast {
 
     #region [Properties]
 
-    public LayerMask Mask { get { return f_groundMask; } }
+    public override LayerMask Mask { get { return f_groundMask; } }
 
     public bool MovingRight { get; set; }
 
@@ -121,6 +121,14 @@ public class GroundMovementRaycast {
         }
     }
 #endif
+
+    #region [Override]
+
+    public override void AirMove() {
+        f_controller.Velocity = new Vector2(f_controller.Velocity.x, f_controller.Velocity.y - 20f / 60f);
+    }
+
+    #endregion
 
     #region [PublicMethods]
 
