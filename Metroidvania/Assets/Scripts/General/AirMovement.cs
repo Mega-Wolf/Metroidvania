@@ -39,7 +39,12 @@ public class AirMovement : Movement {
     #region [PublicMethods]
 
     public void Move(float speed) {
-        f_controller.Velocity = (Goal - (Vector2)f_controller.transform.position).normalized * speed;
+        //f_controller.Velocity = (Goal - (Vector2)f_controller.transform.position).normalized * speed;
+
+        Vector2 vel = f_controller.Velocity;
+
+        Vector2 goal = Vector2.SmoothDamp(f_controller.transform.position, Goal, ref vel, 0.25f, speed);
+        f_controller.Velocity = (goal - (Vector2)f_controller.transform.position).normalized * speed;
     }
 
     #endregion
