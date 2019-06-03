@@ -18,9 +18,6 @@ public class Roll : ControllerState {
     [SerializeField]
     private float m_rollSpeed = 10;
 
-    [SerializeField]
-    private bool m_rollingRight;
-
     #endregion
 
     #region [FinalVariables]
@@ -59,7 +56,7 @@ public class Roll : ControllerState {
             return true;
         }
 
-        m_currentRotFrames += m_rollingRight ? -1 : 1;
+        m_currentRotFrames += f_controller.GroundMovement.MovingRight ? -1 : 1;
         transform.localEulerAngles = new Vector3(0, 0, (float)m_currentRotFrames / m_rotFrames * 360);
 
         if (!f_controller.Grounded) {
@@ -67,18 +64,18 @@ public class Roll : ControllerState {
         }
 
         if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
-            m_rollingRight = !m_rollingRight;
+            f_controller.GroundMovement.MovingRight = !f_controller.GroundMovement.MovingRight;
         }
 
         //TODO; does not care about transform
         if (f_controller.Velocity.x < -0.1f) {
-            m_rollingRight = false;
+            f_controller.GroundMovement.MovingRight = false;
         } else if (f_controller.Velocity.x > 0.1f) {
-            m_rollingRight = true;
+            f_controller.GroundMovement.MovingRight = true;
         }
 
         f_controller.Velocity = Vector2.zero;
-        f_controller.GroundMovement.Move((m_rollingRight ? 1 : -1) * m_rollSpeed);
+        f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * m_rollSpeed);
 
         return true;
     }

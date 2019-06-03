@@ -5,7 +5,7 @@ using static GroundMovementRaycast;
 /// </summary>
 public class GoombaWalk : ControllerState {
 
-    #region [Speed]
+    #region [Consts]
 
     [SerializeField]
     private FloatSO SPEED;
@@ -16,12 +16,6 @@ public class GoombaWalk : ControllerState {
 
     [SerializeField]
     private bool m_stopAtEdges = true;
-
-    #endregion
-
-    #region [PrivateVariables]
-
-    private bool m_walkingRight;
 
     #endregion
 
@@ -37,8 +31,6 @@ public class GoombaWalk : ControllerState {
     }
 
     public override void LogicalEnter() {
-        m_walkingRight = f_controller.Velocity.x > 0;
-
         //f_controller.Grounded = true;
         f_controller.Backwards = false;
     }
@@ -63,26 +55,26 @@ public class GoombaWalk : ControllerState {
         }
 
         if (Mathf.Abs(f_controller.Velocity.x) < 0.1f) {
-            m_walkingRight = !m_walkingRight;
+            f_controller.GroundMovement.MovingRight = !f_controller.GroundMovement.MovingRight;
         }
 
         //TODO; does not care about transform
         if (f_controller.Velocity.x < -0.1f) {
-            m_walkingRight = false;
+            f_controller.GroundMovement.MovingRight = false;
         } else if (f_controller.Velocity.x > 0.1f) {
-            m_walkingRight = true;
+            f_controller.GroundMovement.MovingRight = true;
         }
 
         f_controller.Velocity = Vector2.zero;
 
-        GroundTouch gt = f_controller.GroundMovement.Move((m_walkingRight ? 1 : -1) * SPEED);
+        GroundTouch gt = f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * SPEED);
 
         if (m_stopAtEdges) {
             int airDirection = GroundMovementRaycast.AirDirection(gt);
             if (airDirection < 0) {
-                m_walkingRight = true;
+                f_controller.GroundMovement.MovingRight = true;
             } else if (airDirection > 0) {
-                m_walkingRight = false;
+                f_controller.GroundMovement.MovingRight = false;
             }
         }
 

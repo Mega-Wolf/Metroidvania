@@ -52,8 +52,6 @@ public class Charge : ControllerState, IDamager {
     private List<ControllerState> m_futureStatesHelper;
     private List<ControllerState> m_emptyFutureDummy = new List<ControllerState>();
 
-    private bool m_walkingRight;
-
     private int m_cooldown;
 
     #endregion
@@ -86,7 +84,6 @@ public class Charge : ControllerState, IDamager {
     public override void LogicalEnter() {
         f_damage.Init(f_damageReceiver, 0, this);
 
-        m_walkingRight = f_controller.Velocity.x > 0;
         m_cooldown = -1;
 
         m_futureStatesHelper = f_futureStates;
@@ -128,14 +125,14 @@ public class Charge : ControllerState, IDamager {
 
             //TODO; does not care about transform
             if (f_controller.Velocity.x < -0.1f) {
-                m_walkingRight = false;
+                f_controller.GroundMovement.MovingRight = false;
             } else if (f_controller.Velocity.x > 0.1f) {
-                m_walkingRight = true;
+                f_controller.GroundMovement.MovingRight = true;
             }
 
             f_controller.Velocity = Vector2.zero;
 
-            GroundTouch gt = f_controller.GroundMovement.Move((m_walkingRight ? 1 : -1) * CHARGE_SPEED);
+            GroundTouch gt = f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * CHARGE_SPEED);
 
             if (m_stopAtEdges) {
                 int airDirection = GroundMovementRaycast.AirDirection(gt);
@@ -157,7 +154,7 @@ public class Charge : ControllerState, IDamager {
 
     public void Damaged(Health health) {
         if (!f_runOver) {
-            m_walkingRight = !m_walkingRight;
+            f_controller.GroundMovement.MovingRight = !f_controller.GroundMovement.MovingRight;
             f_controller.Velocity = new Vector2(-f_controller.Velocity.x, f_controller.Velocity.y);
             f_damage.Abort();
             f_futureStates = m_futureStatesHelper;

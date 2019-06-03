@@ -68,9 +68,11 @@ public class GroundMovementRaycast {
 
     #endregion
 
-    #region [PublicMethods]
+    #region [Properties]
 
     public LayerMask Mask { get { return f_groundMask; } }
+
+    public bool MovingRight { get; set; }
 
     #endregion
 
@@ -162,11 +164,13 @@ public class GroundMovementRaycast {
 
 
             if (speed > 0) {
+                MovingRight = true;
                 if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
                     Debug.Log("Abort Right: " + Vector2.Angle(Vector2.right, hitR.point - hitHR.point), f_controller);
                     return ret;
                 }
             } else {
+                MovingRight = false;
                 if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
                     Debug.Log("Abort Left: " + Vector2.Angle(Vector2.left, hitL.point - hitHL.point), f_controller);
                     return ret;
