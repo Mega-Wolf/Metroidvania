@@ -23,7 +23,7 @@ public class GoombaFly : ControllerState {
         return true;
     }
 
-    public override void LogicalEnter() {}
+    public override void LogicalEnter() { }
 
     public override void EffectualEnter() {
         f_controller.Animator.Play("Fly");
@@ -31,14 +31,8 @@ public class GoombaFly : ControllerState {
 
     public override bool HandleFixedUpdate() {
 
-        // if (InputManager.Instance.IgnoreInput) {
-        //     return true;
-        // }
-
-        if (Mathf.Abs(f_controller.Velocity.y) < 0.1f) {
-            //if (f_controller.Velocity.y != 0) {
-                m_movingUp = !m_movingUp;
-            //}
+        if (Mathf.Abs(f_controller.Velocity.y) < 0.1f) { 
+            m_movingUp = !m_movingUp;
         }
 
         if (m_movingUp) {
@@ -54,7 +48,7 @@ public class GoombaFly : ControllerState {
         return true;
     }
 
-    public override void Abort() {}
+    public override void Abort() { }
 
     #endregion
 
