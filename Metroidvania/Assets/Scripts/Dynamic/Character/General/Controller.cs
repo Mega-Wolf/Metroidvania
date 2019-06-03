@@ -43,6 +43,8 @@ public class Controller : MonoBehaviour {
     private Animator f_animator;
 
     private GroundMovementRaycast f_groundMovement;
+    private AirMovement f_airMovement;
+    private Movement f_movement;
 
     #endregion
 
@@ -77,6 +79,8 @@ public class Controller : MonoBehaviour {
     public int StateStartedFrame { get { return m_stateStartedFrame; } }
     public int StateStartedStackedFrame { get { return m_stateStartedStackedFrame; } }
     public GroundMovementRaycast GroundMovement { get { return f_groundMovement; } }
+    public AirMovement AirMovement { get { return f_airMovement; } }
+    public Movement Movement { get { return f_movement; } }
 
     #endregion
 
@@ -85,6 +89,10 @@ public class Controller : MonoBehaviour {
     protected virtual void Awake() {
         if (f_needsGroundMovement) {
             f_groundMovement = new GroundMovementRaycast(this, f_height, HalfWidth, this is Player);
+            f_movement = f_groundMovement;
+        } else {
+            f_airMovement = new AirMovement(this);
+            f_movement = f_airMovement;
         }
     }
 

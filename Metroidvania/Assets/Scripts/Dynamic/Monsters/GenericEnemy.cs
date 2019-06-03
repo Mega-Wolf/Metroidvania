@@ -99,7 +99,7 @@ public class GenericEnemy : Controller, IDamagable {
     protected override void Move() {
         Grounded = GroundMovement.TryStickToGround(false);
         if (!Grounded) {
-            Velocity = new Vector2(Velocity.x, Velocity.y - 20f / 60f);
+            Movement.AirMove();
         }
         base.Move();
     }
