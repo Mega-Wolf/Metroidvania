@@ -303,7 +303,7 @@ public class Controller : MonoBehaviour {
 #if UNITY_EDITOR
 
     private void OnDrawGizmos() {
-        f_groundMovement?.OnDrawGizmos();
+        f_movement?.OnDrawGizmos();
     }
 
 #endif

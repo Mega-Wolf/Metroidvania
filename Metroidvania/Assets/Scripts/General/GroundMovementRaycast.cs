@@ -94,7 +94,7 @@ public class GroundMovementRaycast : Movement {
     #endregion
 
 #if UNITY_EDITOR
-    public void OnDrawGizmos() {
+    public override void OnDrawGizmos() {
 
         Vector2 transformedDownward = f_controller.transform.TransformVector(Vector2.down).normalized;
 

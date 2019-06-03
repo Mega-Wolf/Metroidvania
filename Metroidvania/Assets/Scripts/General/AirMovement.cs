@@ -24,6 +24,12 @@ public class AirMovement : Movement {
 
     #endregion
 
+    #if UNITY_EDITOR
+    public override void OnDrawGizmos() {
+        Debug.DrawLine(f_controller.transform.position, f_controller.AirMovement.Goal, Color.green);
+    }
+    #endif
+
     #region [Override]
 
     public override void AirMove() { }

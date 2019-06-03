@@ -8,6 +8,10 @@ public abstract class Movement {
 
     #endregion
 
+    #if UNITY_EDITOR
+    public abstract void OnDrawGizmos();
+    #endif
+
     #region [PublicMethods]
 
     public abstract void AirMove();
