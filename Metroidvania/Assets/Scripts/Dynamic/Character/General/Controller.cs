@@ -186,7 +186,7 @@ public class Controller : MonoBehaviour {
             Vector2 origin;
             float boxHeight;
             //LayerMask GROUND_MASK = LayerMask.GetMask("Default");
-            LayerMask GROUND_MASK = f_groundMovement.Mask;
+            LayerMask GROUND_MASK = f_movement.Mask;
 
             // On the ground, the feet will be ignored, since they often walk through the floor a bit
             if (Grounded) {
@@ -197,7 +197,7 @@ public class Controller : MonoBehaviour {
                 boxHeight = f_height * 0.9f * transform.localScale.y;
 
                 //if (Vector2.Angle(transform.up, Velocity) > 45) {
-                if (Velocity.y <= 0) {
+                if (Velocity.y <= 0 || f_movement is AirMovement) {
                     boxHeight *= 0.9f;
                 }
             }
