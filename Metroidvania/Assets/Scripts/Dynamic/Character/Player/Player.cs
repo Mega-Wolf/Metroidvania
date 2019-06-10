@@ -36,9 +36,6 @@ public class Player : Controller, IDamagable {
     [SerializeField, Autohook]
     private CharacterHitted f_hitted;
 
-    [SerializeField, Autohook]
-    private Health f_health;
-
     #endregion
 
     #region [PrivateVariables]
