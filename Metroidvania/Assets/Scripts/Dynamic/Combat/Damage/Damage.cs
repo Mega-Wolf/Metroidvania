@@ -48,6 +48,9 @@ public class Damage : MonoBehaviour {
         for (int i = 0; i < colliderList.Count; ++i) {
             if (f_hittedAlready.Add(colliderList[i])) {
                 Health health = colliderList[i].GetComponent<Health>();
+                if (!health) {
+                    health = colliderList[i].transform.parent.GetComponent<Health>();
+                }
                 if (health) {
                     Vector2 dir = m_direction;
                     if (m_direction == Vector2.zero) {

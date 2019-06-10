@@ -97,7 +97,10 @@ public class GenericEnemy : Controller, IDamagable {
     }
 
     protected override void Move() {
-        Grounded = GroundMovement.TryStickToGround(false);
+        if (GroundMovement != null) {
+            Grounded = GroundMovement.TryStickToGround(false);
+        }
+
         if (!Grounded) {
             Movement.AirMove();
         }
