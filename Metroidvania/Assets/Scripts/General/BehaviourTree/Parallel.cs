@@ -1,6 +1,6 @@
 using static System.Diagnostics.Debug;
 
-namespace BehaviourTree {
+namespace WolfBT {
 
     /// <summary>
     /// This Node runs several Nodes in parallel and returns the first one which returns a value

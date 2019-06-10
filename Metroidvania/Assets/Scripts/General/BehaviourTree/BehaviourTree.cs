@@ -1,6 +1,8 @@
-namespace BehaviourTree {
+namespace WolfBT {
 
-    public class BehaviourTree {
+//TODO; This is the same as any normal Action BTState
+
+    public class BehaviourTree : BTState {
 
         #region [FinalVariables]
 
@@ -12,15 +14,18 @@ namespace BehaviourTree {
 
         public BehaviourTree(BTState root) {
             f_root = root;
-            f_root.Enter();
         }
 
         #endregion
 
-        #region [PublicMethods]
+        #region [Override]
 
-        public void FixedUpdate(int frames) {
-            f_root.FixedUpdate(frames);
+        public override void Enter() {
+            f_root.Enter();
+        }
+
+        public override BTStateReturn FixedUpdate(int frames) {
+            return f_root.FixedUpdate(frames);
         }
 
         #endregion

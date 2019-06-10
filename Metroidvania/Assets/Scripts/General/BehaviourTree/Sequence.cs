@@ -1,4 +1,4 @@
-namespace BehaviourTree {
+namespace WolfBT {
 
     /// <summary>
     /// This Node runs several states in sequence and returns either if the first node returns true or false
