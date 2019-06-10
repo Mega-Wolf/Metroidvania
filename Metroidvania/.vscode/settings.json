@@ -55,5 +55,6 @@
 
         "**/*.csproj":true,
         "**/*.controller":true,
+        "**/*.browser":true,
     }
 }

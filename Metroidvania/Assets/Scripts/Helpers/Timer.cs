@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO; I should probably make a class out of the input data; so I can actually remove that stuff
+
 /// <summary>
 /// This thing is not very performant and also basically does the same then using Coroutines everywhere
 /// </summary>
@@ -10,7 +12,7 @@ public class Timer : Singleton<Timer> {
 
     #region [FinalVariables]
 
-    private List<(int endFrame, Action action)> f_timedActions = new List<(int, Action)>();
+    private List<(int endFrame, Func<bool> ongoingFuncShallAbort, Action endAction)> f_timedActions = new List<(int, Func<bool>, Action)>();
 
     #endregion
 
@@ -19,8 +21,13 @@ public class Timer : Singleton<Timer> {
     private void FixedUpdate() {
         for (int i = f_timedActions.Count; --i >= 0;) {
             if (f_timedActions[i].endFrame == GameManager.Instance.Frame) {
-                f_timedActions[i].action();
+                f_timedActions[i].endAction();
                 f_timedActions.RemoveAt(i);
+            } else {
+                bool abort = f_timedActions[i].ongoingFuncShallAbort();
+                if (abort) {
+                    f_timedActions.RemoveAt(i);
+                }
             }
         }
     }
@@ -29,17 +36,17 @@ public class Timer : Singleton<Timer> {
 
     #region [PublicMethods]
 
-    public void Register(int frames, Action action) {
-        f_timedActions.Add((GameManager.Instance.Frame + frames, action));
+    public void Register(int frames, Func<bool> ongoingFuncShallAbort, Action endAction) {
+        f_timedActions.Add((GameManager.Instance.Frame + frames, ongoingFuncShallAbort, endAction));
     }
 
-    public void StopTimer(Action action) {
-        for (int i = f_timedActions.Count; --i >= 0;) {
-            if (f_timedActions[i].action == action) {
-                f_timedActions.RemoveAt(i);
-            }
-        }
-    }
+    // public void RemoveTimedFunction(Action action) {
+    //     for (int i = f_timedActions.Count; --i >= 0;) {
+    //         if (f_timedActions[i].endAction == action) {
+    //             f_timedActions.RemoveAt(i);
+    //         }
+    //     }
+    // }
 
     #endregion
 

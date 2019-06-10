@@ -22,13 +22,6 @@ public class GenericEnemy : Controller, IDamagable {
 
     #endregion
 
-    #region [FinalVariables]
-
-    [SerializeField, Autohook]
-    private Health f_health;
-
-    #endregion
-
     #region [PrivateVariables]
 
     private float m_health;

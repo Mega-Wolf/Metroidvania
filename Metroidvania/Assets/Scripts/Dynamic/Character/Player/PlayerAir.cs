@@ -64,7 +64,7 @@ public class PlayerAir : ControllerState {
         {
             Vector2 origin = f_controller.transform.TransformPoint(new Vector2(0, (f_controller.Height / 2f - f_controller.CONTROLLER_SO.EXTRA_RAY_LENGTH) / 2f));
 
-            LayerMask GROUND_MASK = LayerMask.GetMask("Default");
+            LayerMask GROUND_MASK = LayerMask.GetMask("Default", "MonsterTransparent");
 
             // angles is actually always 0
             RaycastHit2D hit = Physics2D.BoxCast(origin, new Vector2(f_controller.HalfWidth * 2f, f_controller.Height / 2f + f_controller.CONTROLLER_SO.EXTRA_RAY_LENGTH), f_controller.transform.eulerAngles.z, Vector2.zero, 0, GROUND_MASK);

@@ -60,7 +60,9 @@ public class TouchDamage : MonoBehaviour {
 
             //TODO; this is ugly and unnecessary if the other one is enabled
             if (colliderList.Count == 0) {
-                f_collider2.OverlapCollider(cf, colliderList);
+                if (f_collider2 != null) {
+                    f_collider2.OverlapCollider(cf, colliderList);
+                }
             }
 
             for (int i = 0; i < colliderList.Count; ++i) {

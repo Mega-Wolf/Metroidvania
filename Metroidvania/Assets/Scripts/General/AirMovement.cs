@@ -12,7 +12,7 @@ public class AirMovement : Movement {
 
     public Vector2 Goal { get; set; }
 
-    public override LayerMask Mask { get { return LayerMask.GetMask("Default", "MonsterTransparent"); } }
+    public override LayerMask Mask { get { return LayerMask.GetMask("Default" /*, "MonsterTransparent" */); } }
 
     #endregion
 
@@ -24,11 +24,11 @@ public class AirMovement : Movement {
 
     #endregion
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     public override void OnDrawGizmos() {
-        Debug.DrawLine(f_controller.transform.position, f_controller.AirMovement.Goal, Color.green);
+        Debug.DrawLine(f_controller.transform.position, Goal, Color.green);
     }
-    #endif
+#endif
 
     #region [Override]
 

@@ -106,7 +106,10 @@ public class Health : MonoBehaviour {
     #region [Properties]
 
     public int Value { get { return m_health; } }
+    public int MaxValue { get { return f_maxHealth; } }
     public Controller Controller { get { return f_controller; } }
+
+    public float Percentage { get { return m_health / (float)f_maxHealth; } }
 
     #endregion
 

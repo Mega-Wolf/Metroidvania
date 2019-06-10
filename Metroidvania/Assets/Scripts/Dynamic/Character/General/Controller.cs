@@ -42,6 +42,9 @@ public class Controller : MonoBehaviour {
     [SerializeField, Autohook]
     private Animator f_animator;
 
+    [SerializeField, Autohook]
+    protected Health f_health;
+
     private GroundMovementRaycast f_groundMovement;
     private AirMovement f_airMovement;
     private Movement f_movement;
@@ -81,6 +84,7 @@ public class Controller : MonoBehaviour {
     public GroundMovementRaycast GroundMovement { get { return f_groundMovement; } }
     public AirMovement AirMovement { get { return f_airMovement; } }
     public Movement Movement { get { return f_movement; } }
+    public Health Health { get { return f_health; } }
 
     #endregion
 
