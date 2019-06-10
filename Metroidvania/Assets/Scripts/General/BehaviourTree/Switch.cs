@@ -1,6 +1,6 @@
 using static System.Diagnostics.Debug;
 
-namespace BehaviourTree {
+namespace WolfBT {
 
     /// <summary>
     /// Like sequence, but index can be chosen to not get reset when left

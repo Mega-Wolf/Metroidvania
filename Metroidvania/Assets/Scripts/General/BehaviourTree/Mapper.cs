@@ -1,4 +1,4 @@
-namespace BehaviourTree {
+namespace WolfBT {
 
     /// <summary>
     /// This state maps the return of a true or false state to a specified value

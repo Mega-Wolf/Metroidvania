@@ -1,4 +1,4 @@
-namespace BehaviourTree {
+namespace WolfBT {
 
     /// <summary>
     /// This Node runs several states in sequence and returns either if the first node returns true or false
@@ -27,7 +27,12 @@ namespace BehaviourTree {
 
         #region [Constructors]
 
-        public Sequence(BTState[] states, SequenceAbort sequenceAbort) {
+        public Sequence(params BTState[] states) {
+            f_states = states;
+            f_sequenceAbort = SequenceAbort.AbortWhenFalse;
+        }
+
+        public Sequence(SequenceAbort sequenceAbort, params BTState[] states) {
             f_states = states;
             f_sequenceAbort = sequenceAbort;
         }
@@ -48,17 +53,23 @@ namespace BehaviourTree {
 
                 switch (ret) {
                     case BTStateReturn.Running:
-                        return BTStateReturn.Running;
+                    case BTStateReturn.Error:
+                        return ret;
                     case BTStateReturn.True:
                         ++m_index;
-                        return (f_sequenceAbort == SequenceAbort.AbortWhenTrue || m_index == f_states.Length) ? BTStateReturn.True : BTStateReturn.Running;
+                        if (f_sequenceAbort == SequenceAbort.AbortWhenTrue || m_index == f_states.Length) {
+                            return BTStateReturn.True;
+                        }
+                        break;
                     case BTStateReturn.False:
                         ++m_index;
-                        return (f_sequenceAbort == SequenceAbort.AbortWhenFalse || m_index == f_states.Length) ? BTStateReturn.False : BTStateReturn.Running;
+                        if (f_sequenceAbort == SequenceAbort.AbortWhenFalse || m_index == f_states.Length) {
+                            return BTStateReturn.False;
+                        }
+                        break;
                 }
 
                 f_states[m_index].Enter();
-
             }
 
         }

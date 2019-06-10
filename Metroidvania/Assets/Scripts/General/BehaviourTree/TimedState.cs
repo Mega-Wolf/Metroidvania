@@ -1,12 +1,12 @@
 namespace WolfBT {
 
-    public abstract class BTState {
+    public abstract class TimedState {
 
         #region [PublicMethods]
 
         public abstract void Enter();
 
-        public abstract BTStateReturn FixedUpdate(int frames);
+        public abstract BTStateReturn UpdateToPercentage(float percentage);
 
         #endregion
 
