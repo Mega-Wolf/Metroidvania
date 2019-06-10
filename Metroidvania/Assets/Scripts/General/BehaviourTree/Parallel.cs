@@ -9,14 +9,16 @@ namespace WolfBT {
 
         #region [FinalVariables]
 
+        private BTStateReturn f_abortState;
         private BTState[] f_states;
 
         #endregion
 
         #region [Constructors]
 
-        public Parallel(BTState[] states) {
+        public Parallel(BTStateReturn abortState, params BTState[] states) {
             Assert(states.Length > 0);
+            f_abortState = abortState;
             f_states = states;
         }
 
@@ -33,7 +35,8 @@ namespace WolfBT {
         public override BTStateReturn FixedUpdate(int frames) {
             for (int i = 0; i < f_states.Length; ++i) {
                 BTStateReturn ret = f_states[i].FixedUpdate(frames);
-                if (ret != BTStateReturn.Running) {
+
+                if ((ret & f_abortState) != 0) {
                     return ret;
                 }
             }
