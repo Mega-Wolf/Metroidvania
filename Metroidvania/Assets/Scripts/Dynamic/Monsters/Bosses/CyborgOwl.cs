@@ -13,7 +13,7 @@ public class CyborgOwl : GenericEnemy {
     protected override void Start() {
         base.Start();
 
-        SetStartState(f_featherFight );
+        SetStartState(f_featherFight);
     }
 
     #endregion
