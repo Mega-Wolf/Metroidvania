@@ -74,7 +74,7 @@ public class TouchDamage : MonoBehaviour {
             }
         }
 
-        if (hittedSth) {
+        if (f_destroySelf && hittedSth) {
             Destroy(gameObject);
         }
     }
