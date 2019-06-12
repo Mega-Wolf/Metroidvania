@@ -115,7 +115,6 @@ public class FeatherFight : ControllerState {
 
     private void SpawnFeathers() {
         for (int i = m_spawnedFeathers; i < m_featherNum * 2; ++i) {
-            Debug.LogWarning("Spawning:" + i);
             GameObject go = Instantiate(preFeather, (Vector2)transform.position + CalcOffset(i), Quaternion.identity, transform);
             go.transform.GetChild(0).localScale = new Vector3(i % 2 == 0 ? 1 : -1, 1, 1);
 
