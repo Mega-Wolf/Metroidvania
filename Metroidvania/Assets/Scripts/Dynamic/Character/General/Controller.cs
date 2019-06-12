@@ -35,6 +35,9 @@ public class Controller : MonoBehaviour {
     [SerializeField]
     private bool f_needsGroundMovement;
 
+    [SerializeField]
+    private bool f_lookAtPlayer;
+
     #endregion
 
     #region [FinalVariables]
@@ -248,16 +251,7 @@ public class Controller : MonoBehaviour {
             }
         }
 
-        // Setting x scale (mirroring)
-        if (Velocity.sqrMagnitude > 0) {
-            float right = System.Math.Sign(Vector2.Dot(Velocity, transform.right));
-
-            if (right != 0) {
-                right *= Backwards ? -1 : 1;
-                f_mirror.localScale = new Vector3(right, 1, 1);
-            }
-
-        }
+        Orient();
 
         f_animator.SetFloat("X", Velocity.x);
         f_animator.SetFloat("Y", Velocity.y);
@@ -267,6 +261,26 @@ public class Controller : MonoBehaviour {
     #endregion
 
     #region [PublicMethods]
+
+    public void Orient() {
+        // Setting x scale (mirroring)
+        if (Velocity.sqrMagnitude > 0) {
+            float right = System.Math.Sign(Vector2.Dot(Velocity, transform.right));
+
+            if (right != 0) {
+                right *= Backwards ? -1 : 1;
+                f_mirror.localScale = new Vector3(right, 1, 1);
+            }
+
+        } else if (f_lookAtPlayer) {
+            Vector3 transformedPlayer = transform.InverseTransformPoint(Consts.Instance.Player.transform.position);
+            if (transformedPlayer.x > 0) {
+                f_mirror.localScale = new Vector3(1, 1, 1);
+            } else if (transformedPlayer.x < 0) {
+                f_mirror.localScale = new Vector3(-1, 1, 1);
+            }
+        }
+    }
 
     public void SetStartState(ControllerState state) {
         m_activeState = state;
