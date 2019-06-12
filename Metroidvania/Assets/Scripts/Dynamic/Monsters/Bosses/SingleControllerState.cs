@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class CyborgOwl : GenericEnemy {
+public class SingleControllerState : GenericEnemy {
 
     #region [FinalVariables]
 
-    [SerializeField, Autohook] private FeatherFight f_featherFight;
+    [SerializeField] private ControllerState f_singleState;
 
     #endregion
 
@@ -13,7 +13,7 @@ public class CyborgOwl : GenericEnemy {
     protected override void Start() {
         base.Start();
 
-        SetStartState(f_featherFight);
+        SetStartState(f_singleState);
     }
 
     #endregion
