@@ -27,6 +27,8 @@ namespace WolfBT {
 
         #region [Constructors]
 
+        public TimerState(int frames) : this(new NOPTimedState(), frames) { }
+
         public TimerState(TimedState timedState, int frames) {
             f_timedState = timedState;
             f_frameDuration = frames;
