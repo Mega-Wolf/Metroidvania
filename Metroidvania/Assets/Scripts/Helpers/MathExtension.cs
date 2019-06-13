@@ -2,6 +2,20 @@ using UnityEngine;
 
 public static class MathExtension {
 
+    public static (float x1, float x2) Midnight(float a, float b, float c) {
+        if (a == 0) {
+            return (float.NaN, float.NaN);
+        }
+        float underSqrt = b * b - 4 * a * c;
+        if (underSqrt < 0) {
+            return (float.NaN, float.NaN);
+        }
+
+        float sqrt = Mathf.Sqrt(underSqrt);
+
+        return ((-b + sqrt) / 2, (-b - sqrt) / 2);
+    }
+
     public static Vector2 Inters(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2) {
 
         // This means they are parallel

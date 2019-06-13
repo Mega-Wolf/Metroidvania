@@ -18,13 +18,13 @@ public class FeatherFight : ControllerState {
 
     #region [FinalVariables]
 
-    private List<Feather> f_feathers = new List<Feather>();
     private List<Feather> f_availableFeathers = new List<Feather>();
 
     #endregion
 
     #region [PrivateVariables]
 
+    private int m_spawnedFeathers = 0;
     private int m_featherNum = 1;
 
     private int m_currentFrames = 0;
@@ -114,12 +114,15 @@ public class FeatherFight : ControllerState {
     }
 
     private void SpawnFeathers() {
-        for (int i = f_feathers.Count; i < m_featherNum * 2; ++i) {
+        for (int i = m_spawnedFeathers; i < m_featherNum * 2; ++i) {
             GameObject go = Instantiate(preFeather, (Vector2)transform.position + CalcOffset(i), Quaternion.identity, transform);
             go.transform.GetChild(0).localScale = new Vector3(i % 2 == 0 ? 1 : -1, 1, 1);
 
             f_availableFeathers.Add(go.GetComponent<Feather>());
         }
+
+        m_spawnedFeathers = m_featherNum * 2;
+
     }
 
     #endregion

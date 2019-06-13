@@ -11,6 +11,7 @@ public class Damage : MonoBehaviour {
     private int f_maxFrames;
     private IDamager f_damager;
     private EDamageReceiver f_eDamageReceiver;
+    private bool f_selfDestroy;
 
     private HashSet<Collider2D> f_hittedAlready = new HashSet<Collider2D>();
 
@@ -26,10 +27,11 @@ public class Damage : MonoBehaviour {
 
     #region [Init]
 
-    public void Init(EDamageReceiver eDamageReceiver, int frameLength, IDamager damager) {
-        f_damager = damager;
-        f_maxFrames = frameLength;
+    public void Init(EDamageReceiver eDamageReceiver, int frameLength, IDamager damager, bool selfDestroy = false) {
         f_eDamageReceiver = eDamageReceiver;
+        f_maxFrames = frameLength;
+        f_damager = damager;
+        f_selfDestroy = selfDestroy;
     }
 
     #endregion
@@ -45,8 +47,11 @@ public class Damage : MonoBehaviour {
         cf.useLayerMask = true;
         f_collider.OverlapCollider(cf, colliderList);
 
+        bool hittedOne = false;
+
         for (int i = 0; i < colliderList.Count; ++i) {
             if (f_hittedAlready.Add(colliderList[i])) {
+                hittedOne = true;
                 Health health = colliderList[i].GetComponent<Health>();
                 if (!health) {
                     health = colliderList[i].transform.parent.GetComponent<Health>();
@@ -60,6 +65,10 @@ public class Damage : MonoBehaviour {
                     f_damager?.Damaged(health);
                 }
             }
+        }
+
+        if (f_selfDestroy && hittedOne) {
+            Destroy(gameObject);
         }
 
         ++m_currentDuration;

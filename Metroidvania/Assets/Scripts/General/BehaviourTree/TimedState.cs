@@ -12,4 +12,17 @@ namespace WolfBT {
 
     }
 
+    public class NOPTimedState : TimedState {
+
+        #region [Override]
+
+        public override void Enter() { }
+
+        public override BTStateReturn UpdateToPercentage(float percentage) {
+            return BTStateReturn.Running;
+        }
+
+        #endregion
+    }
+
 }

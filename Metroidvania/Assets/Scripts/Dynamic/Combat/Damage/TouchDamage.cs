@@ -5,28 +5,25 @@ public class TouchDamage : MonoBehaviour {
 
     #region [FinalVariables]
 
-    [SerializeField]
-    private Collider2D f_collider;
-
-    [SerializeField]
-    private Collider2D f_collider2;
-
+    [SerializeField] private Collider2D f_collider;
+    [SerializeField] private Collider2D f_collider2;
 
     //TODO; only use that (but that would break links)
-    [SerializeField]
-    private Collider2D[] f_colliders;
+    [SerializeField] private Collider2D[] f_colliders;
 
-    [SerializeField]
-    private EDamageReceiver f_eDamageReceiver;
+    [SerializeField][EnumFlag] private EDamageReceiver f_eDamageReceiver;
 
-    [SerializeField]
-    private int f_damage;
+    [SerializeField] private int f_damage;
+
+    [SerializeField] private bool f_destroySelf;
 
     #endregion
 
     #region [Updates]
 
     private void FixedUpdate() {
+        bool hittedSth = false;
+
         if (f_colliders != null && f_colliders.Length != 0) {
             List<Collider2D> colliderList = DamageHelper.ContactList;
             ContactFilter2D cf = new ContactFilter2D();
@@ -41,6 +38,7 @@ public class TouchDamage : MonoBehaviour {
             }
 
             foreach (Collider2D collider in colliderSet) {
+                hittedSth = true;
                 Health health = collider.GetComponent<Health>();
                 if (health) {
                     //TODO; this should still bump the toucher backwards a bit
@@ -66,6 +64,7 @@ public class TouchDamage : MonoBehaviour {
             }
 
             for (int i = 0; i < colliderList.Count; ++i) {
+                hittedSth = true;
                 Health health = colliderList[i].GetComponent<Health>();
                 if (health) {
                     //TODO; this should still bump the toucher backwards a bit
@@ -73,6 +72,10 @@ public class TouchDamage : MonoBehaviour {
                     health.TakeDamage(f_damage, Vector2.zero);
                 }
             }
+        }
+
+        if (f_destroySelf && hittedSth) {
+            Destroy(gameObject);
         }
     }
 
