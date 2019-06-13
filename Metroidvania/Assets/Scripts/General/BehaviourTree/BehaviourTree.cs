@@ -25,7 +25,11 @@ namespace WolfBT {
         }
 
         public override BTStateReturn FixedUpdate(int frames) {
-            return f_root.FixedUpdate(frames);
+            BTStateReturn ret = f_root.FixedUpdate(frames);
+            if (ret != BTStateReturn.Running) {
+                f_root.Enter();
+            }
+            return ret;
         }
 
         #endregion
