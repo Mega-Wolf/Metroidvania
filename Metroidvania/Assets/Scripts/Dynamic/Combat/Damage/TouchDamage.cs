@@ -11,7 +11,7 @@ public class TouchDamage : MonoBehaviour {
     //TODO; only use that (but that would break links)
     [SerializeField] private Collider2D[] f_colliders;
 
-    [SerializeField] private EDamageReceiver f_eDamageReceiver;
+    [SerializeField][EnumFlag] private EDamageReceiver f_eDamageReceiver;
 
     [SerializeField] private int f_damage;
 
@@ -38,9 +38,9 @@ public class TouchDamage : MonoBehaviour {
             }
 
             foreach (Collider2D collider in colliderSet) {
+                hittedSth = true;
                 Health health = collider.GetComponent<Health>();
                 if (health) {
-                    hittedSth = true;
                     //TODO; this should still bump the toucher backwards a bit
                     //TODO; Also, I would still actually want the damaged HashSet since otherwise I kill other creatures very fast
                     health.TakeDamage(f_damage, Vector2.zero);
@@ -64,9 +64,9 @@ public class TouchDamage : MonoBehaviour {
             }
 
             for (int i = 0; i < colliderList.Count; ++i) {
+                hittedSth = true;
                 Health health = colliderList[i].GetComponent<Health>();
                 if (health) {
-                    hittedSth = true;
                     //TODO; this should still bump the toucher backwards a bit
                     //TODO; Also, I would still actually want the damaged HashSet since otherwise I kill other creatures very fast
                     health.TakeDamage(f_damage, Vector2.zero);
