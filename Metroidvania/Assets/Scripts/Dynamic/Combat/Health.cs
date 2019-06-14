@@ -143,7 +143,7 @@ public class Health : MonoBehaviour {
         f_healthBar.Set(m_health);
 
         foreach (IDamagable damagable in f_damagables) {
-            damagable.TakeDamage(-amount, m_health, f_maxHealth, hitNormal);
+            damagable.HandleDamage(-amount, m_health, f_maxHealth, hitNormal);
         }
 
         // if weight != 0 => moveable => Controller
@@ -160,7 +160,7 @@ public class Health : MonoBehaviour {
         f_healthBar.Set(m_health);
 
         foreach (IDamagable damagable in f_damagables) {
-            damagable.TakeDamage(amount, m_health, f_maxHealth, Vector2.zero);
+            damagable.HandleDamage(amount, m_health, f_maxHealth, Vector2.zero);
         }
     }
 
