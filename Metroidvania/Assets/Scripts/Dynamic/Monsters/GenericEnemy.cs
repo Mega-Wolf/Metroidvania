@@ -64,7 +64,7 @@ public class GenericEnemy : Controller, IDamagable {
 
     #region [Override]
 
-    public virtual void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
+    public virtual void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         if (m_living && healthAfter <= 0) {
             Consts.Instance.Player.Energy += f_loot.DropEnergy;
             m_living = false;

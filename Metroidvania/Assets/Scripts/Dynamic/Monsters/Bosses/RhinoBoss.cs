@@ -60,9 +60,9 @@ public class RhinoBoss : GenericEnemy {
 
     #region [Override]
 
-    public override void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
+    public override void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
 
-        base.TakeDamage(amount, healthAfter, maxHealth, hitNormal);
+        base.HandleDamage(amount, healthAfter, maxHealth, hitNormal);
 
         if (m_isRolling) {
             SwitchState(false);

@@ -71,7 +71,7 @@ public class PlayerHittingDown : ControllerState, IDamager {
         return true;
     }
 
-    public void Damaged(Health health) {
+    public void Damaged(IDamageTaker health) {
         if (!m_damaged) {
             m_damaged = true;
             f_controller.Velocity = new Vector2(f_controller.Velocity.x, Consts.Instance.PlayerSO.PLAYER_AIR.JUMP_SPEED / 1.5f);

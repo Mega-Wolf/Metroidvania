@@ -152,7 +152,7 @@ public class Charge : ControllerState, IDamager {
         return true;
     }
 
-    public void Damaged(Health health) {
+    public void Damaged(IDamageTaker health) {
         if (!f_runOver) {
             f_controller.GroundMovement.MovingRight = !f_controller.GroundMovement.MovingRight;
             f_controller.Velocity = new Vector2(-f_controller.Velocity.x, f_controller.Velocity.y);

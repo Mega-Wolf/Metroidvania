@@ -70,11 +70,15 @@ using UnityEngine;
 /// - Hit:  start frame, end frame, collider, damage
 /// - Shoot: damage, direction, speed, start frame, 
 
+public interface IDamageTaker {
+    void TakeDamage(int amount, Vector2 hitNormal);
+}
+
 /// <summary>
 /// This class handles getting damage
 /// It will NOT turn invincible after getting hit
 /// </summary>
-public class Health : MonoBehaviour {
+public class Health : MonoBehaviour, IDamageTaker {
 
     #region [Consts]
 
@@ -143,7 +147,7 @@ public class Health : MonoBehaviour {
         f_healthBar.Set(m_health);
 
         foreach (IDamagable damagable in f_damagables) {
-            damagable.TakeDamage(-amount, m_health, f_maxHealth, hitNormal);
+            damagable.HandleDamage(-amount, m_health, f_maxHealth, hitNormal);
         }
 
         // if weight != 0 => moveable => Controller
@@ -160,7 +164,7 @@ public class Health : MonoBehaviour {
         f_healthBar.Set(m_health);
 
         foreach (IDamagable damagable in f_damagables) {
-            damagable.TakeDamage(amount, m_health, f_maxHealth, Vector2.zero);
+            damagable.HandleDamage(amount, m_health, f_maxHealth, Vector2.zero);
         }
     }
 

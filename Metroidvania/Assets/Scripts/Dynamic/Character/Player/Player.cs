@@ -93,7 +93,7 @@ public class Player : Controller, IDamagable {
 
     #region [Override]
 
-    public void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
+    public void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         //TODO; that looks awful
         ReactOnImpact(-hitNormal);
         // m_activeStackedState = f_hitted;

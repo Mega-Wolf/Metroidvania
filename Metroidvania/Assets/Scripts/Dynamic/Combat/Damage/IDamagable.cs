@@ -5,6 +5,6 @@ using UnityEngine;
 /// </summary>
 public interface IDamagable {
     
-    void TakeDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal);
+    void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal);
 
 }
