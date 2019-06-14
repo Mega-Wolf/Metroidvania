@@ -39,8 +39,8 @@ public class TouchDamage : MonoBehaviour {
 
             foreach (Collider2D collider in colliderSet) {
                 hittedSth = true;
-                Health health = collider.GetComponent<Health>();
-                if (health) {
+                IDamageTaker health = collider.GetComponent<IDamageTaker>();
+                if (health != null) {
                     //TODO; this should still bump the toucher backwards a bit
                     //TODO; Also, I would still actually want the damaged HashSet since otherwise I kill other creatures very fast
                     health.TakeDamage(f_damage, Vector2.zero);
@@ -65,8 +65,8 @@ public class TouchDamage : MonoBehaviour {
 
             for (int i = 0; i < colliderList.Count; ++i) {
                 hittedSth = true;
-                Health health = colliderList[i].GetComponent<Health>();
-                if (health) {
+                IDamageTaker health = colliderList[i].GetComponent<IDamageTaker>();
+                if (health != null) {
                     //TODO; this should still bump the toucher backwards a bit
                     //TODO; Also, I would still actually want the damaged HashSet since otherwise I kill other creatures very fast
                     health.TakeDamage(f_damage, Vector2.zero);

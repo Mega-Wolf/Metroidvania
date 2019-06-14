@@ -70,7 +70,7 @@ public class ColliderChecker : MonoBehaviour {
         m_polygonColliders = new List<PolygonCollider2D>();
 
         foreach (PolygonCollider2D collider in allPolies) {
-            if (collider.gameObject.GetComponent<Health>() == null) {
+            if (collider.gameObject.GetComponent<IDamageTaker>() == null) {
                 m_polygonColliders.Add(collider);
             }
         }

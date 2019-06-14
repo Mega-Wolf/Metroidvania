@@ -52,11 +52,11 @@ public class Damage : MonoBehaviour {
         for (int i = 0; i < colliderList.Count; ++i) {
             if (f_hittedAlready.Add(colliderList[i])) {
                 hittedOne = true;
-                Health health = colliderList[i].GetComponent<Health>();
-                if (!health) {
-                    health = colliderList[i].transform.parent.GetComponent<Health>();
+                IDamageTaker health = colliderList[i].GetComponent<IDamageTaker>();
+                if (health == null) {
+                    health = colliderList[i].transform.parent.GetComponent<IDamageTaker>();
                 }
-                if (health) {
+                if (health != null) {
                     Vector2 dir = m_direction;
                     if (m_direction == Vector2.zero) {
                         //TODO a velocity - b velocity (or other way round)

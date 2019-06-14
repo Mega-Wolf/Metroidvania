@@ -1,5 +1,5 @@
 public interface IDamager {
     
-    void Damaged(Health health);
+    void Damaged(IDamageTaker health);
 
 }
