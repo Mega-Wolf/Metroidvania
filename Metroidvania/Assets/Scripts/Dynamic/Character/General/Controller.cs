@@ -177,7 +177,7 @@ public class Controller : MonoBehaviour {
         }
 
         //TODO; For hold effects in special states; that won't work now
-        //T** Therefore I dhould define better when stuff is blocked (maybe only in m_activeStates)
+        //T** Therefore I should define better when stuff is blocked (maybe only in m_activeStates)
         InputManager.Instance.IgnoreInput = false;
 
         Move();
@@ -288,7 +288,7 @@ public class Controller : MonoBehaviour {
             m_activeStackedState = null;
         }
 
-        if (m_activeState)        {
+        if (m_activeState) {
             m_activeState.Abort();
         }
 
