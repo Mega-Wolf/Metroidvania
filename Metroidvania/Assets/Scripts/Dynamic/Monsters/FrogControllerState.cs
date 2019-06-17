@@ -22,14 +22,14 @@ public class FrogControllerState : ControllerState {
         f_behaviourTree = new BehaviourTree(
             new Sequence(
                 new ActionGroup(Actions.PlayAnimation(f_controller.Animator, "Idle")),
-                new TimerState(100),
+                new TimerState(50),
                 new ActionGroup(Actions.PlayAnimation(f_controller.Animator, "Puke")),
                 new TimerState(10),
                 new ActionGroup(() => {
                     GameObject go = Instantiate(prePuke, f_pukePosition.position, Quaternion.identity);
                     go.transform.GetChild(0).GetComponent<Spit>().Shoot();
                 }),
-                new TimerState(100)
+                new TimerState(50)
             )
         );
     }
