@@ -7,7 +7,7 @@ public class Damage : MonoBehaviour {
 
     [SerializeField, Autohook]
     private Collider2D f_collider;
-    
+
     private int f_maxFrames;
     private IDamager f_damager;
     private EDamageReceiver f_eDamageReceiver;
@@ -58,16 +58,18 @@ public class Damage : MonoBehaviour {
                 if (health == null) {
                     health = colliderList[i].transform.parent.GetComponent<IDamageTaker>();
                 }
-                if (health != null && (health.Controller == null || health.Controller.enabled)) {
-                    Vector2 dir = m_direction;
-                    if (m_direction == Vector2.zero) {
-                        //TODO a velocity - b velocity (or other way round)
+                if (health != null) {
+                    if (health.Controller == null || health.Controller.enabled) {
+                        Vector2 dir = m_direction;
+                        if (m_direction == Vector2.zero) {
+                            //TODO a velocity - b velocity (or other way round)
+                        }
+                        health.TakeDamage(m_damage, dir);
+                        f_damager?.Damaged(health);
                     }
-                    health.TakeDamage(m_damage, dir);
-                    f_damager?.Damaged(health);
+                } else if (f_reportEveryHit) {
+                    f_damager?.Damaged(null);
                 }
-            } else if (f_reportEveryHit) {
-                f_damager?.Damaged(null);
             }
         }
 
