@@ -78,12 +78,14 @@ public class SpawnTriggers : MonoBehaviour {
             }
         } else {
             if (m_enemy != null && m_enemy.Health.Value == 0) {
-                m_enemy = null;
+                Destroy(m_enemy.gameObject);
                 m_currentCooldown = 5 * f_cooldownTime;
             } else {
                 m_currentExtendFrames = Mathf.Max(0, m_currentExtendFrames - 1);
                 if (m_currentExtendFrames == f_extendFrames - 1) {
-                    m_enemy.enabled = false;
+                    if (m_enemy) {
+                        m_enemy.enabled = false;
+                    }
                 }
             }
 
