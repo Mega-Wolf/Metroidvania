@@ -56,8 +56,6 @@ public class Player : Controller, IDamagable {
         }
     }
 
-    public Health Health { get { return f_health; } }
-
     #endregion
 
     #region [Init]
