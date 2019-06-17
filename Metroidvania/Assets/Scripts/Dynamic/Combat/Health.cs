@@ -72,6 +72,8 @@ using UnityEngine;
 
 public interface IDamageTaker {
     void TakeDamage(int amount, Vector2 hitNormal);
+
+    Controller Controller { get; }
 }
 
 /// <summary>
@@ -114,6 +116,12 @@ public class Health : MonoBehaviour, IDamageTaker {
     public Controller Controller { get { return f_controller; } }
 
     public float Percentage { get { return m_health / (float)f_maxHealth; } }
+
+    public bool Visibility {
+        set {
+            f_healthBar.Visibility = value;
+        }
+    }
 
     #endregion
 

@@ -36,21 +36,26 @@ public class SpawnTriggers : MonoBehaviour {
             --m_currentCooldown;
         }
 
-        f_nearCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
-        if (DamageHelper.ContactList.Count > 0) {
-            if (m_outwards) {
-                m_currentCooldown = f_cooldownTime;
-            }
-            m_outwards = false;
-        } else {
-            f_farCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
-            if (DamageHelper.ContactList.Count > 0 && m_currentCooldown == 0) {
-                m_outwards = true;
-            } else {
+        if (m_currentCooldown == 0) {
+            f_nearCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
+            if (DamageHelper.ContactList.Count > 0) {
                 if (m_outwards) {
                     m_currentCooldown = f_cooldownTime;
                 }
                 m_outwards = false;
+            } else {
+                f_farCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
+                if (DamageHelper.ContactList.Count > 0) {
+                    if (!m_outwards) {
+                        m_currentCooldown = f_cooldownTime;
+                    }
+                    m_outwards = true;
+                } else {
+                    if (m_outwards) {
+                        m_currentCooldown = f_cooldownTime;
+                    }
+                    m_outwards = false;
+                }
             }
         }
 
@@ -65,16 +70,23 @@ public class SpawnTriggers : MonoBehaviour {
             }
             if (m_currentExtendFrames == f_extendFrames - 1) {
                 m_enemy.enabled = true;
+                m_enemy.Start();
             }
             if (m_currentExtendFrames == f_extendFrames && !f_respawn) {
                 m_enemy.transform.parent = null;
                 Destroy(gameObject);
             }
         } else {
-            m_currentExtendFrames = Mathf.Max(0, m_currentExtendFrames - 1);
-            if (m_currentExtendFrames == f_extendFrames - 1) {
-                m_enemy.enabled = false;
+            if (m_enemy != null && m_enemy.Health.Value == 0) {
+                m_enemy = null;
+                m_currentCooldown = 5 * f_cooldownTime;
+            } else {
+                m_currentExtendFrames = Mathf.Max(0, m_currentExtendFrames - 1);
+                if (m_currentExtendFrames == f_extendFrames - 1) {
+                    m_enemy.enabled = false;
+                }
             }
+
         }
 
         if (m_enemy) {

@@ -283,6 +283,15 @@ public class Controller : MonoBehaviour {
     }
 
     public void SetStartState(ControllerState state) {
+        if (m_activeStackedState) {
+            m_activeStackedState.Abort();
+            m_activeStackedState = null;
+        }
+
+        if (m_activeState)        {
+            m_activeState.Abort();
+        }
+
         m_activeState = state;
         m_activeState.LogicalEnter();
         m_activeState.EffectualEnter();

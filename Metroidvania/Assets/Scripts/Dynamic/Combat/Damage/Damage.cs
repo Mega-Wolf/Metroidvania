@@ -12,6 +12,7 @@ public class Damage : MonoBehaviour {
     private IDamager f_damager;
     private EDamageReceiver f_eDamageReceiver;
     private bool f_selfDestroy;
+    private bool f_reportEveryHit;
 
     private HashSet<Collider2D> f_hittedAlready = new HashSet<Collider2D>();
 
@@ -27,11 +28,12 @@ public class Damage : MonoBehaviour {
 
     #region [Init]
 
-    public void Init(EDamageReceiver eDamageReceiver, int frameLength, IDamager damager, bool selfDestroy = false) {
+    public void Init(EDamageReceiver eDamageReceiver, int frameLength, IDamager damager, bool selfDestroy = false, bool reportEveryHit = false) {
         f_eDamageReceiver = eDamageReceiver;
         f_maxFrames = frameLength;
         f_damager = damager;
         f_selfDestroy = selfDestroy;
+        f_reportEveryHit = reportEveryHit;
     }
 
     #endregion
@@ -56,7 +58,7 @@ public class Damage : MonoBehaviour {
                 if (health == null) {
                     health = colliderList[i].transform.parent.GetComponent<IDamageTaker>();
                 }
-                if (health != null) {
+                if (health != null && (health.Controller == null || health.Controller.enabled)) {
                     Vector2 dir = m_direction;
                     if (m_direction == Vector2.zero) {
                         //TODO a velocity - b velocity (or other way round)
@@ -64,6 +66,8 @@ public class Damage : MonoBehaviour {
                     health.TakeDamage(m_damage, dir);
                     f_damager?.Damaged(health);
                 }
+            } else if (f_reportEveryHit) {
+                f_damager?.Damaged(null);
             }
         }
 

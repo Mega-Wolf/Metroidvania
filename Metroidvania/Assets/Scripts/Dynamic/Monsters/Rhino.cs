@@ -21,7 +21,7 @@ public class Rhino : GenericEnemy {
 
     #region [Init]
 
-    protected override void Start() {
+    public override void Start() {
         base.Start();
 
         f_goomba.AddTransitionGoal("Charge", f_charge);
