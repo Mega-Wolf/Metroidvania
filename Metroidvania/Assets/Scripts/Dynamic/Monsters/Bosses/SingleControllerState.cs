@@ -10,7 +10,7 @@ public class SingleControllerState : GenericEnemy {
 
     #region [Override]
 
-    protected override void Start() {
+    public override void Start() {
         base.Start();
 
         SetStartState(f_singleState);

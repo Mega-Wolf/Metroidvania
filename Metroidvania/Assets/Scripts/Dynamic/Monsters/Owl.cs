@@ -10,7 +10,7 @@ public class Owl : GenericEnemy {
 
     #region [Init]
 
-    protected override void Start() {
+    public override void Start() {
         base.Start();
 
         SetStartState(f_goomba);

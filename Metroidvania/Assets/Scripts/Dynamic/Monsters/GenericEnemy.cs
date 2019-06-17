@@ -37,9 +37,19 @@ public class GenericEnemy : Controller, IDamagable {
         m_health = f_maxHealth;
     }
 
-    protected virtual void Start() {
+    private void OnEnable() {
+        if (f_health) {
+            f_health.Visibility = true;
+        }
+    }
+
+    public virtual void Start() {
         f_health.Init(f_maxHealth, f_weight, this);
         f_health.Add(this);
+    }
+
+    private void OnDisable() {
+        f_health.Visibility = false;
     }
 
     #endregion

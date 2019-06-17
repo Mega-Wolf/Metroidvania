@@ -42,6 +42,16 @@ public class Bar : MonoBehaviour {
 
     #endregion
 
+    #region [Properties]
+
+    public bool Visibility {
+        set {
+            f_renderer.enabled = value;
+        }
+    }
+
+    #endregion
+
     #region [Init]
 
     private void Awake() {
