@@ -92,6 +92,8 @@ public class Spit : MonoBehaviour, IDamager {
             }
         }
 
+        m_a = Mathf.Min(m_a, -0.2f);
+
         m_right = playerPos.x > 0;
     }
 
