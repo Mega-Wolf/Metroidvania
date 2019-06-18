@@ -170,9 +170,6 @@ public class GroundMovementRaycast : Movement {
                 ret |= GroundTouch.Right;
             }
 
-
-            // TODO this refuses me to get closer to a wall
-
             if (speed > 0) {
                 MovingRight = true;
 
@@ -199,13 +196,28 @@ public class GroundMovementRaycast : Movement {
             Vector2 middleVector = (hitHR.point - hitHL.point).normalized;
 
             if (hitHL && hitHR) {
-                // corrrecting the curent transform
+                // corrrecting the current transform
+
+                RaycastHit2D hitQL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+                RaycastHit2D hitQR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+
+                if (!hitQL) {
+                    hitQL = hitHL;
+                }
+
+                if (!hitQR) {
+                    hitQR = hitHR;
+                }
+
+                middleVector = (hitQR.point - hitQL.point).normalized;
+
                 f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross(middleVector, Vector3.back));
 
                 if (hitC && (hitL || hitR)) {
                     f_controller.transform.position = hitC.point;
                 } else {
-                    f_controller.transform.position = (hitHR.point + hitHL.point) / 2f;
+                    //f_controller.transform.position = (hitHR.point + hitHL.point) / 2f;
+                    f_controller.transform.position = (hitQR.point + hitQL.point) / 2f;
                 }
             } else if (hitC) {
                 f_controller.transform.position = hitC.point;
@@ -276,9 +288,11 @@ public class GroundMovementRaycast : Movement {
 
         float RAY_LENGTH = f_halfHeight * f_controller.transform.localScale.y + EXTRA_RAY_LENGTH;
 
+        //RaycastHit2D hitL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth - OUTER_EXTEND, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
         RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
         RaycastHit2D hitC = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
         RaycastHit2D hitHR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+        //RaycastHit2D hitR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth + OUTER_EXTEND, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
 
         if (!correct) {
             if (hitHL && hitHR) {
@@ -292,9 +306,25 @@ public class GroundMovementRaycast : Movement {
             }
         } else {
             if (hitHL && hitHR) {
-                f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
-                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
-                // TODO; here; the fit into corners bug happens
+
+
+                RaycastHit2D hitQL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+                RaycastHit2D hitQR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+
+                if (!hitQL) {
+                    hitQL = hitHL;
+                }
+
+                if (!hitQR) {
+                    hitQR = hitHR;
+                }
+
+                //f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
+                //f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
+
+                f_controller.transform.position = (hitQL.point + hitQR.point) / 2f;
+                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitQR.point - hitQL.point).normalized, Vector3.back));
+
                 return true;
             } else if (hitC) {
                 if (hitHL) {
