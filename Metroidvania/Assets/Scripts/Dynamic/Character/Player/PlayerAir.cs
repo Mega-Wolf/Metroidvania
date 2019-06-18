@@ -102,10 +102,10 @@ public class PlayerAir : ControllerState {
 #endif
         {
             int move = 0;
-            if (InputManager.Instance.GetButton("Left")) {
+            if (InputManager.Instance.GetButton("Left", true)) {
                 move = -1;
             }
-            if (InputManager.Instance.GetButton("Right")) {
+            if (InputManager.Instance.GetButton("Right", true)) {
                 ++move;
             }
 
