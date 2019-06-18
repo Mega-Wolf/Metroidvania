@@ -64,6 +64,15 @@ public class Damage : MonoBehaviour {
                         if (m_direction == Vector2.zero) {
                             //TODO a velocity - b velocity (or other way round)
                         }
+                        
+                        bool shallSpawn = true;
+                        if (health.Controller is Player p) {
+                            shallSpawn = !(p.ActiveStackedState is CharacterHitted);
+                        }
+                        if (shallSpawn) {
+                            Instantiate(Consts.Instance.PreHit, (colliderList[i].transform.position + f_collider.transform.position) / 2f, Quaternion.identity);
+                        }
+
                         health.TakeDamage(m_damage, dir);
                         f_damager?.Damaged(health);
                     }

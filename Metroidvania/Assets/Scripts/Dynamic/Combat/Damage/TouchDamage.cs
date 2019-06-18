@@ -11,11 +11,23 @@ public class TouchDamage : MonoBehaviour {
     //TODO; only use that (but that would break links)
     [SerializeField] private Collider2D[] f_colliders;
 
-    [SerializeField][EnumFlag] private EDamageReceiver f_eDamageReceiver;
+    [SerializeField] [EnumFlag] private EDamageReceiver f_eDamageReceiver;
 
     [SerializeField] private int f_damage;
 
     [SerializeField] private bool f_destroySelf;
+
+    #endregion
+
+    #region [Init]
+
+    private void Start() {
+        if (f_colliders == null || f_colliders.Length == 0) {
+            f_colliders = new Collider2D[2];
+            f_colliders[0] = f_collider;
+            f_colliders[1] = f_collider2;
+        }
+    }
 
     #endregion
 
@@ -31,24 +43,45 @@ public class TouchDamage : MonoBehaviour {
             cf.useLayerMask = true;
 
             HashSet<Collider2D> colliderSet = new HashSet<Collider2D>();
+            List<(Collider2D self, Collider2D other)> colliderCombos = new List<(Collider2D, Collider2D)>();
 
             for (int i = 0; i < f_colliders.Length; ++i) {
+                if (f_colliders[i] == null) {
+                    continue;
+                }
                 f_colliders[i].OverlapCollider(cf, colliderList);
-                colliderSet.UnionWith(colliderList);
+                for (int j = 0; j < colliderList.Count; ++j) {
+                    if (colliderSet.Add(colliderList[j])) {
+                        colliderCombos.Add((f_colliders[i], colliderList[j]));
+                    }
+                }
             }
 
-            foreach (Collider2D collider in colliderSet) {
+            for (int i = 0; i < colliderCombos.Count; ++i) {
                 hittedSth = true;
-                IDamageTaker health = collider.GetComponent<IDamageTaker>();
+                IDamageTaker health = colliderCombos[i].other.GetComponent<IDamageTaker>();
                 if (health != null) {
+                    bool shallSpawn = true;
+                    if (health.Controller is Player p) {
+                        shallSpawn = !(p.ActiveStackedState is CharacterHitted);
+                    }
+                    if (shallSpawn) {
+                        Instantiate(Consts.Instance.PreHit, (colliderCombos[i].self.transform.position + colliderCombos[i].other.transform.position) / 2f, Quaternion.identity);
+                    }
+
                     //TODO; this should still bump the toucher backwards a bit
                     //TODO; Also, I would still actually want the damaged HashSet since otherwise I kill other creatures very fast
                     health.TakeDamage(f_damage, Vector2.zero);
+
                 }
             }
 
 
         } else {
+            Debug.LogWarning("HERE");
+            //TODO; this is not reached anymore
+
+
             List<Collider2D> colliderList = DamageHelper.ContactList;
             ContactFilter2D cf = new ContactFilter2D();
             cf.SetLayerMask((int)f_eDamageReceiver);

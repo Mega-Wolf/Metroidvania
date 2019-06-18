@@ -94,9 +94,9 @@ public class Player : Controller, IDamagable {
     public void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         //TODO; that looks awful
         ReactOnImpact(-hitNormal);
-        // m_activeStackedState = f_hitted;
-        // m_activeStackedState.LogicalEnter();
-        // m_activeStackedState.EffectualEnter();
+        m_activeStackedState = f_hitted;
+        m_activeStackedState.LogicalEnter();
+        m_activeStackedState.EffectualEnter();
     }
 
     #endregion

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterHitted : ControllerState {
 
-    private const int STUNNED_LENGTH = 20;
+    private const int STUNNED_LENGTH = 0;//20;
     private const int HITTED_LENGTH = 50;
 
     #region [PrivateVariables]
