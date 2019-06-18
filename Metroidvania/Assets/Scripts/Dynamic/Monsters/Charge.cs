@@ -18,6 +18,9 @@ public class Charge : ControllerState, IDamager {
     [SerializeField]
     private IntSO CHARGE_COOLTIME;
 
+    private Color COLOR_NORMAL = Color.yellow;
+    private Color COLOR_RAGE = Color.red;
+
     #endregion
 
     #region [MemberFields]
@@ -30,6 +33,8 @@ public class Charge : ControllerState, IDamager {
     #endregion
 
     #region [FinalVariables]
+
+    [SerializeField, Autohook] private SpriteRenderer f_exclamationMark;
 
     [SerializeField]
     private EDamageReceiver f_damageReceiver;
@@ -74,8 +79,22 @@ public class Charge : ControllerState, IDamager {
 
         if (amount > 0) {
             ++m_seeingEnemy;
+            if (m_seeingEnemy == 1) {
+                f_exclamationMark.enabled = true;
+            }
         } else {
-            m_seeingEnemy = 0;
+            if (m_seeingEnemy > 0) {
+                --m_seeingEnemy;
+                if (m_seeingEnemy == 0) {
+                    f_exclamationMark.enabled = false;
+                }
+            }
+        }
+
+        f_exclamationMark.color = Color.Lerp(COLOR_NORMAL, COLOR_RAGE, m_seeingEnemy / (float)FRAMES_ATTENTION);
+
+        if (m_seeingEnemy == FRAMES_ATTENTION) {
+            f_exclamationMark.enabled = false;
         }
 
         return m_seeingEnemy == FRAMES_ATTENTION;
