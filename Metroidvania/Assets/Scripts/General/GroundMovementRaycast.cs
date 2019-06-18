@@ -170,16 +170,24 @@ public class GroundMovementRaycast : Movement {
                 ret |= GroundTouch.Right;
             }
 
-
             if (speed > 0) {
                 MovingRight = true;
-                if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
+
+                if (
+                    (!hitC && hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) ||
+                    (hitC && hitHR && Vector2.Angle(Vector2.right, hitHR.point - hitC.point) > MAX_ABS_SLOPE)
+                ) {
+                    // if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
                     //Debug.Log("Abort Right: " + Vector2.Angle(Vector2.right, hitR.point - hitHR.point), f_controller);
                     return ret;
                 }
             } else {
                 MovingRight = false;
-                if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
+                if (
+                    (!hitC && hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) ||
+                    (hitC && hitHL && Vector2.Angle(Vector2.left, hitHL.point - hitC.point) > MAX_ABS_SLOPE)
+                ) {
+                    // if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
                     //Debug.Log("Abort Left: " + Vector2.Angle(Vector2.left, hitL.point - hitHL.point), f_controller);
                     return ret;
                 }
@@ -188,13 +196,28 @@ public class GroundMovementRaycast : Movement {
             Vector2 middleVector = (hitHR.point - hitHL.point).normalized;
 
             if (hitHL && hitHR) {
-                // corrrecting the curent transform
+                // corrrecting the current transform
+
+                RaycastHit2D hitQL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+                RaycastHit2D hitQR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+
+                if (!hitQL) {
+                    hitQL = hitHL;
+                }
+
+                if (!hitQR) {
+                    hitQR = hitHR;
+                }
+
+                middleVector = (hitQR.point - hitQL.point).normalized;
+
                 f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross(middleVector, Vector3.back));
 
                 if (hitC && (hitL || hitR)) {
                     f_controller.transform.position = hitC.point;
                 } else {
-                    f_controller.transform.position = (hitHR.point + hitHL.point) / 2f;
+                    //f_controller.transform.position = (hitHR.point + hitHL.point) / 2f;
+                    f_controller.transform.position = (hitQR.point + hitQL.point) / 2f;
                 }
             } else if (hitC) {
                 f_controller.transform.position = hitC.point;
@@ -265,9 +288,11 @@ public class GroundMovementRaycast : Movement {
 
         float RAY_LENGTH = f_halfHeight * f_controller.transform.localScale.y + EXTRA_RAY_LENGTH;
 
+        //RaycastHit2D hitL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth - OUTER_EXTEND, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
         RaycastHit2D hitHL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
         RaycastHit2D hitC = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(0, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
         RaycastHit2D hitHR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+        //RaycastHit2D hitR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth + OUTER_EXTEND, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
 
         if (!correct) {
             if (hitHL && hitHR) {
@@ -281,8 +306,25 @@ public class GroundMovementRaycast : Movement {
             }
         } else {
             if (hitHL && hitHR) {
-                f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
-                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
+
+
+                RaycastHit2D hitQL = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(-f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+                RaycastHit2D hitQR = Physics2D.Raycast(f_controller.transform.TransformPoint(new Vector3(f_halfWidth / 2f, f_halfHeight, 0)), Vector2.down, RAY_LENGTH, f_groundMask);
+
+                if (!hitQL) {
+                    hitQL = hitHL;
+                }
+
+                if (!hitQR) {
+                    hitQR = hitHR;
+                }
+
+                //f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
+                //f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
+
+                f_controller.transform.position = (hitQL.point + hitQR.point) / 2f;
+                f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitQR.point - hitQL.point).normalized, Vector3.back));
+
                 return true;
             } else if (hitC) {
                 if (hitHL) {
@@ -293,6 +335,18 @@ public class GroundMovementRaycast : Movement {
                     f_controller.transform.position = hitC.point;
                     f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitC.point).normalized, Vector3.back));
                     return true;
+                }
+            } else {
+                if (hitHL) {
+                    if (f_controller.transform.position.y >= hitHL.point.y - 0.1f) {
+                        f_controller.transform.position = f_controller.transform.position + Vector3.left * 0.1f;
+                        return true;
+                    }
+                } else if (hitHR) {
+                    if (f_controller.transform.position.y >= hitHR.point.y - 0.1f) {
+                        f_controller.transform.position = f_controller.transform.position + Vector3.right * 0.1f;
+                        return true;
+                    }
                 }
             }
         }
