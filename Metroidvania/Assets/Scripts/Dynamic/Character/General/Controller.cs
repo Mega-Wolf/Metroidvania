@@ -68,6 +68,7 @@ public class Controller : MonoBehaviour {
     #region [Properties]
 
     public ControllerState ActiveState { get { return m_activeState; } }
+    public ControllerState ActiveStackedState { get { return m_activeStackedState; } }
 
     public Animator Animator { get { return f_animator; } }
     public SpriteRenderer SpriteRenderer { get { return f_spriteRenderer; } }
