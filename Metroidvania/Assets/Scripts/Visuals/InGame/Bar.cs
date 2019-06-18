@@ -92,12 +92,7 @@ public class Bar : MonoBehaviour {
 
     private void UpdateShaderProperties() {
 
-        if (m_value == f_maxValue && m_showValue == f_maxValue) {
-            if (f_hideWhenFull) {
-                f_renderer.enabled = false;
-            }
-            return;
-        }
+        
 
         if (f_matProp == null) {
             //TODO
@@ -108,6 +103,13 @@ public class Bar : MonoBehaviour {
         f_matProp.SetFloat("_Real", m_value / (float)f_maxValue);
         f_matProp.SetFloat("_Show", m_showValue / (float)f_maxValue);
         f_renderer.SetPropertyBlock(f_matProp);
+
+        if (m_value == f_maxValue && m_showValue == f_maxValue) {
+            if (f_hideWhenFull) {
+                f_renderer.enabled = false;
+            }
+            return;
+        }
     }
 
     #endregion
