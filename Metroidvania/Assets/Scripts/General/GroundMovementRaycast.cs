@@ -294,6 +294,18 @@ public class GroundMovementRaycast : Movement {
                     f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitC.point).normalized, Vector3.back));
                     return true;
                 }
+            } else {
+                if (hitHL) {
+                    if (f_controller.transform.position.y >= hitHL.point.y - 0.1f) {
+                        f_controller.transform.position = f_controller.transform.position + Vector3.left * 0.1f;
+                        return true;
+                    }
+                } else if (hitHR) {
+                    if (f_controller.transform.position.y >= hitHR.point.y - 0.1f) {
+                        f_controller.transform.position = f_controller.transform.position + Vector3.right * 0.1f;
+                        return true;
+                    }
+                }
             }
         }
 
