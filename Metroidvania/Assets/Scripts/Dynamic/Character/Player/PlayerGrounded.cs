@@ -9,19 +9,23 @@ public class PlayerGrounded : ControllerState {
 
     #endregion
 
-// #if UNITY_EDITOR
+    // #if UNITY_EDITOR
 
-//     public void OnDrawGizmos() {
-//         f_ground?.OnDrawGizmos();
-//     }
+    //     public void OnDrawGizmos() {
+    //         f_ground?.OnDrawGizmos();
+    //     }
 
-// #endif
+    // #endif
 
     #region [Override]
 
     public override void EffectualEnter() {
         f_controller.Backwards = false;
-        f_controller.Animator.Play("Landing");
+        if (f_controller.ActiveState && f_controller.ActiveState is PlayerGrounded) {
+            f_controller.Animator.Play("Walk");
+        } else {
+            f_controller.Animator.Play("Landing");
+        }
     }
 
     public override void LogicalEnter() {

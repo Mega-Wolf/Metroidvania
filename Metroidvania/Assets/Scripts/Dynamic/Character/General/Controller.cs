@@ -67,7 +67,7 @@ public class Controller : MonoBehaviour {
 
     #region [Properties]
 
-    // collision results
+    public ControllerState ActiveState { get { return m_activeState; } }
 
     public Animator Animator { get { return f_animator; } }
     public SpriteRenderer SpriteRenderer { get { return f_spriteRenderer; } }
