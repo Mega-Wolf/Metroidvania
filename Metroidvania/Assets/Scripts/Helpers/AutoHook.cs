@@ -42,7 +42,8 @@ public class AutohookPropertyDrawer : UnityEditor.PropertyDrawer {
             // the reason were straight up looking for a target component is so we
             // can skip drawing the field if theres a valid autohook. 
             // this just looks a bit cleaner but isnt particularly safe. YMMV
-            if (property.objectReferenceValue == null)
+
+            if (property.objectReferenceValue == null || !property.objectReferenceValue.GetType().Equals(property.GetType()))
                 property.objectReferenceValue = component;
             return;
         }
