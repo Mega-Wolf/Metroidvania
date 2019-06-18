@@ -66,6 +66,9 @@ public class Damage : MonoBehaviour {
                         }
                         health.TakeDamage(m_damage, dir);
                         f_damager?.Damaged(health);
+
+
+                        Instantiate(Consts.Instance.PreHit, (colliderList[i].transform.position + f_collider.transform.position) / 2f, Quaternion.identity);
                     }
                 } else if (f_reportEveryHit) {
                     f_damager?.Damaged(null);

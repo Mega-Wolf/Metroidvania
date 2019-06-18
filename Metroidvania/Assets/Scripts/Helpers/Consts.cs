@@ -56,6 +56,8 @@ public class ConstsEditor : Editor {
 
 public partial class Consts : Singleton<Consts> {
 
+    public GameObject PreHit;
+
     public Player Player;
 
     public PersonalCamera Camera { get; set; }
