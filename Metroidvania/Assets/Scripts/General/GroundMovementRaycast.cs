@@ -171,15 +171,26 @@ public class GroundMovementRaycast : Movement {
             }
 
 
+            // TODO this refuses me to get closer to a wall
+
             if (speed > 0) {
                 MovingRight = true;
-                if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
+
+                if (
+                    (!hitC && hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) ||
+                    (hitC && hitHR && Vector2.Angle(Vector2.right, hitHR.point - hitC.point) > MAX_ABS_SLOPE)
+                ) {
+                    // if (hitR && hitHR && Vector2.Angle(Vector2.right, hitR.point - hitHR.point) > MAX_ABS_SLOPE) {
                     //Debug.Log("Abort Right: " + Vector2.Angle(Vector2.right, hitR.point - hitHR.point), f_controller);
                     return ret;
                 }
             } else {
                 MovingRight = false;
-                if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
+                if (
+                    (!hitC && hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) ||
+                    (hitC && hitHL && Vector2.Angle(Vector2.left, hitHL.point - hitC.point) > MAX_ABS_SLOPE)
+                ) {
+                    // if (hitL && hitHL && Vector2.Angle(Vector2.left, hitL.point - hitHL.point) > MAX_ABS_SLOPE) {
                     //Debug.Log("Abort Left: " + Vector2.Angle(Vector2.left, hitL.point - hitHL.point), f_controller);
                     return ret;
                 }
@@ -283,6 +294,7 @@ public class GroundMovementRaycast : Movement {
             if (hitHL && hitHR) {
                 f_controller.transform.position = (hitHL.point + hitHR.point) / 2f;
                 f_controller.transform.rotation = Quaternion.FromToRotation(Vector2.up, Vector3.Cross((hitHR.point - hitHL.point).normalized, Vector3.back));
+                // TODO; here; the fit into corners bug happens
                 return true;
             } else if (hitC) {
                 if (hitHL) {
