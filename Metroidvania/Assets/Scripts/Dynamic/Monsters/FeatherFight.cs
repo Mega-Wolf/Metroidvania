@@ -96,6 +96,12 @@ public class FeatherFight : ControllerState {
     #region [PrivateMethods]
 
     private void Shoot() {
+        if (f_availableFeathers.Count == 0) {
+            //TODO; this isn't nice since the animation still got played
+            return;
+        }
+
+
         f_availableFeathers.Shuffle();
         Feather feather = f_availableFeathers[f_availableFeathers.Count - 1];
         f_availableFeathers.RemoveAt(f_availableFeathers.Count - 1);
