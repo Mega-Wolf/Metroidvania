@@ -16,6 +16,13 @@ public class SingleControllerState : GenericEnemy {
         SetStartState(f_singleState);
     }
 
+    public override void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
+        if (healthAfter <= 0) {
+            Debug.LogWarning(gameObject.name + " died in frame: " + GameManager.Instance.Frame + "; Char had " + Consts.Instance.Player.Health.Value + " health.");
+        }
+        base.HandleDamage(amount, healthAfter, maxHealth, hitNormal);
+    }
+
     #endregion
 
 }
