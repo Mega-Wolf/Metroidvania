@@ -91,9 +91,6 @@ public class Bar : MonoBehaviour {
     #region [PrivateMethods]
 
     private void UpdateShaderProperties() {
-
-        
-
         if (f_matProp == null) {
             //TODO
             return;

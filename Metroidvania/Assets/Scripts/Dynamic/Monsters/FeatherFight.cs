@@ -47,6 +47,7 @@ public class FeatherFight : ControllerState {
     public override void LogicalEnter() {
         SetNewFlyGoal();
         SpawnFeathers();
+        f_controller.AirMovement.SetSmooth(false);
     }
 
     public override void EffectualEnter() {
@@ -69,7 +70,11 @@ public class FeatherFight : ControllerState {
         {
             ++m_shootingFrames;
             if (m_shootingFrames == f_shootBreakFrames) {
-                f_controller.Animator.Play("PrepareAttack");
+                if (f_availableFeathers.Count == 0) {
+                    --m_shootingFrames;
+                } else {
+                    f_controller.Animator.Play("PrepareAttack");
+                }
             }
             if (m_shootingFrames == f_shootBreakFrames + f_spawnFrames) {
                 m_shootingFrames = 0;
@@ -81,6 +86,8 @@ public class FeatherFight : ControllerState {
         // this is not too nice that I do that every frame
         if (m_featherNum == 1 && f_controller.Health.Percentage < 0.5f) {
             ++m_featherNum;
+            f_shootBreakFrames = (int)(f_shootBreakFrames * 0.5f);
+            f_spawnFrames = (int)(f_spawnFrames * 0.5f);
             SpawnFeathers();
         }
 
@@ -101,7 +108,6 @@ public class FeatherFight : ControllerState {
             return;
         }
 
-
         f_availableFeathers.Shuffle();
         Feather feather = f_availableFeathers[f_availableFeathers.Count - 1];
         f_availableFeathers.RemoveAt(f_availableFeathers.Count - 1);
@@ -113,10 +119,11 @@ public class FeatherFight : ControllerState {
     private void SetNewFlyGoal() {
         m_currentFrames = 0;
         f_controller.AirMovement.Goal = new Vector2(Random.Range(f_rect.bounds.min.x, f_rect.bounds.max.x), Random.Range(f_rect.bounds.min.y, f_rect.bounds.max.y));
+        //f_controller.AirMovement.Goal = new Vector2(Random.Range(f_rect.bounds.min.x, f_rect.bounds.max.x), f_controller.AirMovement.Goal.y);
     }
 
     private Vector2 CalcOffset(int index) {
-        return new Vector2(1f * (index % 2 == 0 ? 1 : -1) * (((index / 2) + 1) + 0.5f), 0);
+        return new Vector2(1f * (index % 2 == 0 ? 1 : -1) * (((index / 2) + 1) + 0.5f), 1);
     }
 
     private void SpawnFeathers() {
