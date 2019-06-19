@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_controller: {fileID: 8477719481975373830}
   f_rect: {fileID: 0}
-  f_speed: 3
-  f_spawnFrames: 75
-  f_shootBreakFrames: 200
+  f_speed: 3.5
+  f_spawnFrames: 60
+  f_shootBreakFrames: 100
   preFeather: {fileID: 1846178172305818381, guid: e4dd442c1ef7fbf448905889d4258681,
     type: 3}
 --- !u!114 &8477719481975373830
@@ -37,6 +37,7 @@ MonoBehaviour:
   f_height: 0.7
   f_halfWidth: 1
   f_needsGroundMovement: 0
+  f_lookAtPlayer: 0
   f_animator: {fileID: 25282041891796940}
   f_health: {fileID: 886153900241526266}
   f_noImpact: 1

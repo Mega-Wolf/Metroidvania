@@ -13,7 +13,6 @@ public class Feather : MonoBehaviour {
 
     #region [MemberFields]
 
-    [SerializeField] private AnimationCurve f_animationCurve;
     [SerializeField] private AnimationCurve f_rotationCurve;
 
     #endregion
@@ -49,6 +48,7 @@ public class Feather : MonoBehaviour {
 
         f_bt = new BehaviourTree(
             new Sequence(new BTState[] {
+                new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 3), 20),
                 new ActionGroup(() => transform.SetParent(null)),
                 new RotateTowardsTransform(transform.GetChild(0), Consts.Instance.Player.transform, 20),
                 new MoveTowardsValue(transform, f_goalFunc, 10 / 50f),
