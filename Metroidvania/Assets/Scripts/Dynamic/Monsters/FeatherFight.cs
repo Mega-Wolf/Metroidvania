@@ -88,6 +88,7 @@ public class FeatherFight : ControllerState {
             ++m_featherNum;
             f_shootBreakFrames = (int)(f_shootBreakFrames * 0.5f);
             f_spawnFrames = (int)(f_spawnFrames * 0.5f);
+            m_shootingFrames = (int) (m_shootingFrames * 0.5f) - 1;
             SpawnFeathers();
         }
 

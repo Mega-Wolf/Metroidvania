@@ -62,7 +62,13 @@ public class Feather : MonoBehaviour {
                 new RotateTowardsValue(transform.GetChild(0), 0, 20),
                 new ActionGroup(
                     () => ff.AvailableFeathers.Add(this),
-                    () => transform.SetParent(f_originalParent)
+                    () => {
+                        if (f_originalParent == null) {
+                            Destroy(transform);
+                        } else {
+                            transform.SetParent(f_originalParent);
+                        }
+                    }
                 )
             })
         );
@@ -84,7 +90,9 @@ public class Feather : MonoBehaviour {
     #region [PublicMethods]
 
     public void Shoot(Vector2 goal) {
-        m_goal = goal;
+        //m_goal = goal;
+        //TODO; this is now very hard coded
+        m_goal = new Vector2(goal.x, -3.6f);
 
         enabled = true;
         f_bt.Enter();
