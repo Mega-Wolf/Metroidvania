@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public abstract class Experiment {
 
     #region [FinalVariables]
@@ -8,17 +10,17 @@ public abstract class Experiment {
 
     #endregion
 
-    #region [PrivateVariables]
-
-    protected int m_currentLevel;
-
-    #endregion
-
     #region [Constructors]
 
     public Experiment(SceneLoader.ExaminedVariable examinedVariable) {
         f_examinedVariable = examinedVariable;
     }
+
+    #endregion
+
+    #region [PrivateProperties]
+
+    protected int m_currentLevel { get; private set; }
 
     #endregion
 
@@ -43,11 +45,12 @@ public abstract class Experiment {
             return;
         }
         if (Realised) {
-            --f_examinedVariable;
+            --m_currentLevel;
         } else {
-            ++f_examinedVariable;
+            ++m_currentLevel;
         }
         AdjustValue();
+        Debug.LogWarning("Future will test with m_currentLevel = " + m_currentLevel);
     }
 
     #endregion
