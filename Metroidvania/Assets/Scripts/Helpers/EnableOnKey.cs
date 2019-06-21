@@ -1,10 +1,10 @@
 using UnityEngine;
 
 public class EnableOnKey : MonoBehaviour {
-    
+
     #region [MemberFields]
 
-    [SerializeField] private MonoBehaviour f_toEnable;
+    [SerializeField] private Behaviour[] f_toEnable;
 
     #endregion
 
@@ -12,7 +12,9 @@ public class EnableOnKey : MonoBehaviour {
 
     private void Update() {
         if (Input.anyKeyDown == true) {
-            f_toEnable.enabled = true;
+            for (int i = 0; i < f_toEnable.Length; ++i) {
+                f_toEnable[i].enabled = true;
+            }
             Destroy(gameObject);
         }
     }
