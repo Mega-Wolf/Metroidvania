@@ -1,24 +1,19 @@
 using UnityEngine;
 
 public class OnDead : MonoBehaviour {
-    
-    #region [MemberFields]
 
-    [SerializeField] private GameObject f_canvasRetest;
-    [SerializeField] private GameObject f_canvasQuestions;
+    #region [PrivateVariables]
+
+    private bool m_isQuitting;
 
     #endregion
 
+    void OnApplicationQuit() {
+        m_isQuitting = true;
+    }
+
     private void OnDestroy() {
-        Experiment exp = SceneLoader.Instance.CurrentExperiment;
-
-        if (!exp.Started) {
-            f_canvasRetest.SetActive(true);
-            return;
-        }
-
-        if (!exp.Realised) {
-            f_canvasQuestions.SetActive(true);
+        if (m_isQuitting) {
             return;
         }
 

@@ -26,8 +26,12 @@ public class SceneLoader : Singleton<SceneLoader> {
     #region [MemberFields]
 
     [SerializeField] private GameObject f_permutationCanvas;
+    [SerializeField] private GameObject f_canvasRetest;
+    [SerializeField] private GameObject f_canvasQuestions;
 
     [SerializeField] private BossFight m_bossFight = BossFight.Owl;
+
+    [SerializeField] private FeedbackAsker f_feedback;
 
     #endregion
 
@@ -44,6 +48,7 @@ public class SceneLoader : Singleton<SceneLoader> {
     #region [PrivateVariables]
 
     private string m_sceneName;
+    private bool m_isQuitting = false;
 
     #endregion
 
@@ -130,7 +135,7 @@ public class SceneLoader : Singleton<SceneLoader> {
         StartScene(false);
     }
 
-    private void StartScene(bool next) {
+    public void StartScene(bool next) {
         // for now, this always has the same order
 
         string sceneName;
@@ -169,19 +174,58 @@ public class SceneLoader : Singleton<SceneLoader> {
             }
         }
 
+        //CurrentExperiment.NextTry();
+        //TODO; this will not allow me to redo the easiest one; therefore done somewhere else
+
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
     public void EndedScene() {
+        if (m_isQuitting) {
+            return;
+        }
+
         Scene currentScene = SceneManager.GetSceneByName(m_sceneName);
 
         if (currentScene != null) {
-            SceneManager.UnloadScene(currentScene);
+            AsyncOperation ao = SceneManager.UnloadSceneAsync(currentScene);
+            ao.completed += (AsyncOperation a) => {
+                if (m_isQuitting) {
+                    return;
+                }
+                if (!CurrentExperiment.Started) {
+                    f_canvasRetest.SetActive(true);
+                    return;
+                }
+
+                CurrentExperiment.NextTry();
+                if (!CurrentExperiment.Realised) {
+                    f_feedback.ShowQuestions(CurrentExperiment);
+                    return;
+                }
+
+                StartScene(CurrentExperiment.Finished);
+            };
+            return;
+        }
+
+        if (!CurrentExperiment.Started) {
+            f_canvasRetest.SetActive(true);
+            return;
+        }
+
+        if (!CurrentExperiment.Realised) {
+            f_canvasQuestions.SetActive(true);
+            return;
         }
 
         StartScene(CurrentExperiment.Finished);
     }
 
     #endregion
+
+    private void OnApplicationQuit() {
+        m_isQuitting = true;
+    }
 
 }
