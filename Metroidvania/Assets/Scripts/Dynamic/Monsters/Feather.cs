@@ -47,31 +47,38 @@ public class Feather : MonoBehaviour {
         Vector2 returnPosition = transform.localPosition;
 
         f_bt = new BehaviourTree(
-            new Sequence(new BTState[] {
-                new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 3), 20),
-                new ActionGroup(() => transform.SetParent(null)),
-                new RotateTowardsTransform(transform.GetChild(0), Consts.Instance.Player.transform, 20),
-                new MoveTowardsValue(transform, f_goalFunc, 10 / 50f),
-                new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 2.5f), 25),
-                new RotateTowardsTransform(transform.GetChild(0), f_originalParent, 20),
-                new Parallel(
-                    BTStateReturn.True,
-                    new Loop(new ActionGroup(Actions.LookAt(transform.GetChild(0), f_originalParent))),
-                    new MoveTowardsValue(transform, () => (Vector2)f_originalParent.transform.position + returnPosition, 10 / 50f)
-                ),
-                new RotateTowardsValue(transform.GetChild(0), 0, 20),
-                new ActionGroup(
-                    () => ff.AvailableFeathers.Add(this),
-                    () => {
-                        if (f_originalParent == null) {
-                            Destroy(transform);
-                        } else {
-                            transform.SetParent(f_originalParent);
+            new Parallel(BTStateReturn.True,
+                new Mapper(
+                    new ActionGroup(() => {
+                        if (!f_originalParent) Destroy(gameObject);
+                    }),
+                    false,
+                    false),
+                new Sequence(new BTState[] {
+                    new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 3), 20),
+                    new ActionGroup(() => transform.SetParent(null)),
+                    new RotateTowardsTransform(transform.GetChild(0), Consts.Instance.Player.transform, 20),
+                    new MoveTowardsValue(transform, f_goalFunc, 10 / 50f),
+                    new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 2.5f), 25),
+                    new RotateTowardsTransform(transform.GetChild(0), f_originalParent, 20),
+                    new Parallel(
+                        BTStateReturn.True,
+                        new Loop(new ActionGroup(Actions.LookAt(transform.GetChild(0), f_originalParent))),
+                        new MoveTowardsValue(transform, () => (Vector2)f_originalParent.transform.position + returnPosition, 10 / 50f)
+                    ),
+                    new RotateTowardsValue(transform.GetChild(0), 0, 20),
+                    new ActionGroup(
+                        () => ff.AvailableFeathers.Add(this),
+                        () => {
+                            if (f_originalParent == null) {
+                                Destroy(gameObject);
+                            } else {
+                                transform.SetParent(f_originalParent);
+                            }
                         }
-                    }
-                )
-            })
-        );
+                    )
+                })
+        ));
     }
 
     #endregion

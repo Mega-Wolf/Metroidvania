@@ -84,7 +84,10 @@ public class FeatherFight : ControllerState {
         }
 
         // this is not too nice that I do that every frame
-        if (m_featherNum == 1 && f_controller.Health.Percentage < 0.5f) {
+
+        // I changed it because I don't want to have changing parameters in the game
+        if (m_featherNum == 1) {
+        //if (m_featherNum == 1 && f_controller.Health.Percentage < 0.5f) {
             ++m_featherNum;
             f_shootBreakFrames = (int)(f_shootBreakFrames * 0.5f);
             f_spawnFrames = (int)(f_spawnFrames * 0.5f);
