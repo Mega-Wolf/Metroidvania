@@ -14,7 +14,7 @@ public class Damage : MonoBehaviour {
     private bool f_selfDestroy;
     private bool f_reportEveryHit;
 
-    private HashSet<Collider2D> f_hittedAlready = new HashSet<Collider2D>();
+    private HashSet<IDamageTaker> f_hittedAlready = new HashSet<IDamageTaker>();
 
     #endregion
 
@@ -52,19 +52,19 @@ public class Damage : MonoBehaviour {
         bool hittedOne = false;
 
         for (int i = 0; i < colliderList.Count; ++i) {
-            if (f_hittedAlready.Add(colliderList[i])) {
-                hittedOne = true;
-                IDamageTaker health = colliderList[i].GetComponent<IDamageTaker>();
-                if (health == null) {
-                    health = colliderList[i].transform.parent.GetComponent<IDamageTaker>();
-                }
+            hittedOne = true;
+            IDamageTaker health = colliderList[i].GetComponent<IDamageTaker>();
+            if (health == null) {
+                health = colliderList[i].transform.parent.GetComponent<IDamageTaker>();
+            }
+            if (f_hittedAlready.Add(health)) {
                 if (health != null) {
                     if (health.Controller == null || health.Controller.enabled) {
                         Vector2 dir = m_direction;
                         if (m_direction == Vector2.zero) {
                             //TODO a velocity - b velocity (or other way round)
                         }
-                        
+
                         bool shallSpawn = true;
                         if (health.Controller is Player p) {
                             shallSpawn = !(p.ActiveStackedState is CharacterHitted);
