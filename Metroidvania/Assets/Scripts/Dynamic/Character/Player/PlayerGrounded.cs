@@ -7,6 +7,14 @@ public class PlayerGrounded : ControllerState {
     [SerializeField]
     private FloatSO SPEED;
 
+    private const int DASH_COOL = 100;
+
+    #endregion
+
+    #region [PrivateVariables]
+
+    [SerializeField] private int m_dashCooldown;
+
     #endregion
 
     // #if UNITY_EDITOR
@@ -31,6 +39,7 @@ public class PlayerGrounded : ControllerState {
     public override void LogicalEnter() {
         f_controller.Grounded = true;
         f_controller.Velocity = Vector2.zero;
+        m_dashCooldown = 0;
     }
 
     public override bool EnterOnCondition() {
@@ -44,6 +53,9 @@ public class PlayerGrounded : ControllerState {
     }
 
     public override bool HandleFixedUpdate() {
+        if (m_dashCooldown > 0) {
+            --m_dashCooldown;
+        }
 
         f_controller.Velocity = Vector2.zero;
 
@@ -55,6 +67,11 @@ public class PlayerGrounded : ControllerState {
             }
             if (InputManager.Instance.GetButton("Right")) {
                 ++move;
+            }
+
+            if (m_dashCooldown == 0 && InputManager.Instance.GetButtonDown("Dash", InputManager.EDelayType.Always)) {
+                m_dashCooldown = DASH_COOL;
+                move *= 25;
             }
 
             if (move != 0) {
