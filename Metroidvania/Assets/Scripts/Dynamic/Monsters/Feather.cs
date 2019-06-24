@@ -4,6 +4,10 @@ using System;
 
 public class Feather : MonoBehaviour {
 
+    public static float SPEED = 10f;
+    public static int CAST_TIME = 20;
+    public static float ACCURACY = 0;
+
     // #region [Consts]
 
     // that would require to pass FloatObjects instead of floats as frame lengths
@@ -55,16 +59,38 @@ public class Feather : MonoBehaviour {
                     false,
                     false),
                 new Sequence(new BTState[] {
-                    new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 3), 20),
-                    new ActionGroup(() => transform.SetParent(null)),
+                    //new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 3), 20),
+                    new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 3), CAST_TIME),
+                    new ActionGroup(() => {
+                        transform.SetParent(null);
+
+                    Vector2 modifiedPlayerPos = Consts.Instance.Player.transform.position;
+
+                    if (transform.position.x > Consts.Instance.Player.transform.position.x) {
+                        modifiedPlayerPos.x += ACCURACY;
+                    } else {
+                        modifiedPlayerPos.x -= ACCURACY;
+                    }
+
+                    Vector2 dif = modifiedPlayerPos - (Vector2) transform.position;
+                    float wholeYDif = -6 - transform.position.y;
+
+
+
+                    float factor = wholeYDif / dif.y;
+
+                    m_goal = (Vector2)transform.position + dif * factor;
+
+                    //m_goal = new Vector2(Consts.Instance.Player.transform.position.x, -6);
+                    }),
                     new RotateTowardsTransform(transform.GetChild(0), Consts.Instance.Player.transform, 20),
-                    new MoveTowardsValue(transform, f_goalFunc, 10 / 50f),
-                    new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 2.5f), 25),
+                    new MoveTowardsValue(transform, f_goalFunc, SPEED / 50f),
+                    new TimerState(new Rotate(transform.GetChild(0), f_rotationCurve, 360 * 2.5f), CAST_TIME),
                     new RotateTowardsTransform(transform.GetChild(0), f_originalParent, 20),
                     new Parallel(
                         BTStateReturn.True,
                         new Loop(new ActionGroup(Actions.LookAt(transform.GetChild(0), f_originalParent))),
-                        new MoveTowardsValue(transform, () => (Vector2)f_originalParent.transform.position + returnPosition, 10 / 50f)
+                        new MoveTowardsValue(transform, () => (Vector2)f_originalParent.transform.position + returnPosition, SPEED / 50f)
                     ),
                     new RotateTowardsValue(transform.GetChild(0), 0, 20),
                     new ActionGroup(
@@ -99,7 +125,7 @@ public class Feather : MonoBehaviour {
     public void Shoot(Vector2 goal) {
         //m_goal = goal;
         //TODO; this is now very hard coded
-        m_goal = new Vector2(goal.x, -3.6f);
+        m_goal = new Vector2(goal.x, -6f);
 
         enabled = true;
         f_bt.Enter();

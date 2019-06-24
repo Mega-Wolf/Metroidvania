@@ -12,7 +12,7 @@ public class SceneLoader : Singleton<SceneLoader> {
     public enum ExaminedVariable {
         CastTime,
         AttackSpeed,
-        Health
+        Accuracy
     }
 
     private enum BossFight {
@@ -94,7 +94,7 @@ public class SceneLoader : Singleton<SceneLoader> {
                 break;
             case 4:
             case 5:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.Health);
+                f_owlExperiment = new OwlExperiment(ExaminedVariable.Accuracy);
                 break;
         }
 
@@ -109,7 +109,7 @@ public class SceneLoader : Singleton<SceneLoader> {
                 break;
             case 1:
             case 3:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.Health);
+                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.Accuracy);
                 break;
         }
 
@@ -124,7 +124,7 @@ public class SceneLoader : Singleton<SceneLoader> {
                 break;
             case 0:
             case 2:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.Health);
+                f_frogExperiment = new FrogExperiment(ExaminedVariable.Accuracy);
                 break;
         }
 
@@ -139,6 +139,21 @@ public class SceneLoader : Singleton<SceneLoader> {
         // for now, this always has the same order
 
         string sceneName;
+
+        // This looks a bit stupid since essentially it is just +=1; however I made this so I could change the order more easily
+        if (next) {
+            switch (m_bossFight) {
+                case BossFight.Owl:
+                    m_bossFight = BossFight.Rhino;
+                    break;
+                case BossFight.Rhino:
+                    m_bossFight = BossFight.Frog;
+                    break;
+                case BossFight.Frog:
+                    m_bossFight = (BossFight)(-1);
+                    break;
+            }
+        }
 
         switch (m_bossFight) {
             case BossFight.Owl:
@@ -158,21 +173,6 @@ public class SceneLoader : Singleton<SceneLoader> {
         }
 
         m_sceneName = sceneName;
-
-        // This looks a bit stupid since essentially it is just +=1; however I made this so I could change the order more easily
-        if (next) {
-            switch (m_bossFight) {
-                case BossFight.Owl:
-                    m_bossFight = BossFight.Rhino;
-                    break;
-                case BossFight.Rhino:
-                    m_bossFight = BossFight.Frog;
-                    break;
-                case BossFight.Frog:
-                    m_bossFight = (BossFight)(-1);
-                    break;
-            }
-        }
 
         //CurrentExperiment.NextTry();
         //TODO; this will not allow me to redo the easiest one; therefore done somewhere else
@@ -198,28 +198,33 @@ public class SceneLoader : Singleton<SceneLoader> {
                     return;
                 }
 
-                CurrentExperiment.NextTry();
-                if (!CurrentExperiment.Realised) {
+                if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
                     f_feedback.ShowQuestions(CurrentExperiment);
+                    CurrentExperiment.NextTry();
                     return;
                 }
 
+                CurrentExperiment.NextTry();
                 StartScene(CurrentExperiment.Finished);
             };
             return;
+        } else {
+            if (!CurrentExperiment.Started) {
+                f_canvasRetest.SetActive(true);
+                return;
+            }
+
+            if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
+                f_feedback.ShowQuestions(CurrentExperiment);
+                CurrentExperiment.NextTry();
+                return;
+            }
+
+            CurrentExperiment.NextTry();
+
+            StartScene(CurrentExperiment.Finished);
         }
 
-        if (!CurrentExperiment.Started) {
-            f_canvasRetest.SetActive(true);
-            return;
-        }
-
-        if (!CurrentExperiment.Realised) {
-            f_canvasQuestions.SetActive(true);
-            return;
-        }
-
-        StartScene(CurrentExperiment.Finished);
     }
 
     #endregion

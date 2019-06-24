@@ -4,6 +4,9 @@ using WolfBT;
 
 public class Spit : MonoBehaviour, IDamager {
 
+    public static float ACCURACY = 0f;
+    public static float SPEED_FACTOR = 1f;
+
     #region [MemberFields]
 
     [SerializeField] private float f_speed;
@@ -51,7 +54,7 @@ public class Spit : MonoBehaviour, IDamager {
 
     private void FixedUpdate() {
         if (m_shallMove) {
-            float newX = transform.localPosition.x + f_speed / 50f * (m_right ? 1 : -1);
+            float newX = transform.localPosition.x + SPEED_FACTOR * f_speed / 50f * (m_right ? 1 : -1);
             transform.localPosition = new Vector3(newX, newX * (m_a * newX + m_b), transform.localPosition.z);
         } else {
             --m_explodeCooldown;
@@ -60,7 +63,7 @@ public class Spit : MonoBehaviour, IDamager {
                 f_aniamtor.Play("Explode");
             }
             if (m_explodeCooldown > 0) {
-                
+
                 Vector2 pseudoGoal = Vector3.one * (0.15f * Mathf.Sin(5 * 2 * Mathf.PI * (m_explodeCooldown / (float)f_cooldownExplosionFrames)) + 1);
                 Vector2 goal = pseudoGoal * m_originalScale;
                 transform.localScale = new Vector3(goal.x, goal.y, m_originalScale.z);
@@ -77,13 +80,17 @@ public class Spit : MonoBehaviour, IDamager {
 
     public void Shoot() {
         Vector2 playerPos = transform.InverseTransformPoint(Consts.Instance.Player.transform.position + Vector3.up / 2f);
+
         m_b = f_b;
 
         if (playerPos.x < 0) {
             m_b = -m_b;
+            playerPos.x = Mathf.Min(-1, playerPos.x + ACCURACY);
+        } else {
+            playerPos.x = Mathf.Max(1, playerPos.x - ACCURACY);
         }
 
-        if (Mathf.Abs(playerPos.x) < 0.05f) {
+        if (SceneLoader.Instance == null && Mathf.Abs(playerPos.x) < 0.05f) {
             m_a = -1;
         } else {
             m_a = (playerPos.y - m_b * playerPos.x) / (playerPos.x * playerPos.x);
@@ -92,7 +99,11 @@ public class Spit : MonoBehaviour, IDamager {
             }
         }
 
-        m_a = Mathf.Min(m_a, -0.2f);
+        if (SceneLoader.Instance == null) {
+            m_a = Mathf.Min(m_a, -0.2f);
+        }
+
+        m_a = Mathf.Max(m_a, -1.5f);
 
         m_right = playerPos.x > 0;
     }
@@ -105,6 +116,8 @@ public class Spit : MonoBehaviour, IDamager {
 
         //f_damage.Abort();
         m_shallMove = false;
+
+        Debug.Log(damageTaker);
 
         if (damageTaker == null) {
             // since I don't have the contact point anymore; i just create it again
@@ -127,7 +140,7 @@ public class Spit : MonoBehaviour, IDamager {
             } else {
                 Destroy(transform.gameObject);
             }
-            
+
         }
     }
 
