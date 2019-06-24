@@ -222,10 +222,17 @@ public class Controller : MonoBehaviour {
                 if (hit) {
 
                     if (hit.fraction == 0) {
-                        // TODO; not sure about this one
-                        // necessary but does some stupid stuff
-                        GroundMovement?.TryStickToGround(true);
-                        //transform.position = transform.position + (Vector3)(hit.normal * 0.1f + Velocity.normalized * 0.05f);
+
+                        if (Mathf.Abs(hit.point.x - transform.position.x) < 0.2f ) {
+                            transform.position = transform.position + (Vector3)Vector2.right * 0.1f * ((hit.transform.position.x < transform.position.x) ? 1 : -1);
+                            return;
+                        } else {
+                            // TODO; not sure about this one
+                            // necessary but does some stupid stuff
+                            GroundMovement?.TryStickToGround(true);
+                            //transform.position = transform.position + (Vector3)(hit.normal * 0.1f + Velocity.normalized * 0.05f);
+                        }
+
                     } else {
                         // updating the position by the fraction of the velocity which worked
                         transform.position = transform.position + (hit.fraction - 0.1f) / 60f * (Vector3)Velocity;
