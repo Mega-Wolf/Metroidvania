@@ -17,6 +17,19 @@ public class OnDead : MonoBehaviour {
             return;
         }
 
+        int frames = GameManager.Instance.Frame;
+        int health = Consts.Instance.Player == null ? 0 : Consts.Instance.Player.Health.Value;
+        int enemyHealthCombined = 0;
+
+        GenericEnemy[] genericEnemys = FindObjectsOfType<GenericEnemy>();
+        for (int i = 0; i < genericEnemys.Length; ++i) {
+            enemyHealthCombined += genericEnemys[i].Health.Value;
+        }
+
+        Debug.LogWarning(frames + " --- " + health + " --- " + enemyHealthCombined);
+
+        //TODO colelct that data
+
         SceneLoader.Instance.EndedScene();
     }
 
