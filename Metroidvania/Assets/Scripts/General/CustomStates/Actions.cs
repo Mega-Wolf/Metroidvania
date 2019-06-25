@@ -15,7 +15,9 @@ public static class Actions {
 
     public static Action LookAt(Transform transform, Transform target) {
         return () => {
-            transform.rotation = Quaternion.FromToRotation(Vector2.up, target.position - transform.position);
+            if (target && transform) {
+                transform.rotation = Quaternion.FromToRotation(Vector2.up, target.position - transform.position);
+            }
         };
     }
 

@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Bosses/MasterScene.unity
+    guid: 50e7a3d965f51d44ba7d8b5d799d89fe
+  - enabled: 1
+    path: Assets/Scenes/Bosses/FrogScene.unity
+    guid: 814524b32f4dc154a821bb967e7a2d97
+  - enabled: 1
+    path: Assets/Scenes/Bosses/OwlScene.unity
+    guid: 45f22a8dcc49ab64aaadaa307b5884a1
+  - enabled: 1
+    path: Assets/Scenes/Bosses/RhinoScene.unity
+    guid: 3d4be85d415747f418e1b73cdecbe9e0
   m_configObjects: {}

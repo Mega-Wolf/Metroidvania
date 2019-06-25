@@ -151,6 +151,14 @@ public class Health : MonoBehaviour, IDamageTaker {
     #region [PublicMethods]
 
     public virtual void TakeDamage(int amount, Vector2 hitNormal /* , damageDealer(not always possible (projectils), maybe damageDealer = hitEffect) */ ) {
+
+        if (m_health > 0 && m_health - amount <= 0) {
+            if (OnDeadCollect.Instance != null) {
+                OnDeadCollect.Instance.RegisterDead(this is InvincibleHealth);
+            }
+        }
+
+
         m_health = Mathf.Max(m_health - amount, 0);
         f_healthBar.Set(m_health);
 

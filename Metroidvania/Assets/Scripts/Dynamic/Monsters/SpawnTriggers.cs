@@ -29,9 +29,23 @@ public class SpawnTriggers : MonoBehaviour {
 
     #endregion
 
+    #region [Init]
+
+    private void Awake() {
+        if (!f_respawn) {
+            m_enemy = Instantiate(preObject, transform).GetComponent<GenericEnemy>();
+        }
+    }
+
+    #endregion
+
     #region [Updates]
 
     private void FixedUpdate() {
+        if (!m_enemy) {
+            Destroy(gameObject);
+        }
+
         if (m_currentCooldown > 0) {
             --m_currentCooldown;
         }
@@ -72,10 +86,10 @@ public class SpawnTriggers : MonoBehaviour {
                 m_enemy.enabled = true;
                 m_enemy.Start();
             }
-            if (m_currentExtendFrames == f_extendFrames && !f_respawn) {
-                m_enemy.transform.parent = null;
-                Destroy(gameObject);
-            }
+            // if (m_currentExtendFrames == f_extendFrames && !f_respawn) {
+            //     m_enemy.transform.parent = null;
+            //     Destroy(gameObject);
+            // }
         } else {
             if (m_enemy != null && m_enemy.Health.Value == 0) {
                 Destroy(m_enemy.gameObject);

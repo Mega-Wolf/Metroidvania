@@ -43,7 +43,7 @@ public class GenericEnemy : Controller, IDamagable {
         f_health.Visibility = true;
     }
 
-    public virtual void Start() {}
+    public virtual void Start() { }
 
     private void OnDisable() {
         f_health.Visibility = false;
