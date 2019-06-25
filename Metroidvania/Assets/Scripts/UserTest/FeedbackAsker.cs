@@ -15,6 +15,9 @@ public class FeedbackAsker : MonoBehaviour {
     [SerializeField] private TMP_Dropdown f_dropdownNouns;
     [SerializeField] private TMP_Dropdown f_dropdownAdjectives;
 
+    [SerializeField] private GameObject f_feedbackRight;
+    [SerializeField] private GameObject f_feedbackWrong;
+
     #endregion
 
     #region [PublicMethods]
@@ -57,10 +60,17 @@ public class FeedbackAsker : MonoBehaviour {
             if (chosenNoun == exp.Noun && chosenAdjective == exp.Adjective) {
                 exp.Realised = true;
                 Debug.LogWarning("REALISED");
+                f_feedbackRight.SetActive(true);
+                return;
             }
         }
 
+        f_feedbackWrong.SetActive(true);
+    }
 
+    public void Skip() {
+        f_feedbackRight.SetActive(false);
+        f_feedbackWrong.SetActive(false);
         gameObject.SetActive(false);
         SceneLoader.Instance.StartScene(false);
     }

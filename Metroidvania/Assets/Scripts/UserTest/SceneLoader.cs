@@ -1,6 +1,8 @@
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Environment = System.Environment;
 
 /// <summary>
 /// This class exists throughout all the scenes; loads them and sets the values
@@ -29,7 +31,12 @@ public class SceneLoader : Singleton<SceneLoader> {
     [SerializeField] private GameObject f_canvasRetest;
     [SerializeField] private GameObject f_canvasQuestions;
 
-    [SerializeField] private BossFight m_bossFight = BossFight.Owl;
+    [SerializeField] private GameObject f_nextLevelNote;
+
+    //[SerializeField] private BossFight m_bossFight = BossFight.Owl;
+    //TESTING
+    /*[SerializeField]*/
+    private BossFight m_bossFight = BossFight.Owl;
 
     [SerializeField] private FeedbackAsker f_feedback;
 
@@ -136,6 +143,7 @@ public class SceneLoader : Singleton<SceneLoader> {
     }
 
     public void StartScene(bool next) {
+        f_nextLevelNote.SetActive(false);
         // for now, this always has the same order
 
         string sceneName;
@@ -175,12 +183,15 @@ public class SceneLoader : Singleton<SceneLoader> {
         m_sceneName = sceneName;
 
         //CurrentExperiment.NextTry();
-        //TODO; this will not allow me to redo the easiest one; therefore done somewhere else
+        //this would not allow me to redo the easiest one; therefore done somewhere else
 
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
-    public void EndedScene() {
+    public void EndedScene(int frames, int characterHealth, int enemyHealthCombined) {
+
+        CurrentExperiment.AddData(frames, characterHealth, enemyHealthCombined);
+
         if (m_isQuitting) {
             return;
         }
@@ -205,7 +216,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                 }
 
                 CurrentExperiment.NextTry();
-                StartScene(CurrentExperiment.Finished);
+                f_nextLevelNote.SetActive(true);
+                //StartScene(CurrentExperiment.Finished);
             };
             return;
         } else {
@@ -221,8 +233,8 @@ public class SceneLoader : Singleton<SceneLoader> {
             }
 
             CurrentExperiment.NextTry();
-
-            StartScene(CurrentExperiment.Finished);
+            f_nextLevelNote.SetActive(true);
+            //StartScene(CurrentExperiment.Finished);
         }
 
     }
@@ -231,6 +243,45 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     private void OnApplicationQuit() {
         m_isQuitting = true;
+
+        Debug.Log(
+            BossFight.Owl + ":" + Environment.NewLine +
+            f_owlExperiment.ExperimentText +
+            Environment.NewLine +
+            BossFight.Rhino + ":" + Environment.NewLine +
+            f_rhinoExperiment.ExperimentText +
+            Environment.NewLine +
+            BossFight.Frog + ":" + Environment.NewLine +
+            f_frogExperiment.ExperimentText +
+            Environment.NewLine
+        );
+
+
+        if (!Directory.Exists("Data")) {
+            Directory.CreateDirectory("Data");
+        }
+
+        for (int i = 0; ; ++i) {
+            string path = "Data/Data" + i + ".txt";
+
+            if (!File.Exists(path)) {
+                StreamWriter fs = new StreamWriter(File.Create(path));
+                fs.Write(
+                    BossFight.Owl + ":" + Environment.NewLine +
+                    f_owlExperiment.ExperimentText +
+                    Environment.NewLine +
+                    BossFight.Rhino + ":" + Environment.NewLine +
+                    f_rhinoExperiment.ExperimentText +
+                    Environment.NewLine +
+                    BossFight.Frog + ":" + Environment.NewLine +
+                    f_frogExperiment.ExperimentText +
+                    Environment.NewLine
+                );
+                fs.Flush();
+                fs.Close();
+                return;
+            }
+        }
     }
 
 }

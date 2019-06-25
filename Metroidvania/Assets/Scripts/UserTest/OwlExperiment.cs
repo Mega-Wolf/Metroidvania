@@ -19,11 +19,11 @@ public class OwlExperiment : Experiment {
     public OwlExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
         switch (examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
-                f_adjective = "Faster";
+                f_adjective = "Slower";
                 f_noun = "Feathers";
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                f_adjective = "Shorter";
+                f_adjective = "Longer";
                 f_noun = "Time a feather spins before flying towards the player";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:

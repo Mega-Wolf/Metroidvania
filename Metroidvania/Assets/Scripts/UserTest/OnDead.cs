@@ -28,9 +28,7 @@ public class OnDead : MonoBehaviour {
 
         Debug.LogWarning(frames + " --- " + health + " --- " + enemyHealthCombined);
 
-        //TODO colelct that data
-
-        SceneLoader.Instance.EndedScene();
+        SceneLoader.Instance.EndedScene(frames, health, enemyHealthCombined);
     }
 
 }
