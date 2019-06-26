@@ -3,6 +3,8 @@ using WolfBT;
 
 public class FrogControllerState : ControllerState {
 
+    public static int CAST_TIME = 50;
+
     #region [MemberFields]
 
     [SerializeField] private GameObject prePuke;
@@ -19,10 +21,14 @@ public class FrogControllerState : ControllerState {
     #region [Init]
 
     private void Start() {
+        if (f_behaviourTree != null) {
+            return;
+        }
+
         f_behaviourTree = new BehaviourTree(
             new Sequence(
                 new ActionGroup(Actions.PlayAnimation(f_controller.Animator, "Idle")),
-                new TimerState(50),
+                new TimerState(CAST_TIME),
                 new ActionGroup(Actions.PlayAnimation(f_controller.Animator, "Puke")),
                 new TimerState(10),
                 new ActionGroup(() => {
@@ -41,7 +47,9 @@ public class FrogControllerState : ControllerState {
     public override bool EnterOnCondition() { return true; }
 
     public override void LogicalEnter() {
-        f_behaviourTree.Enter();
+        if (f_behaviourTree == null) {
+            f_behaviourTree.Enter();
+        }
     }
 
     public override void EffectualEnter() { }
