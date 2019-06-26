@@ -6,7 +6,7 @@ public class FrogExperiment : Experiment {
         get {
             return (
                 new string[] { "Faster", "Slower", "Lower", "Higher", "Shorter", "Longer" },
-                new string[] { "Slime", "Frog Health", "Character Health", "Time after the character is hit and can't attack", "Time before a frog pukes", "Slime Accuracy" });
+                new string[] { "Slime balls", "Frog Health", "Character Health", "Time after the character is hit and can't attack", "Time before a frog pukes", "Slime Accuracy" });
         }
     }
 
@@ -18,7 +18,7 @@ public class FrogExperiment : Experiment {
         switch (examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 f_adjective = "Slower";
-                f_noun = "Slime";
+                f_noun = "Slime balls";
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
                 f_adjective = "Longer";

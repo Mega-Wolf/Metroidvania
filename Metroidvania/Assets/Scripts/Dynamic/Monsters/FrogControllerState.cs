@@ -48,8 +48,9 @@ public class FrogControllerState : ControllerState {
 
     public override void LogicalEnter() {
         if (f_behaviourTree == null) {
-            f_behaviourTree.Enter();
+            Start();
         }
+        f_behaviourTree.Enter();
     }
 
     public override void EffectualEnter() { }

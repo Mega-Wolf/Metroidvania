@@ -28,6 +28,11 @@ public class OnDead : MonoBehaviour {
 
         Debug.LogWarning(frames + " --- " + health + " --- " + enemyHealthCombined);
 
+        Spit[] spits = FindObjectsOfType<Spit>();
+        foreach (Spit spit in spits) {
+            Destroy(spit.gameObject);
+        }
+
         SceneLoader.Instance.EndedScene(frames, health, enemyHealthCombined);
     }
 
