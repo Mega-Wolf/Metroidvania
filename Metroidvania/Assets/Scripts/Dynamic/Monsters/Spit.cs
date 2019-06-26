@@ -127,6 +127,9 @@ public class Spit : MonoBehaviour, IDamager {
             Transform oldParent = transform.parent;
 
             transform.SetParent(colliders[0].transform, true);
+
+            //TODO; sometimes this seems to hit something else?
+
             transform.localRotation = Quaternion.identity;
             transform.position = transform.position + Vector3.back * 3;
 

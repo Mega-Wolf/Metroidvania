@@ -2,14 +2,33 @@ public class FrogExperiment : Experiment {
 
     #region [Properties]
 
-    public override (string[] adjectives, string[] nouns) FeedbackValues => throw new System.NotImplementedException();
+    public override (string[] adjectives, string[] nouns) FeedbackValues {
+        get {
+            return (
+                new string[] { "Faster", "Slower", "Lower", "Higher", "Shorter", "Longer" },
+                new string[] { "Slime", "Frog Health", "Character Health", "Time after the character is hit and can't attack", "Time before a frog pukes", "Slime Accuracy" });
+        }
+    }
 
     #endregion
 
     #region [Constructors]
 
     public FrogExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
-        //TODO
+        switch (examinedVariable) {
+            case SceneLoader.ExaminedVariable.AttackSpeed:
+                f_adjective = "Slower";
+                f_noun = "Slime";
+                break;
+            case SceneLoader.ExaminedVariable.CastTime:
+                f_adjective = "Longer";
+                f_noun = "Time before a frog pukes";
+                break;
+            case SceneLoader.ExaminedVariable.Accuracy:
+                f_adjective = "Lower";
+                f_noun = "Slime Accuracy";
+                break;
+        }
     }
 
     #endregion
