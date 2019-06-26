@@ -38,20 +38,18 @@ public class OwlExperiment : Experiment {
     #region [PrivateMethods]
 
     protected override void AdjustValue() {
+        Feather.SPEED = 10f;
+        Feather.CAST_TIME = 20;
+        Feather.ACCURACY = 0;
+
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 Feather.SPEED = 10f * (1 - m_currentLevel / 10f);
-                Feather.CAST_TIME = 20;
-                Feather.ACCURACY = 0;
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                Feather.SPEED = 10f;
                 Feather.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
-                Feather.ACCURACY = 0;
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                Feather.SPEED = 10f;
-                Feather.CAST_TIME = 20;
                 Feather.ACCURACY = 0.25f * m_currentLevel;
                 break;
         }
