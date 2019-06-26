@@ -83,12 +83,12 @@ public class SceneLoader : Singleton<SceneLoader> {
 
         //   :      Owl     Rhino       Frog
         // --+------------------------------
-        //  0:      A       C           H
-        //  1:      A       H           C
-        //  2:      C       A           H
-        //  3:      C       H           A
-        //  4:      H       A           C
-        //  5:      H       C           A
+        //  0:      A       C           Ac
+        //  1:      A       Ac          C
+        //  2:      C       A           Ac
+        //  3:      C       Ac          A
+        //  4:      Ac      A           C
+        //  5:      Ac      C           A
 
         switch (setting) {
             case 0:
