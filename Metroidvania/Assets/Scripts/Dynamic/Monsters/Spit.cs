@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using WolfBT;
 
 public class Spit : MonoBehaviour, IDamager {
 

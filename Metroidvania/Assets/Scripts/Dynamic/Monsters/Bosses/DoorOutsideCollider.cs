@@ -23,11 +23,12 @@ public class DoorOutsideCollider : MonoBehaviour {
         f_collider.OverlapCollider(cf, colliderList);
 
         foreach (Collider2D coll in colliderList) {
-            if (coll.GetComponent<Health>().Controller.gameObject.transform.localScale.x < 1.5f) {
-                return;
-            }
-            coll.GetComponent<Health>().Controller.gameObject.SetActive(false);
-            f_bossFightRhino.SetNextStep(f_door);
+            // if (coll.GetComponent<Health>().Controller.gameObject.transform.localScale.x < 1.5f) {
+            //     return;
+            // }
+            Controller controller = coll.GetComponent<Health>().Controller;
+            controller.gameObject.SetActive(false);
+            f_bossFightRhino.SetNextStep(f_door, ((RhinoBoss)controller));
 
         }
     }

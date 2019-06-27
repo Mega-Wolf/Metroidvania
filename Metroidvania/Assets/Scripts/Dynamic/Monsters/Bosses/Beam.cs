@@ -22,11 +22,11 @@ public class Beam : MonoBehaviour {
         f_nearCollider.OverlapCollider(cf, colliderList);
 
         foreach (Collider2D collider in colliderList) {
-            if (collider.transform.parent.parent.localScale.x >= 1.5) {
+            //if (collider.transform.parent.parent.localScale.x >= 1.5) {
                 f_spriteRenderer.enabled = true;
                 f_door.SetEnabled(true);
                 return;
-            }
+            //}
         }
 
         f_spriteRenderer.enabled = false;

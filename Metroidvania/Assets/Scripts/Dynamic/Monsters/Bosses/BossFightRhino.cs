@@ -6,19 +6,14 @@ public class BossFightRhino : MonoBehaviour {
 
     #region [MemberFields]
 
+    [SerializeField] private float f_createPercentage;
+
     [SerializeField] private Color m_disabledDoor;
     [SerializeField] private Color m_enabledDoor;
 
     [SerializeField] private Door[] f_doors;
 
     [SerializeField] private GameObject pre_little;
-
-    #endregion
-
-    #region [FinalVariables]
-
-    [SerializeField, Autohook]
-    private RhinoBoss f_rhinoBoss;
 
     #endregion
 
@@ -42,8 +37,8 @@ public class BossFightRhino : MonoBehaviour {
 
     #region [PublicMethods]
 
-    public void SetNextStep(Door door) {
-        f_rhinoBoss.gameObject.SetActive(false);
+    public void SetNextStep(Door door, RhinoBoss rhinoBoss) {
+        rhinoBoss.gameObject.SetActive(false);
 
         List<Door> freeDoors = new List<Door>();
         foreach (Door d in f_doors) {
@@ -53,19 +48,18 @@ public class BossFightRhino : MonoBehaviour {
         }
 
         int rand = Random.Range(0, freeDoors.Count);
-        StartCoroutine(StartFromDoor(freeDoors[rand]));
+        StartCoroutine(StartFromDoor(freeDoors[rand], rhinoBoss));
     }
 
     #endregion
 
     #region [PrivateMethods]
 
-    private IEnumerator StartFromDoor(Door door) {
+    private IEnumerator StartFromDoor(Door door, RhinoBoss rhinoBoss) {
 
         List<RhinoBoss> spawned = new List<RhinoBoss>();
 
-        //TESTING
-        if (Random.value < 0.2f) {
+        if (Random.value < f_createPercentage) {
             for (int i = 0; i < 100; ++i) {
                 yield return new WaitForFixedUpdate();
             }
@@ -93,10 +87,10 @@ public class BossFightRhino : MonoBehaviour {
             yield return new WaitForFixedUpdate();
         }
 
-        f_rhinoBoss.SwitchState(Random.value > 0.5f);
-        f_rhinoBoss.transform.position = door.SpawnPoint.position;
-        f_rhinoBoss.Velocity = door.StartDirection;
-        f_rhinoBoss.gameObject.SetActive(true);
+        rhinoBoss.SwitchState(Random.value > 0.5f);
+        rhinoBoss.transform.position = door.SpawnPoint.position;
+        rhinoBoss.Velocity = door.StartDirection;
+        rhinoBoss.gameObject.SetActive(true);
     }
 
     #endregion
