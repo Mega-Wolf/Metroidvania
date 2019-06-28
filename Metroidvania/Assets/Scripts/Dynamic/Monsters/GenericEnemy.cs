@@ -81,6 +81,11 @@ public class GenericEnemy : Controller, IDamagable {
                 damage.enabled = false;
             }
 
+            TouchDamage[] tDamages = GetComponentsInChildren<TouchDamage>();
+            foreach (TouchDamage tDamage in tDamages) {
+                tDamage.enabled = false;
+            }
+
             Animator.enabled = false;
             f_spriteRenderer.color = Color.black;
             return;
