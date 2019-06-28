@@ -14,6 +14,7 @@ public class Meteor : MonoBehaviour {
 
     private void Start() {
         f_damage.Init(EDamageReceiver.Player | EDamageReceiver.Environment | EDamageReceiver.Default, -1, null, true, true);
+        f_damage.ExecuteHit(3, Vector2.zero);
     }
 
     #endregion
