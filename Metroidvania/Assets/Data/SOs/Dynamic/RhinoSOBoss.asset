@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cf7737a3ef6c941a7786916c30a232, type: 3}
   m_Name: RhinoSOBoss
   m_EditorClassIdentifier: 
-  WalkSpeed: {fileID: 0}
-  ChargeSpeed: {fileID: 0}
+  WalkSpeed: {fileID: 11400000, guid: 69618642d56698046a7aa597ed260dd9, type: 2}
+  ChargeSpeed: {fileID: 11400000, guid: 9eb04c93066dd664bba74c4339ba70aa, type: 2}
   ChargeDamage: {fileID: 0}
   ChargeAttention: {fileID: 0}
   ChargeCooldown: {fileID: 0}

@@ -33,6 +33,20 @@ public class GameManager : Singleton<GameManager> {
 
     #endregion
 
+    // #region [Init]
+
+    // private void Start() {
+    //     Consts.Instance.Camera = FindObjectOfType<PersonalCamera>();
+    //     Consts.Instance.Camera.FollowCam.Followed = FindObjectOfType<Player>().transform;
+    //     Consts.Instance.Camera.FollowCam.enabled = true;
+    // }
+
+    // private void OnDisable() {
+    //     Consts.Instance.Camera.FollowCam.enabled = false;
+    // }
+
+    // #endregion
+
     #region [Updates]
 
     private void FixedUpdate() {

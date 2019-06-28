@@ -38,27 +38,19 @@ public class OwlExperiment : Experiment {
     #region [PrivateMethods]
 
     protected override void AdjustValue() {
+        Feather.SPEED = 10f;
+        Feather.CAST_TIME = 20;
+        Feather.ACCURACY = 0;
+
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
-                //Feather.SPEED = 10f - 2 * m_currentLevel;
-                //Feather.SPEED = 10f * Mathf.Pow(0.9f, m_currentLevel);
                 Feather.SPEED = 10f * (1 - m_currentLevel / 10f);
-                Feather.CAST_TIME = 20;
-                Feather.ACCURACY = 0;
-                //GenericEnemy.START_HEALTH = 30;
-                UnityEngine.Debug.Log(Feather.SPEED);
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                Feather.SPEED = 10f;
                 Feather.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
-                Feather.ACCURACY = 0;
-                //GenericEnemy.START_HEALTH = 30;
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                Feather.SPEED = 10f;
-                Feather.CAST_TIME = 20;
                 Feather.ACCURACY = 0.25f * m_currentLevel;
-                //GenericEnemy.START_HEALTH = (int) (3 * (10 * (1 - m_currentLevel / 10f)));
                 break;
         }
     }

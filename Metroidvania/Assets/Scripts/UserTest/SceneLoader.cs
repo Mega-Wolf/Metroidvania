@@ -83,12 +83,12 @@ public class SceneLoader : Singleton<SceneLoader> {
 
         //   :      Owl     Rhino       Frog
         // --+------------------------------
-        //  0:      A       C           H
-        //  1:      A       H           C
-        //  2:      C       A           H
-        //  3:      C       H           A
-        //  4:      H       A           C
-        //  5:      H       C           A
+        //  0:      A       C           Ac
+        //  1:      A       Ac          C
+        //  2:      C       A           Ac
+        //  3:      C       Ac          A
+        //  4:      Ac      A           C
+        //  5:      Ac      C           A
 
         switch (setting) {
             case 0:
@@ -204,39 +204,40 @@ public class SceneLoader : Singleton<SceneLoader> {
                 if (m_isQuitting) {
                     return;
                 }
-                if (!CurrentExperiment.Started) {
-                    f_canvasRetest.SetActive(true);
-                    return;
-                }
-
-                if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
-                    f_feedback.ShowQuestions(CurrentExperiment);
-                    CurrentExperiment.NextTry();
-                    return;
-                }
-
-                CurrentExperiment.NextTry();
-                f_nextLevelNote.SetActive(true);
-                //StartScene(CurrentExperiment.Finished);
+                AfterUnload();
             };
             return;
         } else {
-            if (!CurrentExperiment.Started) {
-                f_canvasRetest.SetActive(true);
-                return;
-            }
-
-            if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
-                f_feedback.ShowQuestions(CurrentExperiment);
-                CurrentExperiment.NextTry();
-                return;
-            }
-
-            CurrentExperiment.NextTry();
-            f_nextLevelNote.SetActive(true);
-            //StartScene(CurrentExperiment.Finished);
+            AfterUnload();
         }
 
+    }
+
+    #endregion
+
+    #region [PrivateMethods]
+
+    private void AfterUnload() {
+        if (!CurrentExperiment.Started) {
+            f_canvasRetest.SetActive(true);
+            return;
+        }
+
+        if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
+            f_feedback.ShowQuestions(CurrentExperiment);
+            CurrentExperiment.NextTry();
+            return;
+        }
+
+        CurrentExperiment.NextTry();
+
+        if (CurrentExperiment.Finished) {
+            f_nextLevelNote.SetActive(true);
+        } else {
+            StartScene(false);
+        }
+
+        //StartScene(CurrentExperiment.Finished);
     }
 
     #endregion

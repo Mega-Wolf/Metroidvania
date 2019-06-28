@@ -51,6 +51,8 @@ public class FeedbackAsker : MonoBehaviour {
     }
 
     public void FeedbackGiven() {
+        gameObject.SetActive(false);
+
         if (f_dropdownNouns.value > 0 && f_dropdownAdjectives.value > 0) {
             string chosenNoun = f_dropdownNouns.options[f_dropdownNouns.value].text;
             string chosenAdjective = f_dropdownAdjectives.options[f_dropdownAdjectives.value].text;

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3961974d9d16e438181d0f8140d116, type: 3}
   m_Name: RhinoChargeSpeed
   m_EditorClassIdentifier: 
-  f_value: 6
+  f_value: 9
