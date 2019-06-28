@@ -75,17 +75,17 @@ public class BossFightRhino : MonoBehaviour {
 
         }
 
-        for (int i = 0; i < 25; ++i) {
-            yield return new WaitForFixedUpdate();
-        }
+        // for (int i = 0; i < 25; ++i) {
+        //     yield return new WaitForFixedUpdate();
+        // }
 
         // foreach (RhinoBoss rb in spawned) {
         //     rb.GroundMovement.SetGroundMask(new string[] { "Default", "MonsterTransparent" });
         // }
 
-        for (int i = 0; i < 75; ++i) {
-            yield return new WaitForFixedUpdate();
-        }
+        // for (int i = 0; i < 75; ++i) {
+        //     yield return new WaitForFixedUpdate();
+        // }
 
         rhinoBoss.SwitchState(Random.value > 0.5f);
         rhinoBoss.transform.position = door.SpawnPoint.position;
