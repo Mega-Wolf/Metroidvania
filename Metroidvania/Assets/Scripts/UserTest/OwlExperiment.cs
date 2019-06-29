@@ -4,11 +4,19 @@ public class OwlExperiment : Experiment {
 
     #region [Properties]
 
-    public override (string[] adjectives, string[] nouns) FeedbackValues {
+    public override string[] FeedbackTexts {
         get {
-            return (
-                new string[] { "Faster", "Slower", "Lower", "Higher", "Shorter", "Longer" },
-                new string[] { "Feathers", "Owl Health", "Character Health", "Time after the character is hit and can't attack", "Time a feather spins before flying towards the player", "Feather Accuracy" });
+            return
+                new string[] {
+                    "Slower Feathers",
+                    "Lower Owl Health",
+                    "Lower Character Health",
+                    "Shorter time after the character is hit and can't attack",
+                    "Longer time a feather spins before flying towards the player",
+                    "Lower Feather Accuracy",
+                    "Slower Owl",
+                    "Faster Character",
+                    };
         }
     }
 
@@ -19,16 +27,13 @@ public class OwlExperiment : Experiment {
     public OwlExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
         switch (examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
-                f_adjective = "Slower";
-                f_noun = "Feathers";
+                f_text = "Slower Feathers";
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                f_adjective = "Longer";
-                f_noun = "Time a feather spins before flying towards the player";
+                f_text = "Longer time a feather spins before flying towards the player";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                f_adjective = "Lower";
-                f_noun = "Feather Accuracy";
+                f_text = "Lower Feather Accuracy";
                 break;
         }
     }

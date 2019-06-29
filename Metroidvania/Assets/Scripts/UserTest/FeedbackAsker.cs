@@ -13,7 +13,6 @@ public class FeedbackAsker : MonoBehaviour {
     #region [MemberFields]
 
     [SerializeField] private TMP_Dropdown f_dropdownNouns;
-    [SerializeField] private TMP_Dropdown f_dropdownAdjectives;
 
     [SerializeField] private GameObject f_feedbackRight;
     [SerializeField] private GameObject f_feedbackWrong;
@@ -25,43 +24,32 @@ public class FeedbackAsker : MonoBehaviour {
     public void ShowQuestions(Experiment experiment) {
         gameObject.SetActive(true);
 
-        string[] adjectives = experiment.FeedbackValues.adjectives;
-        string[] nouns = experiment.FeedbackValues.nouns;
+        string[] texts = experiment.FeedbackTexts;
 
-        List<OptionData> adjs = new List<OptionData>();
-        List<OptionData> nns = new List<OptionData>();
+        List<OptionData> textODs = new List<OptionData>();
 
-        List<TMP_Dropdown.OptionData> t = new List<TMP_Dropdown.OptionData>();
-
-        adjs.Shuffle();
-        nns.Shuffle();
-
-        adjs.Add(new OptionData("Nothing selected"));
-        foreach (string a in adjectives) {
-            adjs.Add(new OptionData(a));
+        foreach (string n in texts) {
+            textODs.Add(new OptionData(n));
         }
 
-        nns.Add(new OptionData("Nothing selected"));
-        foreach (string n in nouns) {
-            nns.Add(new OptionData(n));
-        }
+        textODs.Shuffle();
 
-        f_dropdownAdjectives.options = adjs;
-        f_dropdownNouns.options = nns;
+        textODs.Insert(0, new OptionData("Nothing selected"));
+
+        f_dropdownNouns.options = textODs;
     }
 
     public void FeedbackGiven() {
         gameObject.SetActive(false);
 
-        if (f_dropdownNouns.value > 0 && f_dropdownAdjectives.value > 0) {
-            string chosenNoun = f_dropdownNouns.options[f_dropdownNouns.value].text;
-            string chosenAdjective = f_dropdownAdjectives.options[f_dropdownAdjectives.value].text;
+        if (f_dropdownNouns.value > 0) {
+            string chosenText = f_dropdownNouns.options[f_dropdownNouns.value].text;
 
             Experiment exp = SceneLoader.Instance.CurrentExperiment;
 
-            if (chosenNoun == exp.Noun && chosenAdjective == exp.Adjective) {
+            if (chosenText == exp.Text) {
                 exp.Realised = true;
-                Debug.LogWarning("REALISED");
+                Debug.LogWarning("REALISED correct answer");
                 f_feedbackRight.SetActive(true);
                 return;
             }

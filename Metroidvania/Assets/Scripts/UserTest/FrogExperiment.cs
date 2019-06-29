@@ -2,11 +2,18 @@ public class FrogExperiment : Experiment {
 
     #region [Properties]
 
-    public override (string[] adjectives, string[] nouns) FeedbackValues {
+    public override string[] FeedbackTexts {
         get {
-            return (
-                new string[] { "Faster", "Slower", "Lower", "Higher", "Shorter", "Longer" },
-                new string[] { "Slime balls", "Frog Health", "Character Health", "Time after the character is hit and can't attack", "Time before a frog pukes", "Slime Accuracy" });
+            return
+                new string[] {
+                    "Slower Slime balls",
+                    "Lower Frog Health",
+                    "Lower Character Health",
+                    "Shorter time after the character is hit and can't attack",
+                    "Longer time before a frog pukes",
+                    "Lower Slime ball Accuracy",
+                    "Faster Character"
+                };
         }
     }
 
@@ -17,16 +24,13 @@ public class FrogExperiment : Experiment {
     public FrogExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
         switch (examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
-                f_adjective = "Slower";
-                f_noun = "Slime balls";
+                f_text = "Slower Slime balls";
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                f_adjective = "Longer";
-                f_noun = "Time before a frog pukes";
+                f_text = "Longer time before a frog pukes";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                f_adjective = "Lower";
-                f_noun = "Slime Accuracy";
+                f_text = "Lower Slime ball Accuracy";
                 break;
         }
     }
