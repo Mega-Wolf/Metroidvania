@@ -35,6 +35,16 @@ public class GameManager : Singleton<GameManager> {
 
     // #region [Init]
 
+    protected override void Awake() {
+        base.Awake();
+
+        if (SceneLoader.Instance != null) {
+            if (SceneLoader.Instance.CurrentExperiment.Realised) {
+                Random.InitState((SceneLoader.Instance.CurrentExperiment.EndCounter - 1) / 2);
+            }
+        }
+    }
+
     // private void Start() {
     //     Consts.Instance.Camera = FindObjectOfType<PersonalCamera>();
     //     Consts.Instance.Camera.FollowCam.Followed = FindObjectOfType<Player>().transform;

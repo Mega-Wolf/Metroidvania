@@ -5,8 +5,6 @@ public class RhinoExperiment : Experiment {
     public override string[] FeedbackTexts {
         get {
             return
-                //new string[] { "Faster", "Slower", "Lower", "Higher", "Shorter", "Longer" },
-                //new string[] { "Meteors", "Rhino Health", "Character Health", "Time after the character is hit and can't attack", "Notification time before a meteor", "Meteor Accuracy" });
                 new string[] {
                     "Slower Meteors",
                     "Lower Rhino Health",

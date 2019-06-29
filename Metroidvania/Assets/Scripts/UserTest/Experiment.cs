@@ -6,7 +6,8 @@ using UnityEngine;
 
 public abstract class Experiment {
 
-    private const int TEST_AMOUNT = 10;
+    // TESTING
+    private const int TEST_AMOUNT = 5;
 
     #region [Types]
 
@@ -103,6 +104,8 @@ public abstract class Experiment {
     public abstract string[] FeedbackTexts { get; }
 
     public int CurrentLevel { get { return m_currentLevel; } }
+
+    public int EndCounter { get { return m_endCounter; } }
 
     public string ExperimentText { get { return f_experimentData + ""; } }
 
