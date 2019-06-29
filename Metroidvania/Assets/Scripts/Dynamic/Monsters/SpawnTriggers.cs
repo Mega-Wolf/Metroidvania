@@ -31,7 +31,7 @@ public class SpawnTriggers : MonoBehaviour {
 
     #region [Init]
 
-    private void Awake() {
+    private void Start() {
         if (!f_respawn) {
             m_enemy = Instantiate(preObject, transform).GetComponent<GenericEnemy>();
         }
