@@ -3,7 +3,7 @@ using WolfBT;
 
 public class FrogControllerState : ControllerState {
 
-    public static int CAST_TIME = 20;
+    public static int CAST_TIME = 50;
 
     #region [MemberFields]
 

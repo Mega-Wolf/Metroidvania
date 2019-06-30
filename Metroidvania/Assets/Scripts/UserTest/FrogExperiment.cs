@@ -42,7 +42,7 @@ public class FrogExperiment : Experiment {
     protected override void AdjustValue() {
 
         Spit.SPEED_FACTOR = 1f;
-        FrogControllerState.CAST_TIME = 20;
+        FrogControllerState.CAST_TIME = 50;
         Spit.ACCURACY = 0;
 
         switch (f_examinedVariable) {
@@ -51,7 +51,7 @@ public class FrogExperiment : Experiment {
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
                 //FrogControllerState.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
-                FrogControllerState.CAST_TIME = 20 + 5 * m_currentLevel;
+                FrogControllerState.CAST_TIME = 50 + 5 * m_currentLevel;
                 //TODO
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
