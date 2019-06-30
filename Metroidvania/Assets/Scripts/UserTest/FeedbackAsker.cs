@@ -16,6 +16,7 @@ public class FeedbackAsker : MonoBehaviour {
 
     [SerializeField] private GameObject f_feedbackRight;
     [SerializeField] private GameObject f_feedbackWrong;
+    [SerializeField] private GameObject f_feedbackTooLong;
 
     #endregion
 
@@ -55,13 +56,32 @@ public class FeedbackAsker : MonoBehaviour {
             }
         }
 
-        f_feedbackWrong.SetActive(true);
+        if (SceneLoader.Instance.CurrentExperiment.CurrentLevel == 11) {
+            f_feedbackTooLong.SetActive(true);
+        } else {
+            f_feedbackWrong.SetActive(true);
+        }
+
+    }
+
+    public void AcceptNoop() {
+        f_feedbackTooLong.SetActive(false);
+        SceneLoader.Instance.CurrentExperiment.Realised = true;
+        Debug.LogWarning("I'm a noop");
+        SceneLoader.Instance.StartScene(false);
     }
 
     public void Skip() {
         f_feedbackRight.SetActive(false);
         f_feedbackWrong.SetActive(false);
         gameObject.SetActive(false);
+
+        if (SceneLoader.Instance.CurrentExperiment.CurrentLevel == 11 && !f_feedbackTooLong.activeSelf) {
+            f_feedbackTooLong.SetActive(true);
+            return;
+        }
+
+        f_feedbackTooLong.SetActive(false);
         SceneLoader.Instance.StartScene(false);
     }
 
