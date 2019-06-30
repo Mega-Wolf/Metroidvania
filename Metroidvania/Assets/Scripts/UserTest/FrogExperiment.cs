@@ -8,7 +8,7 @@ public class FrogExperiment : Experiment {
                 new string[] {
                     "Slower Slime balls",
                     "Lower Frog Health",
-                    "Lower Character Health",
+                    "Higher Character Health",
                     "Shorter time after the character is hit and can't attack",
                     "Longer time before a frog pukes",
                     "Lower Slime ball Accuracy",

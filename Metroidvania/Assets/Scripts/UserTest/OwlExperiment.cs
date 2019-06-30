@@ -10,7 +10,7 @@ public class OwlExperiment : Experiment {
                 new string[] {
                     "Slower Feathers",
                     "Lower Owl Health",
-                    "Lower Character Health",
+                    "Higher Character Health",
                     "Shorter time after the character is hit and can't attack",
                     "Longer time a feather spins before flying towards the player",
                     "Lower Feather Accuracy",
