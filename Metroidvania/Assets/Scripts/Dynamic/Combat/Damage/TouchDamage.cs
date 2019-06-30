@@ -11,7 +11,7 @@ public class TouchDamage : MonoBehaviour {
     //TODO; only use that (but that would break links)
     [SerializeField] private Collider2D[] f_colliders;
 
-    [SerializeField] [EnumFlag] private EDamageReceiver f_eDamageReceiver;
+    [SerializeField][EnumFlag] private EDamageReceiver f_eDamageReceiver;
 
     [SerializeField] private int f_damage;
 

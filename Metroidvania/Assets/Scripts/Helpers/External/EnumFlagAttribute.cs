@@ -1,8 +1,10 @@
 #if UNITY_EDITOR
-using System;
+
 using UnityEditor;
-using UnityEngine;
 #endif
+
+using System;
+using UnityEngine;
 
 [System.AttributeUsage(System.AttributeTargets.All, Inherited = true, AllowMultiple = false)]
 public class EnumFlagAttribute : PropertyAttribute {
