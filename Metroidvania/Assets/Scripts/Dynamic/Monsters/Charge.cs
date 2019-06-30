@@ -93,11 +93,11 @@ public class Charge : ControllerState, IDamager {
 
         f_exclamationMark.color = Color.Lerp(COLOR_NORMAL, COLOR_RAGE, m_seeingEnemy / (float)FRAMES_ATTENTION);
 
-        if (m_seeingEnemy == FRAMES_ATTENTION) {
+        if (m_seeingEnemy >= FRAMES_ATTENTION) {
             f_exclamationMark.enabled = false;
         }
 
-        return m_seeingEnemy == FRAMES_ATTENTION;
+        return m_seeingEnemy >= FRAMES_ATTENTION;
     }
 
     public override void LogicalEnter() {
@@ -105,7 +105,10 @@ public class Charge : ControllerState, IDamager {
 
         m_cooldown = -1;
 
-        m_futureStatesHelper = f_futureStates;
+        if (m_futureStatesHelper == null || m_futureStatesHelper.Count == 0) {
+            m_futureStatesHelper = f_futureStates;
+        }
+
         f_futureStates = m_emptyFutureDummy;
 
         //f_controller.Grounded = true;
@@ -151,7 +154,7 @@ public class Charge : ControllerState, IDamager {
 
             f_controller.Velocity = Vector2.zero;
 
-            GroundTouch gt = f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * CHARGE_SPEED);
+            GroundTouch gt = f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * CHARGE_SPEED * BossFightRhino.SPEED);
 
             if (m_stopAtEdges) {
                 int airDirection = GroundMovementRaycast.AirDirection(gt);
@@ -182,6 +185,8 @@ public class Charge : ControllerState, IDamager {
 
     public override void Abort() {
         //f_controller.Velocity = Vector2.zero;
+        
+        Debug.Log(m_futureStatesHelper.Count);
     }
 
     #endregion

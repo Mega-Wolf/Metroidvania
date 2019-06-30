@@ -52,7 +52,8 @@ public class OwlExperiment : Experiment {
                 Feather.SPEED = 10f * (1 - m_currentLevel / 10f);
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                Feather.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
+                //Feather.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
+                Feather.CAST_TIME = 20 + 5 * m_currentLevel;
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
                 Feather.ACCURACY = 0.25f * m_currentLevel;
