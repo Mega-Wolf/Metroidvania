@@ -6,7 +6,8 @@ using UnityEngine;
 
 public abstract class Experiment {
 
-    private const int TEST_AMOUNT = 10;
+    // TESTING
+    private const int TEST_AMOUNT = 5;
 
     #region [Types]
 
@@ -56,8 +57,7 @@ public abstract class Experiment {
     #region [FinalVariables]
 
     protected SceneLoader.ExaminedVariable f_examinedVariable;
-    protected string f_adjective;
-    protected string f_noun;
+    protected string f_text;
     private ExperimentData f_experimentData;
 
     #endregion
@@ -77,8 +77,7 @@ public abstract class Experiment {
 
     #region [Properties]
 
-    public string Noun { get { return f_noun; } }
-    public string Adjective { get { return f_adjective; } }
+    public string Text { get { return f_text; } }
 
     private bool _realised = false;
     public bool Realised {
@@ -102,9 +101,11 @@ public abstract class Experiment {
         }
     }
 
-    public abstract (string[] adjectives, string[] nouns) FeedbackValues { get; }
+    public abstract string[] FeedbackTexts { get; }
 
     public int CurrentLevel { get { return m_currentLevel; } }
+
+    public int EndCounter { get { return m_endCounter; } }
 
     public string ExperimentText { get { return f_experimentData + ""; } }
 

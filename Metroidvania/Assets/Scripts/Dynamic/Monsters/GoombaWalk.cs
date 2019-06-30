@@ -67,7 +67,7 @@ public class GoombaWalk : ControllerState {
 
         f_controller.Velocity = Vector2.zero;
 
-        GroundTouch gt = f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * SPEED);
+        GroundTouch gt = f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * SPEED * BossFightRhino.SPEED);
 
         if (m_stopAtEdges) {
             int airDirection = GroundMovementRaycast.AirDirection(gt);

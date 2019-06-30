@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossFightRhino : MonoBehaviour {
 
+    public static float SPEED = 1f;
+    public static float DOOR_DELTA = 20;
+
     #region [MemberFields]
 
     [SerializeField] private float f_createPercentage;
@@ -42,9 +45,9 @@ public class BossFightRhino : MonoBehaviour {
 
         List<Door> freeDoors = new List<Door>();
         foreach (Door d in f_doors) {
-            if (!d.ContainsPlayer()) {
+            //if (!d.ContainsPlayer()) {
                 freeDoors.Add(d);
-            }
+            //}
         }
 
         int rand = Random.Range(0, freeDoors.Count);
@@ -71,13 +74,14 @@ public class BossFightRhino : MonoBehaviour {
                 rb.Velocity = f_doors[i].StartDirection;
                 go.SetActive(true);
                 spawned.Add(rb);
+                rb.SetStartState(rb.ActiveState);
             }
 
         }
 
-        // for (int i = 0; i < 25; ++i) {
-        //     yield return new WaitForFixedUpdate();
-        // }
+        for (int i = 0; i < DOOR_DELTA; ++i) {
+            yield return new WaitForFixedUpdate();
+        }
 
         // foreach (RhinoBoss rb in spawned) {
         //     rb.GroundMovement.SetGroundMask(new string[] { "Default", "MonsterTransparent" });
@@ -87,9 +91,9 @@ public class BossFightRhino : MonoBehaviour {
         //     yield return new WaitForFixedUpdate();
         // }
 
+        rhinoBoss.Velocity = door.StartDirection;
         rhinoBoss.SwitchState(Random.value > 0.5f);
         rhinoBoss.transform.position = door.SpawnPoint.position;
-        rhinoBoss.Velocity = door.StartDirection;
         rhinoBoss.gameObject.SetActive(true);
     }
 

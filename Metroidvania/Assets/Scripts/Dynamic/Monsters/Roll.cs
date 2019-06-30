@@ -75,7 +75,7 @@ public class Roll : ControllerState {
         }
 
         f_controller.Velocity = Vector2.zero;
-        f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * m_rollSpeed);
+        f_controller.GroundMovement.Move((f_controller.GroundMovement.MovingRight ? 1 : -1) * m_rollSpeed * BossFightRhino.SPEED);
 
         return true;
     }
