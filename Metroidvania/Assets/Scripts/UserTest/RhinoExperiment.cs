@@ -10,7 +10,7 @@ public class RhinoExperiment : Experiment {
                     "Lower Rhino Health",
                     "Higher Character Health",
                     "Shorter time after the character is hit and can't attack",
-                    "Longer rhino teleportation time",
+                    "Longer rhino teleportation time between doors",
                     "Slower Rhinos",
                     "Lower Meteor Accuracy",
                     "Faster Character"
@@ -28,7 +28,7 @@ public class RhinoExperiment : Experiment {
                 f_text = "Slower Rhinos";
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                f_text = "Longer rhino teleportation time";
+                f_text = "Longer rhino teleportation time between doors";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
                 f_text = "Lower Meteor Accuracy";
