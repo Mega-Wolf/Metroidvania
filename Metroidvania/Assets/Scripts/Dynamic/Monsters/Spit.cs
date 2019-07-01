@@ -63,7 +63,6 @@ public class Spit : MonoBehaviour, IDamager {
                 f_aniamtor.Play("Explode");
             }
             if (m_explodeCooldown > 0) {
-
                 Vector2 pseudoGoal = Vector3.one * (0.15f * Mathf.Sin(5 * 2 * Mathf.PI * (m_explodeCooldown / (float)f_cooldownExplosionFrames)) + 1);
                 Vector2 goal = pseudoGoal * m_originalScale;
                 transform.localScale = new Vector3(goal.x, goal.y, m_originalScale.z);
@@ -117,8 +116,6 @@ public class Spit : MonoBehaviour, IDamager {
         //f_damage.Abort();
         m_shallMove = false;
 
-        Debug.Log(damageTaker);
-
         if (damageTaker == null) {
             // since I don't have the contact point anymore; i just create it again
             List<Collider2D> colliders = DamageHelper.ContactList;
@@ -126,12 +123,14 @@ public class Spit : MonoBehaviour, IDamager {
 
             Transform oldParent = transform.parent;
 
-            transform.SetParent(colliders[0].transform, true);
-
-            //TODO; sometimes this seems to hit something else?
-
             transform.localRotation = Quaternion.identity;
+
+            float newX = transform.localPosition.x - SPEED_FACTOR * f_speed / 50f * (m_right ? 1 : -1) * 0.5f;
+            transform.localPosition = new Vector3(newX, newX * (m_a * newX + m_b), transform.localPosition.z);
+
             transform.position = transform.position + Vector3.back * 3;
+
+            transform.SetParent(colliders[0].transform, true);
 
             Destroy(oldParent.gameObject);
 
@@ -140,7 +139,7 @@ public class Spit : MonoBehaviour, IDamager {
             StartCoroutine(SetEnabled());
 
             // when hitting in a bad angle, this might be false, so I set it to true again
-            
+
         } else {
             if (transform.parent.name.StartsWith("Spit")) {
                 Destroy(transform.parent.gameObject);
