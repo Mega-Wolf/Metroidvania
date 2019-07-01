@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -136,6 +137,10 @@ public class Spit : MonoBehaviour, IDamager {
 
             m_originalScale = transform.localScale;
             m_explodeCooldown = f_cooldownExplosionFrames;
+            StartCoroutine(SetEnabled());
+
+            // when hitting in a bad angle, this might be false, so I set it to true again
+            
         } else {
             if (transform.parent.name.StartsWith("Spit")) {
                 Destroy(transform.parent.gameObject);
@@ -144,6 +149,11 @@ public class Spit : MonoBehaviour, IDamager {
             }
 
         }
+    }
+
+    private IEnumerator SetEnabled() {
+        yield return new WaitForFixedUpdate();
+        enabled = true;
     }
 
     #endregion
