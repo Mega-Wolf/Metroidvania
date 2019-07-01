@@ -20,6 +20,8 @@ public class HardwareInputManager : IInputManager {
 
     private string[] f_buttons;
 
+    private bool[] f_fightBetweenValues = new bool[1];
+
     #endregion
 
     #region [Constructors]
@@ -37,12 +39,21 @@ public class HardwareInputManager : IInputManager {
 
     public void HandleUpdate() {
         foreach (string button in f_buttons) {
-            bool newValue = Input.GetButton(button);
+            bool newValue;
+
+            if (button == "Fight") {
+                newValue = f_fightBetweenValues[f_fightBetweenValues.Length - 1];
+                for (int i = f_fightBetweenValues.Length; --i >= 1;) {
+                    f_fightBetweenValues[i] = f_fightBetweenValues[i - 1];
+                }
+                f_fightBetweenValues[0] = Input.GetButton(button);
+            } else {
+                newValue = Input.GetButton(button);
+            }
 
             if (newValue != f_buttonValues[button]) {
                 f_inputSave.AddButtonInput(button, newValue);
                 //TODO; ignore when menu
-
                 if (newValue) {
                     // remember when this happened
                     f_lastDown[button] = GameManager.Instance.Frame;
