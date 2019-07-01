@@ -51,6 +51,9 @@ public class Player : Controller, IDamagable {
             return m_energy;
         }
         set {
+            if (SceneLoader.Instance != null) {
+                return;
+            }
             m_energy = Mathf.Min(value, f_maxEnergy);
             f_energyBar.Set(m_energy);
         }
@@ -77,7 +80,13 @@ public class Player : Controller, IDamagable {
 
         f_grounded.AddTransitionGoal("CharHittingUp", f_hittingUp, true);
         f_grounded.AddTransitionGoal("CharHittingSide", f_hittingSide, true);
-        f_grounded.AddTransitionGoal("Healing", f_healing, true);
+
+
+        if (SceneLoader.Instance == null) {
+            f_grounded.AddTransitionGoal("Healing", f_healing, true);
+        } else {
+            f_energyBar.Visibility = false;
+        }
 
         SetStartState(f_grounded);
     }

@@ -10,8 +10,10 @@ public class RhinoExperiment : Experiment {
                     "Lower Rhino Health",
                     "Higher Character Health",
                     "Shorter time after the character is hit and can't attack",
+                    "Longer rhino teleportation time between doors",
                     "Slower Rhinos",
                     "Lower Meteor Accuracy",
+                    "Faster Character"
                 };
         }
     }
@@ -26,10 +28,10 @@ public class RhinoExperiment : Experiment {
                 f_text = "Slower Rhinos";
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
-                f_text = "Notification time before a meteor"; //TODO
+                f_text = "Longer rhino teleportation time between doors";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                f_text = "Meteor Accuracy"; //TODO
+                f_text = "Lower Meteor Accuracy";
                 break;
         }
     }
@@ -41,9 +43,7 @@ public class RhinoExperiment : Experiment {
     protected override void AdjustValue() {
         BossFightRhino.SPEED = 1f;
         BossFightRhino.DOOR_DELTA = 20;
-        //Feather.ACCURACY = 0;
-
-        //TODO
+        DifficultMeteorSpawn.ACCURACY = 0;
 
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
@@ -54,7 +54,7 @@ public class RhinoExperiment : Experiment {
                 BossFightRhino.DOOR_DELTA = 20 + 5 * m_currentLevel;
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                //Feather.ACCURACY = 0.25f * m_currentLevel;
+                DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;
                 break;
         }
     }
