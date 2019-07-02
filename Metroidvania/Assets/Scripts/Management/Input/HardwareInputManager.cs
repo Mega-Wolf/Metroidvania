@@ -38,6 +38,12 @@ public class HardwareInputManager : IInputManager {
     #region [Updates]
 
     public void HandleUpdate() {
+
+        //TODO; non hacky version
+
+
+
+
         foreach (string button in f_buttons) {
             bool newValue;
 
@@ -48,7 +54,44 @@ public class HardwareInputManager : IInputManager {
                 }
                 f_fightBetweenValues[0] = Input.GetButton(button);
             } else {
-                newValue = Input.GetButton(button);
+                switch (button) {
+                    case "Left": {
+                            if (Input.GetAxis("Horizontal") < 0) {
+                                newValue = true;
+                            } else {
+                                newValue = Input.GetButton(button);
+                            }
+                            break;
+                        }
+                    case "Right": {
+                            if (Input.GetAxis("Horizontal") > 0) {
+                                newValue = true;
+                            } else {
+                                newValue = Input.GetButton(button);
+                            }
+                            break;
+                        }
+                    case "Up": {
+                            if (Input.GetAxis("Vertical") > 0) {
+                                newValue = true;
+                            } else {
+                                newValue = Input.GetButton(button);
+                            }
+                            break;
+                        }
+                    case "Down": {
+                            if (Input.GetAxis("Vertical") < 0) {
+                                newValue = true;
+                            } else {
+                                newValue = Input.GetButton(button);
+                            }
+                            break;
+                        }
+                    default: {
+                            newValue = Input.GetButton(button);
+                            break;
+                        }
+                }
             }
 
             if (newValue != f_buttonValues[button]) {
