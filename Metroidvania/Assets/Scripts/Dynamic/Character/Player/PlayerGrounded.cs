@@ -72,6 +72,10 @@ public class PlayerGrounded : ControllerState {
             if (m_dashCooldown == 0 && InputManager.Instance.GetButtonDown("Dash", InputManager.EDelayType.Always)) {
                 m_dashCooldown = DASH_COOL;
                 move *= 25;
+
+                if (move == 0) {
+                    move = 25 * (int)Mathf.Sign(f_controller.Mirror.localScale.x);
+                }
             }
 
             if (move != 0) {

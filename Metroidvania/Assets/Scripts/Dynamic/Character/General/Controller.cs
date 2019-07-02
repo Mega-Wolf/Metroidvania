@@ -90,6 +90,8 @@ public class Controller : MonoBehaviour {
     public Movement Movement { get { return f_movement; } }
     public Health Health { get { return f_health; } }
 
+    public Transform Mirror { get { return f_mirror; } }
+
     #endregion
 
     #region [Init]
@@ -223,7 +225,7 @@ public class Controller : MonoBehaviour {
 
                     if (hit.fraction == 0) {
 
-                        if (Mathf.Abs(hit.point.x - transform.position.x) < 0.2f ) {
+                        if (Mathf.Abs(hit.point.x - transform.position.x) < 0.2f) {
                             transform.position = transform.position + (Vector3)Vector2.right * 0.1f * ((hit.transform.position.x < transform.position.x) ? 1 : -1);
                             return;
                         } else {

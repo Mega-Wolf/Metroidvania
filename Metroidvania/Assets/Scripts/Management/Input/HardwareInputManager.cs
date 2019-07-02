@@ -56,7 +56,7 @@ public class HardwareInputManager : IInputManager {
             } else {
                 switch (button) {
                     case "Left": {
-                            if (Input.GetAxis("Horizontal") < 0) {
+                            if (Input.GetAxisRaw("Horizontal") < 0) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
@@ -64,7 +64,7 @@ public class HardwareInputManager : IInputManager {
                             break;
                         }
                     case "Right": {
-                            if (Input.GetAxis("Horizontal") > 0) {
+                            if (Input.GetAxisRaw("Horizontal") > 0) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
@@ -72,7 +72,7 @@ public class HardwareInputManager : IInputManager {
                             break;
                         }
                     case "Up": {
-                            if (Input.GetAxis("Vertical") > 0) {
+                            if (Input.GetAxisRaw("Vertical") > 0) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
@@ -80,7 +80,7 @@ public class HardwareInputManager : IInputManager {
                             break;
                         }
                     case "Down": {
-                            if (Input.GetAxis("Vertical") < 0) {
+                            if (Input.GetAxisRaw("Vertical") < 0) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
