@@ -1038,17 +1038,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 14a95daa406b9ca499581322354de1a1,
         type: 3}
-    - target: {fileID: 7619184066058639794, guid: c8dfc935fe3944a4cb3f817b62f6c028,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ae35b525d7234a5409acf187f86e9632, type: 2}
     - target: {fileID: 5197893352737263850, guid: c8dfc935fe3944a4cb3f817b62f6c028,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 03c02598d5bafed40b02af196a06f48e,
         type: 3}
+    - target: {fileID: 7619184066058639794, guid: c8dfc935fe3944a4cb3f817b62f6c028,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ae35b525d7234a5409acf187f86e9632, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8dfc935fe3944a4cb3f817b62f6c028, type: 3}
 --- !u!4 &460303824 stripped
@@ -1573,7 +1573,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774592015
 MonoBehaviour:
@@ -1596,9 +1596,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "In this level, you have to defeat three little rhinos. Be careful, they
-    might roll or charge at you.\nAttention, there are a lot of meteors here.\n\nControlls:\n-
-    Arrow keys:\tMove\n- x or space:\t\tJump\n- c:\t\t\tHit (combine with arrow keys)\n-
-    v:\t\t\tDash (Only when touching the ground; resets after 2s or when landing)\n"
+    might roll or charge at you.\nAttention, there are a lot of meteors here.\n\nControlls
+    (XBox controller in paranthesis):\n- Arrow keys (left stick):\t\t\tMove\n- x or
+    space (A):\t\t\t\tJump\n- c (Left shoulder button):\t\t\tHit (combine with arrow
+    keys)\n- v (Right shoulder button):\t\t\tDash (Only when touching the ground;
+    resets after 2s or when landing)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1667,10 +1669,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 774592015}
-    characterCount: 310
+    characterCount: 410
     spriteCount: 0
-    spaceCount: 64
-    wordCount: 58
+    spaceCount: 80
+    wordCount: 71
     linkCount: 0
     lineCount: 8
     pageCount: 1
@@ -3005,7 +3007,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1682638574
 MonoBehaviour:
@@ -3310,7 +3312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a58e810e2952a241afea17e95d1b0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  f_createPercentage: 0
   m_disabledDoor: {r: 0.745283, g: 0.36209506, b: 0.36209506, a: 1}
   m_enabledDoor: {r: 0.49803922, g: 0.8862745, b: 0.5764706, a: 1}
   f_doors:

@@ -313,7 +313,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154499554
 MonoBehaviour:
@@ -338,9 +338,10 @@ MonoBehaviour:
   m_text: "In this level, you have to defeat an owl. Attention, it will throw feathers
     at you.\nTip: Only upward hits will hit the owl; this means you have to have upwards
     held down while attacking. To not trigger the normal attack it is best, if you
-    just hold down up constantly.\n\nControlls:\n- Arrow keys:\tMove\n- x or space:\t\tJump\n-
-    c:\t\t\tHit (combine with arrow keys)\n- v:\t\t\tDash (Only when touching the
-    ground; resets after 2s or when landing)\n"
+    just hold down up constantly.\n\nControlls:\n- Arrow keys (left stick):\t\t\tMove\n-
+    x or space (A):\t\t\t\tJump\n- c (Left shoulder button):\t\t\tHit (combine with
+    arrow keys)\n- v (Right shoulder button):\t\t\tDash (Only when touching the ground;
+    resets after 2s or when landing)\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -409,10 +410,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 154499554}
-    characterCount: 434
+    characterCount: 502
     spriteCount: 0
-    spaceCount: 88
-    wordCount: 82
+    spaceCount: 101
+    wordCount: 91
     linkCount: 0
     lineCount: 9
     pageCount: 1
@@ -1391,7 +1392,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 44}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &865787527
 MonoBehaviour:
