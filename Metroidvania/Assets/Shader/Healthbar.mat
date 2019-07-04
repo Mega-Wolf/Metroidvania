@@ -35,5 +35,5 @@ Material:
     - _Background: {r: 0, g: 0, b: 0, a: 1}
     - _Empty: {r: 1, g: 0, b: 0, a: 1}
     - _Filling: {r: 0, g: 1, b: 1, a: 1}
-    - _Full: {r: 0, g: 1, b: 0, a: 1}
+    - _Full: {r: 0.6431373, g: 0, b: 0.15727663, a: 1}
     - _Losing: {r: 1, g: 1, b: 1, a: 1}
