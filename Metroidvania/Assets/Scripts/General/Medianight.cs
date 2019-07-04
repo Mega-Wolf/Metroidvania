@@ -23,6 +23,11 @@ public class Medianight : Singleton<Medianight> {
                 EndedScene();
             }
         }
+        else {
+            if (SceneManager.sceneCount == 1 && Input.GetKey(KeyCode.F1)) {
+                LoadScene("FinalScene");
+            }
+        }
     }
 
     #endregion
