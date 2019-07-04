@@ -42,7 +42,7 @@ public class SpawnTriggers : MonoBehaviour {
     #region [Updates]
 
     private void FixedUpdate() {
-        if (!m_enemy) {
+        if (!f_respawn && !m_enemy) {
             Destroy(gameObject);
         }
 
