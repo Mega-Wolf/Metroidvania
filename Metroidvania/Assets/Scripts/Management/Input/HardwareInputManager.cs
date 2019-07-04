@@ -8,6 +8,12 @@ using UnityEngine;
 /// </summary>
 public class HardwareInputManager : IInputManager {
 
+    #region [Consts]
+
+    private const float THRESHOLD = 0.5f;
+
+    #endregion
+
     #region [FinalVariables]
 
     //private Dictionary<string, float> f_axisValues = new Dictionary<string, float>();
@@ -56,7 +62,7 @@ public class HardwareInputManager : IInputManager {
             } else {
                 switch (button) {
                     case "Left": {
-                            if (Input.GetAxisRaw("Horizontal") < 0) {
+                            if (Input.GetAxisRaw("Horizontal") < -THRESHOLD) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
@@ -64,7 +70,7 @@ public class HardwareInputManager : IInputManager {
                             break;
                         }
                     case "Right": {
-                            if (Input.GetAxisRaw("Horizontal") > 0) {
+                            if (Input.GetAxisRaw("Horizontal") > THRESHOLD) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
@@ -72,7 +78,7 @@ public class HardwareInputManager : IInputManager {
                             break;
                         }
                     case "Up": {
-                            if (Input.GetAxisRaw("Vertical") > 0) {
+                            if(Input.GetAxisRaw("Vertical") > THRESHOLD) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
@@ -80,7 +86,7 @@ public class HardwareInputManager : IInputManager {
                             break;
                         }
                     case "Down": {
-                            if (Input.GetAxisRaw("Vertical") < 0) {
+                            if (Input.GetAxisRaw("Vertical") < -THRESHOLD) {
                                 newValue = true;
                             } else {
                                 newValue = Input.GetButton(button);
