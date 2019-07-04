@@ -17,23 +17,30 @@ public class OnDead : MonoBehaviour {
             return;
         }
 
-        int frames = GameManager.Instance.Frame;
-        int health = Consts.Instance.Player == null ? 0 : Consts.Instance.Player.Health.Value;
-        int enemyHealthCombined = 0;
+        if (SceneLoader.Instance != null) {
+            int frames = GameManager.Instance.Frame;
+            int health = Consts.Instance.Player == null ? 0 : Consts.Instance.Player.Health.Value;
+            int enemyHealthCombined = 0;
 
-        GenericEnemy[] genericEnemys = FindObjectsOfType<GenericEnemy>();
-        for (int i = 0; i < genericEnemys.Length; ++i) {
-            enemyHealthCombined += genericEnemys[i].Health.Value;
+            GenericEnemy[] genericEnemys = FindObjectsOfType<GenericEnemy>();
+            for (int i = 0; i < genericEnemys.Length; ++i) {
+                enemyHealthCombined += genericEnemys[i].Health.Value;
+            }
+
+            Debug.LogWarning(frames + " --- " + health + " --- " + enemyHealthCombined);
+
+            Spit[] spits = FindObjectsOfType<Spit>();
+            foreach (Spit spit in spits) {
+                Destroy(spit.gameObject);
+            }
+
+            SceneLoader.Instance.EndedScene(frames, health, enemyHealthCombined);
         }
 
-        Debug.LogWarning(frames + " --- " + health + " --- " + enemyHealthCombined);
-
-        Spit[] spits = FindObjectsOfType<Spit>();
-        foreach (Spit spit in spits) {
-            Destroy(spit.gameObject);
+        if (Medianight.Instance != null) {
+            Medianight.Instance.EndedScene();
         }
 
-        SceneLoader.Instance.EndedScene(frames, health, enemyHealthCombined);
     }
 
 }
