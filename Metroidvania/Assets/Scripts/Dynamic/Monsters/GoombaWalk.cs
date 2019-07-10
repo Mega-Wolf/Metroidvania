@@ -33,6 +33,13 @@ public class GoombaWalk : ControllerState {
     public override void LogicalEnter() {
         //f_controller.Grounded = true;
         f_controller.Backwards = false;
+
+        //TODO; does not care about transform
+        if (f_controller.Velocity.x < -0.1f) {
+            f_controller.GroundMovement.MovingRight = false;
+        } else if (f_controller.Velocity.x > 0.1f) {
+            f_controller.GroundMovement.MovingRight = true;
+        }
     }
 
     public override void EffectualEnter() {
@@ -58,12 +65,7 @@ public class GoombaWalk : ControllerState {
             f_controller.GroundMovement.MovingRight = !f_controller.GroundMovement.MovingRight;
         }
 
-        //TODO; does not care about transform
-        if (f_controller.Velocity.x < -0.1f) {
-            f_controller.GroundMovement.MovingRight = false;
-        } else if (f_controller.Velocity.x > 0.1f) {
-            f_controller.GroundMovement.MovingRight = true;
-        }
+
 
         f_controller.Velocity = Vector2.zero;
 

@@ -28,7 +28,7 @@ public class Bar : MonoBehaviour {
     [SerializeField, Autohook]
     private SpriteRenderer f_renderer;
 
-    MaterialPropertyBlock f_matProp;
+    private MaterialPropertyBlock f_matProp;
 
     private int f_maxValue;
 

@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class SingleControllerState : GenericEnemy {
 
-    #region [FinalVariables]
+    #region [MemberFields]
 
     [SerializeField] private ControllerState f_singleState;
+
+    #endregion
+
+    #region [FinalVariables]
+
+
+    [SerializeField, Autohook] CharacterHitted f_hitted;
 
     #endregion
 
@@ -21,6 +28,13 @@ public class SingleControllerState : GenericEnemy {
             Debug.LogWarning(gameObject.name + " died in frame: " + GameManager.Instance.Frame + "; Char had " + Consts.Instance.Player.Health.Value + " health.");
         }
         base.HandleDamage(amount, healthAfter, maxHealth, hitNormal);
+
+        if (f_hitted) {
+            m_activeStackedState = f_hitted;
+            m_activeStackedState.LogicalEnter();
+            m_activeStackedState.EffectualEnter();
+        }
+
     }
 
     #endregion

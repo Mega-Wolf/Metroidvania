@@ -82,6 +82,8 @@ public class PlayerGrounded : ControllerState {
                 f_controller.GroundMovement.Move(move * SPEED);
             }
 
+            //TODO; stick to ground with for loop
+
         }
 
         return true;

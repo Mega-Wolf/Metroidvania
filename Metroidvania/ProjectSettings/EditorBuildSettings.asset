@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/Bosses/MedianightScene.unity
+    guid: b219ba38ab7cbd2419cf89d5aeffc467
   - enabled: 1
     path: Assets/Scenes/Bosses/MasterScene.unity
     guid: 50e7a3d965f51d44ba7d8b5d799d89fe
@@ -20,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bosses/RhinoScene.unity
     guid: 3d4be85d415747f418e1b73cdecbe9e0
+  - enabled: 0
+    path: Assets/Scenes/FinalScene.unity
+    guid: ceb4026a6ba6b934c8da3df866d99d86
   m_configObjects: {}

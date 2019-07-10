@@ -327,6 +327,7 @@ public class Controller : MonoBehaviour {
         hitNormal.y = 0;
 
         Velocity = hitNormal * CONTROLLER_SO.IMPACT_LENGTH;
+        Debug.Log(Velocity);
 
         // if (shorter) {
         //     Velocity *= 0.5f;

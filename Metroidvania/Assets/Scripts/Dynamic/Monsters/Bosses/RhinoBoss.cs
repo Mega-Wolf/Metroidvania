@@ -88,7 +88,6 @@ public class RhinoBoss : GenericEnemy {
             return;
         }
 
-
         //TOOD; maybe charge
         if (!rolling && m_isRolling) {
             m_isRolling = false;

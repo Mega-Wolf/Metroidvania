@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9040217200863622020, guid: 19d270f99f020804e891ace3912485cc,
+        type: 3}
+      propertyPath: f_particleSystem
+      value: 
+      objectReference: {fileID: 4581652439993290395}
     - target: {fileID: 9040217200863622021, guid: 19d270f99f020804e891ace3912485cc,
         type: 3}
       propertyPath: f_maxHealth
@@ -79,3 +84,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19d270f99f020804e891ace3912485cc, type: 3}
+--- !u!198 &4581652439993290395 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1234083436342093573, guid: 19d270f99f020804e891ace3912485cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3365619138579343774}
+  m_PrefabAsset: {fileID: 0}

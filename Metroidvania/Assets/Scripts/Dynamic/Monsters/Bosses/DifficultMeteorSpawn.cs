@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class DifficultMeteorSpawn : MonoBehaviour {
 
+    public static int OFFSET = 10;
+    public static float ACCURACY = 0;
+
     #region [MemberFields]
 
     /* [SerializeField]*/
-    private int f_offset = 10;
-    /* [SerializeField]*/
     private int f_amount = -1;
-
-    public static float ACCURACY = 0;
 
     [SerializeField] private GameObject preMeteor;
 
@@ -40,15 +39,15 @@ public class DifficultMeteorSpawn : MonoBehaviour {
     private void FixedUpdate() {
         ++m_currentFrame;
 
-        if (m_currentFrame == f_offset * f_amount) {
+        if (m_currentFrame == OFFSET * f_amount) {
             enabled = false;
         }
 
         float x = Consts.Instance.Player.transform.position.x;
 
-        if (m_currentFrame % f_offset == 0) {
+        if (m_currentFrame % OFFSET == 0) {
 
-            if (m_currentFrame % (10 * f_offset) == 0) {
+            if (m_currentFrame % (10 * OFFSET) == 0) {
                 x += ACCURACY * (Random.value < 0.5f ? 1 : -1);
             } else {
                 while (Mathf.Abs(x - Consts.Instance.Player.transform.position.x) <= 1) {

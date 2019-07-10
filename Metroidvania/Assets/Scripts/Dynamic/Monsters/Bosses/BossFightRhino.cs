@@ -9,7 +9,7 @@ public class BossFightRhino : MonoBehaviour {
 
     #region [MemberFields]
 
-    [SerializeField] private float f_createPercentage;
+    //[SerializeField] private float f_createPercentage = 0;
 
     [SerializeField] private Color m_disabledDoor;
     [SerializeField] private Color m_enabledDoor;
@@ -62,22 +62,21 @@ public class BossFightRhino : MonoBehaviour {
 
         List<RhinoBoss> spawned = new List<RhinoBoss>();
 
-        if (Random.value < f_createPercentage) {
-            for (int i = 0; i < 100; ++i) {
-                yield return new WaitForFixedUpdate();
-            }
-            for (int i = 0; i < 4; ++i) {
-                GameObject go = Instantiate(pre_little, f_doors[i].SpawnPoint.position, Quaternion.identity);
-                yield return new WaitForFixedUpdate();
-                RhinoBoss rb = go.GetComponent<RhinoBoss>();
-                rb.SwitchState(Random.value > 0.5f);
-                rb.Velocity = f_doors[i].StartDirection;
-                go.SetActive(true);
-                spawned.Add(rb);
-                rb.SetStartState(rb.ActiveState);
-            }
-
-        }
+        // if (Random.value < f_createPercentage) {
+        //     for (int i = 0; i < 100; ++i) {
+        //         yield return new WaitForFixedUpdate();
+        //     }
+        //     for (int i = 0; i < 4; ++i) {
+        //         GameObject go = Instantiate(pre_little, f_doors[i].SpawnPoint.position, Quaternion.identity);
+        //         yield return new WaitForFixedUpdate();
+        //         RhinoBoss rb = go.GetComponent<RhinoBoss>();
+        //         rb.SwitchState(Random.value > 0.5f);
+        //         rb.Velocity = f_doors[i].StartDirection;
+        //         go.SetActive(true);
+        //         spawned.Add(rb);
+        //         rb.SetStartState(rb.ActiveState);
+        //     }
+        // }
 
         for (int i = 0; i < DOOR_DELTA; ++i) {
             yield return new WaitForFixedUpdate();

@@ -339,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
   f_fps: 6
-  f_startFrame: 1
+  f_startFrame: 0
   f_lastFrame: 3
   f_maxLength: 5
   f_damage: {fileID: 2722940801880632576}
@@ -431,7 +431,7 @@ MonoBehaviour:
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
   f_fps: 6
   f_fullFrames: 4
-  f_attackStartFrame: 2
+  f_attackStartFrame: 0
   f_attackLastFrame: 3
   f_damage: {fileID: 208158981937746322}
 --- !u!1 &3527801692014099975
@@ -554,7 +554,7 @@ MonoBehaviour:
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
   f_fps: 6
   f_fullFrames: 3
-  f_attackStartFrame: 1
+  f_attackStartFrame: 0
   f_attackLastFrame: 2
   f_damage: {fileID: 4737915331603448298}
 --- !u!1 &6515037716661281515
@@ -711,7 +711,9 @@ MonoBehaviour:
   f_height: 1
   f_halfWidth: 0.23
   f_needsGroundMovement: 1
+  f_lookAtPlayer: 0
   f_animator: {fileID: 7771545843328568495}
+  f_health: {fileID: 100154037815179645}
   f_maxEnergy: 20
   f_hittingSide: {fileID: 4405016749867855738}
   f_hittingUp: {fileID: 5639803550999260236}
@@ -721,7 +723,6 @@ MonoBehaviour:
   f_hittingDown: {fileID: 2064314868}
   f_healing: {fileID: 4639175045503171142}
   f_hitted: {fileID: 1407809264}
-  f_health: {fileID: 100154037815179645}
 --- !u!114 &439656556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,6 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
   SPEED: {fileID: 11400000, guid: 13243582dfd0b9047a4e8df22873c2c0, type: 2}
+  m_dashCooldown: 0
 --- !u!114 &439656555
 MonoBehaviour:
   m_ObjectHideFlags: 0
