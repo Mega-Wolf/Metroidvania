@@ -3,7 +3,21 @@ using UnityEngine;
 public class CharacterHitted : ControllerState {
 
     private const int STUNNED_LENGTH = 0;//20;
-    private const int HITTED_LENGTH = 50;
+
+    #region [MemberFields]
+
+    [SerializeField] private int f_hittedLength = 50;
+    [SerializeField] private Color f_hittedColor = Color.white / 2f;
+
+    #endregion
+
+    #region [FinalVariables]
+
+    [SerializeField, Autohook] private ParticleSystem f_particleSystem;
+
+    private MaterialPropertyBlock f_matProp;
+
+    #endregion
 
     #region [PrivateVariables]
 
@@ -18,15 +32,32 @@ public class CharacterHitted : ControllerState {
 
     #endregion
 
+    #region [Init]
+
+    private void Awake() {
+        f_matProp = new MaterialPropertyBlock();
+    }
+
+    #endregion
+
     #region [Override]
 
     public override void EffectualEnter() {
         //f_controller.Animator.Play("Hitted");
-        f_controller.SpriteRenderer.color = Color.white / 2f;
+        f_controller.SpriteRenderer.color = f_hittedColor;
+//	if (f_particleSystem) {
+//	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 4);
+//            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
+//            f_matProp.SetFloat("_ColorMode", 4);
+//            f_controller.SpriteRenderer.SetPropertyBlock(f_matProp);
+//	}
     }
 
     public override void LogicalEnter() {
         m_currentHittedDuration = 0;
+        if (f_particleSystem) {
+            f_particleSystem.Play();
+        }
         //m_enterVelocity = f_controller.Velocity;
         //f_controller.Velocity = Vector2.zero;
     }
@@ -37,7 +68,7 @@ public class CharacterHitted : ControllerState {
     }
 
     public override bool HandleFixedUpdate() {
-        if (m_currentHittedDuration == HITTED_LENGTH) {
+        if (m_currentHittedDuration == f_hittedLength) {
             return false;
         }
         //f_controller.Velocity = m_enterVelocity;
@@ -47,6 +78,12 @@ public class CharacterHitted : ControllerState {
 
     public override void Abort() {
         f_controller.SpriteRenderer.color = Color.white;
+//	if (f_particleSystem) {
+//	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 0);
+//            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
+//            f_matProp.SetFloat("_ColorMode", 0);
+//            f_controller.SpriteRenderer.SetPropertyBlock(f_matProp);
+//	}
     }
 
     #endregion

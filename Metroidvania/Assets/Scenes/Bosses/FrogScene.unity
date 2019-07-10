@@ -262,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -156}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 700, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &48950874
 MonoBehaviour:
@@ -2137,7 +2137,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 700, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &744925650
 MonoBehaviour:
@@ -3487,9 +3487,13 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "In this level, you have to defeat three frogs. Be careful, they spit slime
     balls at you. \n\nControlls (XBox controller in paranthesis):\n- Arrow keys (left
-    stick):\t\t\tMove\n- x or space (A):\t\t\t\tJump\n- c (Left shoulder button):\t\t\tHit
-    (combine with arrow keys)\n- v (Right shoulder button):\t\t\tDash (Only when touching
-    the ground; resets after 2s or when landing)\n"
+    stick):\t\t\tMove\n- x or space (A):\t\t\t\tJump (hold down for variable jump
+    height)\n- c (Left shoulder button):\t\t\tHit (combine with arrow keys/left stick
+    to hit up or down)\n- v (Right shoulder button):\t\t\tDash (Only when touching
+    the ground; resets after 2s or when landing)\n\nTips:\n- You have to be fast to
+    hit the frogs before they hide, you can e.g. use your dash to come closer faster\n-
+    After showing up, frogs don't hide immediately again; stand next to a frog, walk
+    a few steps away and come back immediately to hit it"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3558,12 +3562,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1816769563}
-    characterCount: 356
+    characterCount: 670
     spriteCount: 0
-    spaceCount: 72
-    wordCount: 61
+    spaceCount: 134
+    wordCount: 125
     linkCount: 0
-    lineCount: 7
+    lineCount: 12
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

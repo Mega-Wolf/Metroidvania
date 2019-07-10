@@ -40,6 +40,10 @@ public class Medianight : Singleton<Medianight> {
     }
 
     public void EndedScene() {
+        Spit[] spits = FindObjectsOfType<Spit>();
+        foreach (Spit s in spits) {
+            Destroy(s.transform.parent.gameObject);
+        }
         AsyncOperation ao = SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1));
         if (ao == null) {
             f_selection.SetActive(true);

@@ -44,6 +44,7 @@ public class RhinoExperiment : Experiment {
         BossFightRhino.SPEED = 1f;
         BossFightRhino.DOOR_DELTA = 20;
         DifficultMeteorSpawn.ACCURACY = 0;
+        DifficultMeteorSpawn.OFFSET = 10;
 
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
@@ -51,7 +52,8 @@ public class RhinoExperiment : Experiment {
                 break;
             case SceneLoader.ExaminedVariable.CastTime:
                 //BossFightRhino.DOOR_DELTA = (int) (20 * (1 + m_currentLevel / 10f));
-                BossFightRhino.DOOR_DELTA = 20 + 5 * m_currentLevel;
+                //BossFightRhino.DOOR_DELTA = 20 + 5 * m_currentLevel;
+                DifficultMeteorSpawn.OFFSET = 10 + m_currentLevel;
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
                 DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;

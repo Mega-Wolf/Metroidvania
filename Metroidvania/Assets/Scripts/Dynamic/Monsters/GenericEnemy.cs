@@ -86,6 +86,11 @@ public class GenericEnemy : Controller, IDamagable {
                 tDamage.enabled = false;
             }
 
+            Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+            foreach (Collider2D col in colliders) {
+                col.enabled = false;
+            }
+
             Animator.enabled = false;
             f_spriteRenderer.color = Color.black;
             return;

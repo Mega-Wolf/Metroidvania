@@ -98,7 +98,7 @@ public class Spit : MonoBehaviour, IDamager {
             }
         }
 
-        if (SceneLoader.Instance == null) {
+        if (SceneLoader.Instance == null && Medianight.Instance == null) {
             m_a = Mathf.Min(m_a, -0.2f);
         }
 
