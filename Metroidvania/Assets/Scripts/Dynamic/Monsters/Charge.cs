@@ -185,6 +185,7 @@ public class Charge : ControllerState, IDamager {
 
     public override void Abort() {
         //f_controller.Velocity = Vector2.zero;
+        f_exclamationMark.enabled = false;
         
         Debug.Log(m_futureStatesHelper.Count);
     }
