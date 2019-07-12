@@ -5,6 +5,10 @@ public class FrogControllerState : ControllerState {
 
     public static int CAST_TIME = 50;
 
+    public static int PUKE_TIME = 20;
+    public static int END_IDLE = 50;
+    public static int POST_IDLE = 0;
+
     #region [MemberFields]
 
     [SerializeField] private GameObject prePuke;
@@ -30,12 +34,15 @@ public class FrogControllerState : ControllerState {
                 new ActionGroup(Actions.PlayAnimation(f_controller.Animator, "Idle")),
                 new TimerState(CAST_TIME),
                 new ActionGroup(Actions.PlayAnimation(f_controller.Animator, "Puke")),
-                new TimerState(20),
+                new TimerState(PUKE_TIME),
                 new ActionGroup(() => {
                     GameObject go = Instantiate(prePuke, f_pukePosition.position, Quaternion.identity);
                     go.transform.GetChild(0).GetComponent<Spit>().Shoot();
                 }),
-                new TimerState(50)
+                new TimerState(END_IDLE),
+
+                
+                new TimerState(POST_IDLE)
             )
         );
     }
