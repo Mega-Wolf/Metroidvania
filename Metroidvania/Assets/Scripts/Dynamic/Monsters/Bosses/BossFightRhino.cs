@@ -95,8 +95,13 @@ public class BossFightRhino : MonoBehaviour {
         // }
 
         rhinoBoss.Velocity = door.StartDirection;
+        rhinoBoss.Mirror.localScale = new Vector3(door.StartDirection.normalized.x, 1, 1);
         //rhinoBoss.SwitchState(Random.value > 0.5f);
+
         rhinoBoss.ToggleState();
+
+        rhinoBoss.Velocity = door.StartDirection;
+
         rhinoBoss.transform.position = door.SpawnPoint.position;
         rhinoBoss.gameObject.SetActive(true);
     }

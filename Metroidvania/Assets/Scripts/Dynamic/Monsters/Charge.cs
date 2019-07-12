@@ -185,7 +185,7 @@ public class Charge : ControllerState, IDamager {
 
     public override void Abort() {
         //f_controller.Velocity = Vector2.zero;
-        f_exclamationMark.enabled = false;
+        Cancel();
         
         Debug.Log(m_futureStatesHelper.Count);
     }
@@ -199,6 +199,7 @@ public class Charge : ControllerState, IDamager {
         m_cooldown = 0;
         f_damage.Abort();
         f_controller.Animator.Play("Smash");
+        f_exclamationMark.enabled = false;
     }
 
     #endregion
