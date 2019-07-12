@@ -27,7 +27,7 @@ public class RhinoExperiment : Experiment {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 f_text = "Slower Rhinos";
                 break;
-            case SceneLoader.ExaminedVariable.CastTime:
+            case SceneLoader.ExaminedVariable.BreakTime:
                 f_text = "Longer rhino teleportation time between doors";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
@@ -50,7 +50,7 @@ public class RhinoExperiment : Experiment {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 BossFightRhino.SPEED = (1 - m_currentLevel / 10f);
                 break;
-            case SceneLoader.ExaminedVariable.CastTime:
+            case SceneLoader.ExaminedVariable.BreakTime:
                 //BossFightRhino.DOOR_DELTA = (int) (20 * (1 + m_currentLevel / 10f));
                 //BossFightRhino.DOOR_DELTA = 20 + 5 * m_currentLevel;
                 DifficultMeteorSpawn.OFFSET = 10 + m_currentLevel;

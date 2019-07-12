@@ -26,7 +26,7 @@ public class FrogExperiment : Experiment {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 f_text = "Slower Slime balls";
                 break;
-            case SceneLoader.ExaminedVariable.CastTime:
+            case SceneLoader.ExaminedVariable.BreakTime:
                 f_text = "Longer time before a frog pukes";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
@@ -49,7 +49,7 @@ public class FrogExperiment : Experiment {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 Spit.SPEED_FACTOR = (1 - m_currentLevel / 10f);
                 break;
-            case SceneLoader.ExaminedVariable.CastTime:
+            case SceneLoader.ExaminedVariable.BreakTime:
                 //FrogControllerState.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
                 FrogControllerState.CAST_TIME = 50 + 5 * m_currentLevel;
                 //TODO

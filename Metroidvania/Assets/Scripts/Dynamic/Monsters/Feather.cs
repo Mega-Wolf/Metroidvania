@@ -99,7 +99,8 @@ public class Feather : MonoBehaviour {
                             if (f_originalParent == null) {
                                 Destroy(gameObject);
                             } else {
-                                transform.SetParent(f_originalParent);
+                                transform.localPosition = returnPosition;
+                                transform.SetParent(f_originalParent, false);
                             }
                         }
                     )
