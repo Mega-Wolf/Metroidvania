@@ -81,6 +81,14 @@ public class Feather : MonoBehaviour {
 
                     m_goal = (Vector2)transform.position + dif * factor;
 
+                    if (m_goal.x > 11) {
+                        m_goal = (Vector2)transform.position + ((m_goal - (Vector2)transform.position) * (11 - transform.position.x) / (m_goal.x - transform.position.x));
+                    }
+
+                    if (m_goal.x < -11) {
+                        m_goal = (Vector2)transform.position + ((m_goal - (Vector2)transform.position) * (11 + transform.position.x) / -(m_goal.x - transform.position.x));
+                    }
+
                     //m_goal = new Vector2(Consts.Instance.Player.transform.position.x, -6);
                     }),
                     new RotateTowardsTransform(transform.GetChild(0), Consts.Instance.Player.transform, 20),
