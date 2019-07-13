@@ -15,8 +15,6 @@ MonoBehaviour:
   f_controller: {fileID: 8477719481975373830}
   f_rect: {fileID: 0}
   f_speed: 3.5
-  f_spawnFrames: 60
-  f_shootBreakFrames: 100
   preFeather: {fileID: 1846178172305818381, guid: e4dd442c1ef7fbf448905889d4258681,
     type: 3}
 --- !u!114 &8477719481975373830
@@ -144,6 +142,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 30a0269434da1b440a68d8e7f59e8b98, type: 2}
+    - target: {fileID: 654424017485863128, guid: 8ea4c6457dbcea343b931a982916a61e,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 654424017485863128, guid: 8ea4c6457dbcea343b931a982916a61e,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 654424017485863128, guid: 8ea4c6457dbcea343b931a982916a61e,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5118854776531644460, guid: 8ea4c6457dbcea343b931a982916a61e,
         type: 3}
       propertyPath: m_Controller
@@ -159,7 +172,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 55bb685b5b8e6b449938d27f01eed7d5, type: 2}
     m_RemovedComponents:
     - {fileID: 6433769547737117689, guid: 8ea4c6457dbcea343b931a982916a61e, type: 3}
     - {fileID: 6167531926778502979, guid: 8ea4c6457dbcea343b931a982916a61e, type: 3}
