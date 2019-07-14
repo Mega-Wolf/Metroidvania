@@ -66,7 +66,7 @@ public class DifficultMeteorSpawn : MonoBehaviour {
 
         if (m_currentFrame % OFFSET == 0) {
             //TODO Accuracy should be a percentage value probably; also don't like random
-            x += ACCURACY * (Random.value < 0.5f ? 1 : -1);
+            x += ACCURACY * -1 * Mathf.Sign(Consts.Instance.Player.Mirror.transform.localScale.x);
             //for (int i = -1; i <= 1; ++i) {
             //    GameObject go = Instantiate(preMeteor, new Vector3(x + 3 * i, transform.position.y, 1), Quaternion.identity, transform);
             //}
