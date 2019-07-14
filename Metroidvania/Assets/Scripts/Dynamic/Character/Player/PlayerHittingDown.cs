@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerHittingDown : ControllerState, IDamager {
 
+    public int m_hitAmount = 0;
+    public int m_hittedAmount = 0;
+
     #region [MemberFields]
 
     [SerializeField]
@@ -35,18 +38,31 @@ public class PlayerHittingDown : ControllerState, IDamager {
 
     #endregion
 
-    private void OnValidate() {
-        f_damage.Init(EDamageReceiver.Enemy, (int) (FPS * (f_lastFrame - f_startFrame)), this);
+    #region [Init]
+
+    private void Start() {
+        OnValidate();
     }
+
+    private void OnValidate() {
+        f_damage.Init(EDamageReceiver.Enemy, (int)(FPS * (f_lastFrame - f_startFrame)), this);
+    }
+
+    #endregion
 
     #region [Override]
 
     public override bool EnterOnCondition() {
-        return (InputManager.Instance.GetButton("Down") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always));
+        if (InputManager.Instance.GetButton("Down") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always)) {
+            ++m_hitAmount;
+            return true;
+        }
+        return false;
     }
 
     public override void LogicalEnter() {
-        f_damage.Init(EDamageReceiver.Enemy, (int) (FPS * (f_lastFrame - f_startFrame)), this);
+        //f_damage.Init(EDamageReceiver.Enemy, (int)(FPS * (f_lastFrame - f_startFrame)), this);
+        OnValidate();
 
         m_frame = 0;
         m_damaged = false;
@@ -73,6 +89,7 @@ public class PlayerHittingDown : ControllerState, IDamager {
 
     public void Damaged(IDamageTaker health) {
         if (!m_damaged) {
+            ++m_hittedAmount;
             m_damaged = true;
             f_controller.Velocity = new Vector2(f_controller.Velocity.x, Consts.Instance.PlayerSO.PLAYER_AIR.JUMP_SPEED / 1.5f);
         }
