@@ -21,4 +21,12 @@ namespace Helpers {
 
     }
 
+    public static class Vector2Helper {
+
+        public static Vector2 Abs(this Vector2 vec) {
+            return new Vector2(Mathf.Abs(vec.x), Mathf.Abs(vec.y));
+        }
+
+    }
+
 }

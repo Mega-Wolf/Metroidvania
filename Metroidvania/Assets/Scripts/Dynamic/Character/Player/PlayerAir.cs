@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class PlayerAir : ControllerState {
 
+    public int m_jumpAmount = 0;
+
     #region [Consts]
 
     [SerializeField]
@@ -57,6 +59,7 @@ public class PlayerAir : ControllerState {
             f_controller.Velocity = f_controller.Velocity + JUMP_SPEED * (Vector2)f_controller.transform.up;
 #endif
 
+            ++m_jumpAmount;
             return true;
         }
 
@@ -95,6 +98,8 @@ public class PlayerAir : ControllerState {
 
             // since in the air, the upwards transform will always be directly up, there is no difference between Ori and Sonic
             f_controller.Velocity = new Vector2(f_controller.Velocity.x, f_playerAir.JUMP_SPEED);
+
+            ++m_jumpAmount;
         }
 
         Vector2 velocity = f_controller.Velocity;

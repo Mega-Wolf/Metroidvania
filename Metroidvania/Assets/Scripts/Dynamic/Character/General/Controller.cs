@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Helpers;
 using UnityEngine;
 
 public partial class Consts {
@@ -11,6 +12,8 @@ public partial class Consts {
 /// This class controlls a "state machine" of a character
 /// </summary>
 public class Controller : MonoBehaviour {
+
+    public Vector2 m_playerMovement = Vector2.zero;
 
     #region [Consts]
 
@@ -226,6 +229,9 @@ public class Controller : MonoBehaviour {
                     if (hit.fraction == 0) {
 
                         if (Mathf.Abs(hit.point.x - transform.position.x) < 0.2f) {
+                            if (this is Player) {
+                                m_playerMovement += (Vector2.right * 0.1f * ((hit.transform.position.x < transform.position.x) ? 1 : -1)).Abs();
+                            }
                             transform.position = transform.position + (Vector3)Vector2.right * 0.1f * ((hit.transform.position.x < transform.position.x) ? 1 : -1);
                             return;
                         } else {
@@ -237,6 +243,9 @@ public class Controller : MonoBehaviour {
 
                     } else {
                         // updating the position by the fraction of the velocity which worked
+                        if (this is Player) {
+                            m_playerMovement += ((hit.fraction - 0.1f) / 60f * Velocity).Abs();
+                        }
                         transform.position = transform.position + (hit.fraction - 0.1f) / 60f * (Vector3)Velocity;
                     }
 
@@ -254,6 +263,9 @@ public class Controller : MonoBehaviour {
                 } else {
 
                     // moving normally
+                    if (this is Player) {
+                        m_playerMovement += (Velocity / 60f).Abs();
+                    }
                     transform.position = transform.position + (Vector3)Velocity / 60f;
 
                     // Since the velocity has not been updated, this process can be ended

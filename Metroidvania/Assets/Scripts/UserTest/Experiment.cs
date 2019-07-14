@@ -16,7 +16,11 @@ public abstract class Experiment {
         #region [FinalVariables]
 
         private SceneLoader.ExaminedVariable f_examinedVariable;
-        private List<(int currentLevel, int frames, int characterHealth, int combinedEnemyHealth)> f_data = new List<(int, int, int, int)>();
+        private List<(int currentLevel, int frames, int characterHealth, int combinedEnemyHealth,
+        int sideTries, int sideHits, int upTries, int upHits, int downTries, int downHits,
+        Vector2 movement, int jumps, int dashes)> f_data = new List<(int, int, int, int,
+        int, int, int, int, int, int,
+        Vector2, int, int)>();
 
         #endregion
 
@@ -30,8 +34,10 @@ public abstract class Experiment {
 
         #region [PublicMethods]
 
-        public void AddDataSet(int currentLevel, int frames, int characterHealth, int combinedEnemyHealth) {
-            f_data.Add((currentLevel, frames, characterHealth, combinedEnemyHealth));
+        public void AddDataSet(int currentLevel, int frames, int characterHealth, int combinedEnemyHealth, int sideTries, int sideHits, int upTries, int upHits, int downTries, int downHits,
+        Vector2 movement, int jumps, int dashes) {
+            f_data.Add((currentLevel, frames, characterHealth, combinedEnemyHealth, sideTries, sideHits, upTries, upHits, downTries, downHits,
+        movement, jumps, dashes));
         }
 
         #endregion
@@ -42,7 +48,11 @@ public abstract class Experiment {
             string ret = f_examinedVariable + ":" + Environment.NewLine;
 
             for (int i = 0; i < f_data.Count; ++i) {
-                ret += f_data[i].currentLevel + "\t" + f_data[i].frames + "\t" + f_data[i].characterHealth + "\t" + f_data[i].combinedEnemyHealth + Environment.NewLine;
+                ret += f_data[i].currentLevel + "\t" +
+                f_data[i].frames + "\t" + f_data[i].characterHealth + "\t" + f_data[i].combinedEnemyHealth + "\t" +
+                f_data[i].sideTries + "\t" + f_data[i].sideHits + "\t" + f_data[i].upTries + "\t" + f_data[i].upHits + "\t" + f_data[i].downTries + "\t" + f_data[i].downHits + "\t" +
+                f_data[i].movement.x + "\t" + f_data[i].movement.y + "\t" + f_data[i].jumps + "\t" + f_data[i].dashes + Environment.NewLine;
+                ;
             }
 
             return ret;
@@ -155,8 +165,8 @@ public abstract class Experiment {
         Debug.LogWarning("Future will test with m_currentLevel = " + m_currentLevel);
     }
 
-    public void AddData(int frames, int characterHealth, int combinedEnemyHealth) {
-        f_experimentData.AddDataSet(m_currentLevel, frames, characterHealth, combinedEnemyHealth);
+    public void AddData(int frames, int characterHealth, int combinedEnemyHealth, int sideTries, int sideHits, int upTries, int upHits, int downTries, int downHits, Vector2 movement, int jumps, int dashes) {
+        f_experimentData.AddDataSet(m_currentLevel, frames, characterHealth, combinedEnemyHealth, sideTries, sideHits, upTries, upHits, downTries, downHits, movement, jumps, dashes);
     }
 
     #endregion

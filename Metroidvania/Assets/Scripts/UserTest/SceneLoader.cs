@@ -190,7 +190,13 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     public void EndedScene(int frames, int characterHealth, int enemyHealthCombined) {
 
-        CurrentExperiment.AddData(frames, characterHealth, enemyHealthCombined);
+        CurrentExperiment.AddData(
+            frames, characterHealth, enemyHealthCombined,
+            Consts.Instance.Player.PlayerHittingSide.m_hitAmount, Consts.Instance.Player.PlayerHittingSide.m_hittedAmount,
+            Consts.Instance.Player.PlayerHittingUp.m_hitAmount, Consts.Instance.Player.PlayerHittingUp.m_hittedAmount,
+            Consts.Instance.Player.PlayerHittingDown.m_hitAmount, Consts.Instance.Player.PlayerHittingDown.m_hittedAmount,
+            Consts.Instance.Player.m_playerMovement, Consts.Instance.Player.PlayerAir.m_jumpAmount, Consts.Instance.Player.PlayerGrounded.m_dashAmount
+            );
 
         if (m_isQuitting) {
             return;

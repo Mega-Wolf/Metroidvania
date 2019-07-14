@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class PlayerHittingUp : ControllerState {
+public class PlayerHittingUp : ControllerState, IDamager {
+
+    public int m_hitAmount = 0;
+    public int m_hittedAmount = 0;
 
     #region [Consts]
 
@@ -38,16 +41,30 @@ public class PlayerHittingUp : ControllerState {
     private int m_frame = 0;
     private bool m_hit;
 
+    private bool m_damaged = false;
+
     #endregion
 
-    private void OnValidate() {
-        f_damage.Init(EDamageReceiver.Enemy, (int) (FPS * (f_attackLastFrame - f_attackStartFrame)), null);
+    #region [Init]
+
+    private void Start() {
+        OnValidate();
     }
+
+    private void OnValidate() {
+        f_damage.Init(EDamageReceiver.Enemy, (int)(FPS * (f_attackLastFrame - f_attackStartFrame)), this);
+    }
+
+    #endregion
 
     #region [Override]
 
     public override bool EnterOnCondition() {
-        return (InputManager.Instance.GetButton("Up") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always));
+        if (InputManager.Instance.GetButton("Up") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always)) {
+            ++m_hitAmount;
+            return true;
+        }
+        return false;
     }
 
     public override void EffectualEnter() {
@@ -69,12 +86,20 @@ public class PlayerHittingUp : ControllerState {
     }
 
     public override void LogicalEnter() {
-        f_damage.Init(EDamageReceiver.Enemy, (int) (FPS * (f_attackLastFrame - f_attackStartFrame)), null);
+        OnValidate();
         m_frame = 0;
         m_hit = false;
+        m_damaged = false;
     }
 
     public override void Abort() { }
+
+    public void Damaged(IDamageTaker health) {
+        if (!m_damaged) {
+            ++m_hittedAmount;
+            m_damaged = true;
+        }
+    }
 
     #endregion
 
