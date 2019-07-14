@@ -29,7 +29,7 @@ public class OwlExperiment : Experiment {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 f_text = "Slower Feathers";
                 break;
-            case SceneLoader.ExaminedVariable.CastTime:
+            case SceneLoader.ExaminedVariable.BreakTime:
                 f_text = "Longer time a feather spins before flying towards the player";
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
@@ -51,7 +51,7 @@ public class OwlExperiment : Experiment {
             case SceneLoader.ExaminedVariable.AttackSpeed:
                 Feather.SPEED = 10f * (1 - m_currentLevel / 10f);
                 break;
-            case SceneLoader.ExaminedVariable.CastTime:
+            case SceneLoader.ExaminedVariable.BreakTime:
                 //Feather.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
                 Feather.CAST_TIME = 20 + 5 * m_currentLevel;
                 break;

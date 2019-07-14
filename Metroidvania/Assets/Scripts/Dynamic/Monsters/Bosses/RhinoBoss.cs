@@ -96,6 +96,15 @@ public class RhinoBoss : GenericEnemy {
         }
     }
 
+    public void ToggleState() {
+        if (m_isRolling) {
+            SwitchState(f_goomba);
+        } else {
+            SwitchState(f_roll);
+        }
+        m_isRolling = !m_isRolling;
+    }
+
     #endregion
 
     private void SwitchState(ControllerState newState) {

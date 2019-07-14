@@ -44,7 +44,11 @@ public class CharacterHitted : ControllerState {
 
     public override void EffectualEnter() {
         //f_controller.Animator.Play("Hitted");
-        f_controller.SpriteRenderer.color = f_hittedColor;
+
+        //f_controller.SpriteRenderer.color = f_hittedColor;
+        f_controller.SpriteRenderer.material.SetFloat("_UseReplacement", 1);
+
+
 //	if (f_particleSystem) {
 //	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 4);
 //            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
@@ -77,7 +81,10 @@ public class CharacterHitted : ControllerState {
     }
 
     public override void Abort() {
-        f_controller.SpriteRenderer.color = Color.white;
+        //f_controller.SpriteRenderer.color = Color.white;
+        f_controller.SpriteRenderer.material.SetFloat("_UseReplacement", 0);
+
+
 //	if (f_particleSystem) {
 //	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 0);
 //            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);

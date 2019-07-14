@@ -46,8 +46,12 @@ public class BossFightRhino : MonoBehaviour {
         List<Door> freeDoors = new List<Door>();
         foreach (Door d in f_doors) {
             //if (!d.ContainsPlayer()) {
-                freeDoors.Add(d);
+            if (d == door) {
+                continue;
+            }
+            freeDoors.Add(d);
             //}
+
         }
 
         int rand = Random.Range(0, freeDoors.Count);
@@ -91,7 +95,13 @@ public class BossFightRhino : MonoBehaviour {
         // }
 
         rhinoBoss.Velocity = door.StartDirection;
-        rhinoBoss.SwitchState(Random.value > 0.5f);
+        rhinoBoss.Mirror.localScale = new Vector3(door.StartDirection.normalized.x, 1, 1);
+        //rhinoBoss.SwitchState(Random.value > 0.5f);
+
+        rhinoBoss.ToggleState();
+
+        rhinoBoss.Velocity = door.StartDirection;
+
         rhinoBoss.transform.position = door.SpawnPoint.position;
         rhinoBoss.gameObject.SetActive(true);
     }

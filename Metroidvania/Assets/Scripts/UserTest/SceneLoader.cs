@@ -12,7 +12,7 @@ public class SceneLoader : Singleton<SceneLoader> {
     #region [Types]
 
     public enum ExaminedVariable {
-        CastTime,
+        BreakTime,
         AttackSpeed,
         Accuracy
     }
@@ -97,7 +97,7 @@ public class SceneLoader : Singleton<SceneLoader> {
                 break;
             case 2:
             case 3:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.CastTime);
+                f_owlExperiment = new OwlExperiment(ExaminedVariable.BreakTime);
                 break;
             case 4:
             case 5:
@@ -112,7 +112,7 @@ public class SceneLoader : Singleton<SceneLoader> {
                 break;
             case 0:
             case 5:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.CastTime);
+                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.BreakTime);
                 break;
             case 1:
             case 3:
@@ -127,7 +127,7 @@ public class SceneLoader : Singleton<SceneLoader> {
                 break;
             case 1:
             case 4:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.CastTime);
+                f_frogExperiment = new FrogExperiment(ExaminedVariable.BreakTime);
                 break;
             case 0:
             case 2:

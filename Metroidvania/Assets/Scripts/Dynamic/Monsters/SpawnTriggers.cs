@@ -99,6 +99,14 @@ public class SpawnTriggers : MonoBehaviour {
                 if (m_currentExtendFrames == f_extendFrames - 1) {
                     if (m_enemy) {
                         m_enemy.enabled = false;
+
+                        //m_enemy.SpriteRenderer.color = Color.white;
+                        m_enemy.SpriteRenderer.material.SetFloat("_UseReplacement", 0);
+
+                        if (m_enemy.ActiveState is FrogControllerState) {
+                            // very hacky
+                            m_enemy.Animator.Play("Idle");
+                        }
                     }
                 }
             }
