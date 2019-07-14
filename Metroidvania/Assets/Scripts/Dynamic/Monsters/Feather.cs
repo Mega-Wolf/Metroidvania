@@ -64,32 +64,26 @@ public class Feather : MonoBehaviour {
                     new ActionGroup(() => {
                         transform.SetParent(null);
 
-                    Vector2 modifiedPlayerPos = Consts.Instance.Player.transform.position;
+                        Vector2 modifiedPlayerPos = Consts.Instance.Player.transform.position;
 
-                    if (transform.position.x > Consts.Instance.Player.transform.position.x) {
-                        modifiedPlayerPos.x += ACCURACY;
-                    } else {
-                        modifiedPlayerPos.x -= ACCURACY;
-                    }
+                        if (transform.position.x > Consts.Instance.Player.transform.position.x) {
+                            modifiedPlayerPos.x += ACCURACY;
+                        } else {
+                            modifiedPlayerPos.x -= ACCURACY;
+                        }
 
-                    Vector2 dif = modifiedPlayerPos - (Vector2) transform.position;
-                    float wholeYDif = -6 - transform.position.y;
+                        Vector2 dif = modifiedPlayerPos - (Vector2) transform.position;
+                        float wholeYDif = -6 - transform.position.y;
 
-
-
-                    float factor = wholeYDif / dif.y;
-
-                    m_goal = (Vector2)transform.position + dif * factor;
-
-                    if (m_goal.x > 11) {
-                        m_goal = (Vector2)transform.position + ((m_goal - (Vector2)transform.position) * (11 - transform.position.x) / (m_goal.x - transform.position.x));
-                    }
-
-                    if (m_goal.x < -11) {
-                        m_goal = (Vector2)transform.position + ((m_goal - (Vector2)transform.position) * (11 + transform.position.x) / -(m_goal.x - transform.position.x));
-                    }
-
-                    //m_goal = new Vector2(Consts.Instance.Player.transform.position.x, -6);
+                        float factor = wholeYDif / dif.y;
+                        m_goal = (Vector2)transform.position + dif * factor;
+                        if (m_goal.x > 11) {
+                            m_goal = (Vector2)transform.position + ((m_goal - (Vector2)transform.position) * (11 - transform.position.x) / (m_goal.x - transform.position.x));
+                        }
+                        if (m_goal.x < -11) {
+                            m_goal = (Vector2)transform.position + ((m_goal - (Vector2)transform.position) * (11 + transform.position.x) / -(m_goal.x - transform.position.x));
+                        }
+                        //m_goal = new Vector2(Consts.Instance.Player.transform.position.x, -6);
                     }),
                     new RotateTowardsTransform(transform.GetChild(0), Consts.Instance.Player.transform, 20),
                     new MoveTowardsValue(transform, f_goalFunc, SPEED / 50f),

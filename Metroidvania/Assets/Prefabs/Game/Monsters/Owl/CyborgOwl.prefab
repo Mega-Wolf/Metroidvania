@@ -17,6 +17,7 @@ MonoBehaviour:
   f_speed: 3.5
   preFeather: {fileID: 1846178172305818381, guid: e4dd442c1ef7fbf448905889d4258681,
     type: 3}
+  f_beamValue: 3
 --- !u!114 &8477719481975373830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,17 +61,17 @@ PrefabInstance:
     - target: {fileID: 8556619508132640185, guid: 8ea4c6457dbcea343b931a982916a61e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1123462
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8556619508132640185, guid: 8ea4c6457dbcea343b931a982916a61e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.604744
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8556619508132640185, guid: 8ea4c6457dbcea343b931a982916a61e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.669531
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8556619508132640185, guid: 8ea4c6457dbcea343b931a982916a61e,
         type: 3}
