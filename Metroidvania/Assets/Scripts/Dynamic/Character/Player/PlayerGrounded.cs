@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerGrounded : ControllerState {
 
+    public int m_dashAmount = 0;
+
     #region [Consts]
 
     [SerializeField]
@@ -71,6 +73,7 @@ public class PlayerGrounded : ControllerState {
 
             if (m_dashCooldown == 0 && InputManager.Instance.GetButtonDown("Dash", InputManager.EDelayType.Always)) {
                 m_dashCooldown = DASH_COOL;
+                ++m_dashAmount;
                 move *= 25;
 
                 if (move == 0) {
