@@ -59,6 +59,12 @@ public class Player : Controller, IDamagable {
         }
     }
 
+    public PlayerHittingDown PlayerHittingDown { get { return f_hittingDown; } }
+    public PlayerHittingSide PlayerHittingSide { get { return f_hittingSide; } }
+    public PlayerHittingUp PlayerHittingUp { get { return f_hittingUp; } }
+    public PlayerAir PlayerAir { get { return f_air; } }
+    public PlayerGrounded PlayerGrounded { get { return f_grounded; } }
+
     #endregion
 
     #region [Init]
