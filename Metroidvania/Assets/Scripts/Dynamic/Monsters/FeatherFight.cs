@@ -16,6 +16,10 @@ public class FeatherFight : ControllerState, IDamagable {
 
     [SerializeField] private float f_beamValue = 3;
 
+    [SerializeField] private int f_hitAnimLength = 100;
+    [SerializeField] private AnimationCurve f_yCurve;
+    [SerializeField] private AnimationCurve f_speedFactorCurve;
+
     #endregion
 
     #region [FinalVariables]
@@ -35,6 +39,8 @@ public class FeatherFight : ControllerState, IDamagable {
 
     private int m_currentFrames = 0;
     private int m_shootingFrames = 0;
+
+    private int m_hitAnim = -1;
 
     #endregion
 
@@ -61,12 +67,27 @@ public class FeatherFight : ControllerState, IDamagable {
                 new Loop(
                     new ActionGroup(
                         () => {
+                            float speedValue;
+                            if (m_hitAnim != -1) {
+                                ++m_hitAnim;
+                                speedValue = f_speedFactorCurve.Evaluate(m_hitAnim / (float)f_hitAnimLength) * f_speed;
+                                f_controller.transform.position = new Vector3(f_controller.transform.position.x, f_controller.AirMovement.Goal.y + f_yCurve.Evaluate(m_hitAnim / (float)f_hitAnimLength), f_controller.transform.position.z);
+                            } else {
+                                speedValue = f_speed;
+                            }
+
                             ++m_currentFrames;
                             if (((Vector2)f_controller.transform.position - f_controller.AirMovement.Goal).sqrMagnitude < (0.35f + 0.005f * m_currentFrames) * (0.35f + 0.005f * m_currentFrames) || f_controller.Velocity.sqrMagnitude < 0.1f * 0.1f) {
                                 // near to goal or almost not moving (stuck?)
                                 SetNewFlyGoal();
                             }
-                            f_controller.AirMovement.Move(f_speed);
+
+                            f_controller.AirMovement.Move(speedValue);
+
+                            if (m_hitAnim == f_hitAnimLength) {
+                                m_hitAnim = -1;
+                            }
+
                         }
                     )
                 ),
@@ -132,11 +153,13 @@ public class FeatherFight : ControllerState, IDamagable {
     }
 
     public void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
-        if (f_controller.AirMovement.Goal.x > transform.position.x) {
-            transform.position = new Vector3(Mathf.Min(f_rect.bounds.max.x, transform.position.x + f_beamValue), transform.position.y, transform.position.z);
-        } else {
-            transform.position = new Vector3(Mathf.Max(f_rect.bounds.min.x, transform.position.x - f_beamValue), transform.position.y, transform.position.z);
-        }
+        // if (f_controller.AirMovement.Goal.x > transform.position.x) {
+        //     transform.position = new Vector3(Mathf.Min(f_rect.bounds.max.x, transform.position.x + f_beamValue), transform.position.y, transform.position.z);
+        // } else {
+        //     transform.position = new Vector3(Mathf.Max(f_rect.bounds.min.x, transform.position.x - f_beamValue), transform.position.y, transform.position.z);
+        // }
+
+        m_hitAnim = 0;
     }
 
     #endregion
@@ -173,7 +196,7 @@ public class FeatherFight : ControllerState, IDamagable {
     private void SetNewFlyGoal() {
         m_currentFrames = 0;
 
-        f_controller.AirMovement.Goal =  new Vector2(transform.position.x > (f_rect.bounds.min.x + f_rect.bounds.max.x) / 2f ? f_rect.bounds.min.x : f_rect.bounds.max.x, (f_rect.bounds.min.y + f_rect.bounds.max.y) / 2f);
+        f_controller.AirMovement.Goal = new Vector2(transform.position.x > (f_rect.bounds.min.x + f_rect.bounds.max.x) / 2f ? f_rect.bounds.min.x : f_rect.bounds.max.x, (f_rect.bounds.min.y + f_rect.bounds.max.y) / 2f);
 
         //f_controller.AirMovement.Goal = new Vector2(Random.Range(f_rect.bounds.min.x, f_rect.bounds.max.x), Random.Range(f_rect.bounds.min.y, f_rect.bounds.max.y));
         //f_controller.AirMovement.Goal = new Vector2(Random.Range(f_rect.bounds.min.x, f_rect.bounds.max.x), f_controller.AirMovement.Goal.y);
