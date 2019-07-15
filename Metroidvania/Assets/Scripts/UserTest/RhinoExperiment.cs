@@ -1,40 +1,8 @@
 public class RhinoExperiment : Experiment {
 
-    #region [Properties]
-
-    public override string[] FeedbackTexts {
-        get {
-            return
-                new string[] {
-                    "Slower Meteors",
-                    "Lower Rhino Health",
-                    "Higher Character Health",
-                    "Shorter time after the character is hit and can't attack",
-                    "Longer rhino teleportation time between doors",
-                    "Slower Rhinos",
-                    "Lower Meteor Accuracy",
-                    "Faster Character"
-                };
-        }
-    }
-
-    #endregion
-
     #region [Constructors]
 
-    public RhinoExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
-        switch (examinedVariable) {
-            case SceneLoader.ExaminedVariable.AttackSpeed:
-                f_text = "Slower Rhinos";
-                break;
-            case SceneLoader.ExaminedVariable.BreakTime:
-                f_text = "Longer rhino teleportation time between doors";
-                break;
-            case SceneLoader.ExaminedVariable.Accuracy:
-                f_text = "Lower Meteor Accuracy";
-                break;
-        }
-    }
+    public RhinoExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) { }
 
     #endregion
 
@@ -45,6 +13,7 @@ public class RhinoExperiment : Experiment {
         BossFightRhino.DOOR_DELTA = 20;
         DifficultMeteorSpawn.ACCURACY = 0;
         DifficultMeteorSpawn.OFFSET = 10;
+        GenericEnemy.INITIAL_HEALTH = 8;
 
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
@@ -53,10 +22,15 @@ public class RhinoExperiment : Experiment {
             case SceneLoader.ExaminedVariable.BreakTime:
                 //BossFightRhino.DOOR_DELTA = (int) (20 * (1 + m_currentLevel / 10f));
                 //BossFightRhino.DOOR_DELTA = 20 + 5 * m_currentLevel;
-                DifficultMeteorSpawn.OFFSET = 10 + m_currentLevel;
+                //DifficultMeteorSpawn.OFFSET = 10 + m_currentLevel;
+                //TODO
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;
+                //DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;
+                //TODO
+                break;
+            case SceneLoader.ExaminedVariable.Health:
+                GenericEnemy.INITIAL_HEALTH = (int)(8 * (1 - m_currentLevel));
                 break;
         }
     }

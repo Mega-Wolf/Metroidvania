@@ -12,6 +12,7 @@ public class TrainEnded : MonoBehaviour {
     public void StartTest() {
         gameObject.SetActive(false);
         SceneLoader.Instance.CurrentExperiment.Started = true;
+        SceneLoader.Instance.CurrentExperiment.NextTry();
         SceneLoader.Instance.StartScene(false);
     }
 

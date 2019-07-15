@@ -15,6 +15,6 @@ MonoBehaviour:
   playerAir: {fileID: 11400000, guid: 64f43513e56fe7845bde2e61897ab756, type: 2}
   health: 20
   walkSpeed: 4
-  sideDamage: 3
-  upDamage: 3
-  downDamage: 3
+  sideDamage: 1
+  upDamage: 1
+  downDamage: 1

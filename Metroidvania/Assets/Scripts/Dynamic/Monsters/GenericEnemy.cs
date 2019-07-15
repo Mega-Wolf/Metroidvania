@@ -4,6 +4,8 @@ public class GenericEnemy : Controller, IDamagable {
 
     private const int DEAD_FRAMES = 100;
 
+    public static int INITIAL_HEALTH = -1;
+
     #region [MemberFields]
 
     //TODO all that stuff in SO
@@ -33,6 +35,10 @@ public class GenericEnemy : Controller, IDamagable {
     #region [Init]
 
     protected override void Awake() {
+        if (INITIAL_HEALTH >= 0) {
+            f_maxHealth = INITIAL_HEALTH;
+        }
+
         base.Awake();
         m_health = f_maxHealth;
         f_health.Init(f_maxHealth, f_weight, this);

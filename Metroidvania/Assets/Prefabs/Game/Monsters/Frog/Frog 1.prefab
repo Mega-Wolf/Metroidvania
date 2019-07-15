@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f014a2deade320419c178ec7364a7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerMovement: {x: 0, y: 0}
   CONTROLLER_SO: {fileID: 11400000, guid: b37a69a5af94f59449ecfe606d08a6dc, type: 2}
   f_mirror: {fileID: 385685498146538110}
   f_spriteRenderer: {fileID: 9112258698297159595}
@@ -312,7 +313,7 @@ MonoBehaviour:
   f_animator: {fileID: 1603791538174559953}
   f_health: {fileID: 1897245027579276519}
   f_noImpact: 0
-  f_maxHealth: 20
+  f_maxHealth: 8
   f_weight: 1
   f_loot:
     DropEnergy: 2

@@ -1694,7 +1694,6 @@ MonoBehaviour:
   f_canvasRetest: {fileID: 296389478}
   f_canvasQuestions: {fileID: 393725258}
   f_nextLevelNote: {fileID: 568214056}
-  f_feedback: {fileID: 393725263}
 --- !u!4 &270899144
 Transform:
   m_ObjectHideFlags: 0
@@ -1924,12 +1923,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 286304557}
-    characterCount: 539
+    characterCount: 580
     spriteCount: 0
-    spaceCount: 99
-    wordCount: 99
+    spaceCount: 107
+    wordCount: 107
     linkCount: 0
-    lineCount: 10
+    lineCount: 9
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -7854,7 +7853,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2003757776
 RectTransform:
   m_ObjectHideFlags: 0

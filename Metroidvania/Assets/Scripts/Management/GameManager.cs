@@ -38,11 +38,11 @@ public class GameManager : Singleton<GameManager> {
     protected override void Awake() {
         base.Awake();
 
-        if (SceneLoader.Instance != null) {
-            if (SceneLoader.Instance.CurrentExperiment.Realised) {
-                Random.InitState((SceneLoader.Instance.CurrentExperiment.EndCounter - 1) / 2);
-            }
-        }
+        // if (SceneLoader.Instance != null) {
+        //     if (SceneLoader.Instance.CurrentExperiment.Realised) {
+        //         Random.InitState((SceneLoader.Instance.CurrentExperiment.EndCounter - 1) / 2);
+        //     }
+        // }
     }
 
     // private void Start() {

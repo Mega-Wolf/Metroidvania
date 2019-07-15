@@ -34,7 +34,7 @@ public class OnDead : MonoBehaviour {
                 Destroy(spit.gameObject);
             }
 
-            SceneLoader.Instance.EndedScene(frames, health, enemyHealthCombined);
+            SceneLoader.Instance.EndedScene(frames, health, enemyHealthCombined, genericEnemys.Length);
         }
 
         if (Medianight.Instance != null) {

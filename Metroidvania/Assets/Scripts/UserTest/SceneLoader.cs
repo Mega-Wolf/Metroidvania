@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,9 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     public enum ExaminedVariable {
         BreakTime,
+        None,
         AttackSpeed,
+        Health,
         Accuracy
     }
 
@@ -38,7 +41,7 @@ public class SceneLoader : Singleton<SceneLoader> {
     /*[SerializeField]*/
     private BossFight m_bossFight = BossFight.Owl;
 
-    [SerializeField] private FeedbackAsker f_feedback;
+    //[SerializeField] private FeedbackAsker f_feedback;
 
     #endregion
 
@@ -56,6 +59,8 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     private string m_sceneName;
     private bool m_isQuitting = false;
+
+    private ExaminedVariable m_examinedVariable;
 
     #endregion
 
@@ -78,62 +83,14 @@ public class SceneLoader : Singleton<SceneLoader> {
     public void ChooseSetting(int setting) {
         Destroy(f_permutationCanvas);
         if (setting == -1) {
-            setting = (int)(Random.value * 6);
+            setting = (int)(UnityEngine.Random.value * Enum.GetValues(typeof(ExaminedVariable)).Length);
         }
 
-        //   :      Owl     Rhino       Frog
-        // --+------------------------------
-        //  0:      A       C           Ac
-        //  1:      A       Ac          C
-        //  2:      C       A           Ac
-        //  3:      C       Ac          A
-        //  4:      Ac      A           C
-        //  5:      Ac      C           A
+        m_examinedVariable = (ExaminedVariable) setting;
 
-        switch (setting) {
-            case 0:
-            case 1:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.AttackSpeed);
-                break;
-            case 2:
-            case 3:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.BreakTime);
-                break;
-            case 4:
-            case 5:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.Accuracy);
-                break;
-        }
-
-        switch (setting) {
-            case 2:
-            case 4:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.AttackSpeed);
-                break;
-            case 0:
-            case 5:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.BreakTime);
-                break;
-            case 1:
-            case 3:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.Accuracy);
-                break;
-        }
-
-        switch (setting) {
-            case 3:
-            case 5:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.AttackSpeed);
-                break;
-            case 1:
-            case 4:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.BreakTime);
-                break;
-            case 0:
-            case 2:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.Accuracy);
-                break;
-        }
+        f_owlExperiment = new OwlExperiment((ExaminedVariable) setting);
+        f_rhinoExperiment = new OwlExperiment((ExaminedVariable) setting);
+        f_frogExperiment = new OwlExperiment((ExaminedVariable) setting);
 
         f_experiments[BossFight.Owl] = f_owlExperiment;
         f_experiments[BossFight.Rhino] = f_rhinoExperiment;
@@ -174,8 +131,6 @@ public class SceneLoader : Singleton<SceneLoader> {
                 sceneName = "FrogScene";
                 break;
             default:
-                //TODO; not sure if I shall just quit
-                // actual TODO: save the data somewhere
                 Application.Quit();
                 return;
         }
@@ -188,10 +143,10 @@ public class SceneLoader : Singleton<SceneLoader> {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
-    public void EndedScene(int frames, int characterHealth, int enemyHealthCombined) {
+    public void EndedScene(int frames, int characterHealth, int enemyHealthCombined, int restEnemies) {
 
         CurrentExperiment.AddData(
-            frames, characterHealth, enemyHealthCombined,
+            frames, characterHealth, enemyHealthCombined, restEnemies,
             Consts.Instance.Player.PlayerHittingSide.m_hitAmount, Consts.Instance.Player.PlayerHittingSide.m_hittedAmount,
             Consts.Instance.Player.PlayerHittingUp.m_hitAmount, Consts.Instance.Player.PlayerHittingUp.m_hittedAmount,
             Consts.Instance.Player.PlayerHittingDown.m_hitAmount, Consts.Instance.Player.PlayerHittingDown.m_hittedAmount,
@@ -224,14 +179,11 @@ public class SceneLoader : Singleton<SceneLoader> {
     #region [PrivateMethods]
 
     private void AfterUnload() {
+        //TODO; this basically is the only stuff I have to change in this class
+
+        //TODO; is this still allowed ?!?
         if (!CurrentExperiment.Started) {
             f_canvasRetest.SetActive(true);
-            return;
-        }
-
-        if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
-            f_feedback.ShowQuestions(CurrentExperiment);
-            CurrentExperiment.NextTry();
             return;
         }
 
@@ -243,7 +195,6 @@ public class SceneLoader : Singleton<SceneLoader> {
             StartScene(false);
         }
 
-        //StartScene(CurrentExperiment.Finished);
     }
 
     #endregion
@@ -252,6 +203,7 @@ public class SceneLoader : Singleton<SceneLoader> {
         m_isQuitting = true;
 
         Debug.Log(
+            m_examinedVariable + ":" + Environment.NewLine +
             BossFight.Owl + ":" + Environment.NewLine +
             f_owlExperiment.ExperimentText +
             Environment.NewLine +
@@ -274,6 +226,7 @@ public class SceneLoader : Singleton<SceneLoader> {
             if (!File.Exists(path)) {
                 StreamWriter fs = new StreamWriter(File.Create(path));
                 fs.Write(
+                    m_examinedVariable + ":" + Environment.NewLine +
                     BossFight.Owl + ":" + Environment.NewLine +
                     f_owlExperiment.ExperimentText +
                     Environment.NewLine +

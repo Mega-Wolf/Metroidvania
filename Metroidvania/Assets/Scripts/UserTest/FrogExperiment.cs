@@ -1,39 +1,8 @@
 public class FrogExperiment : Experiment {
 
-    #region [Properties]
-
-    public override string[] FeedbackTexts {
-        get {
-            return
-                new string[] {
-                    "Slower Slime balls",
-                    "Lower Frog Health",
-                    "Higher Character Health",
-                    "Shorter time after the character is hit and can't attack",
-                    "Longer time before a frog pukes",
-                    "Lower Slime ball Accuracy",
-                    "Faster Character"
-                };
-        }
-    }
-
-    #endregion
-
     #region [Constructors]
 
-    public FrogExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
-        switch (examinedVariable) {
-            case SceneLoader.ExaminedVariable.AttackSpeed:
-                f_text = "Slower Slime balls";
-                break;
-            case SceneLoader.ExaminedVariable.BreakTime:
-                f_text = "Longer time before a frog pukes";
-                break;
-            case SceneLoader.ExaminedVariable.Accuracy:
-                f_text = "Lower Slime ball Accuracy";
-                break;
-        }
-    }
+    public FrogExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {}
 
     #endregion
 
@@ -44,6 +13,7 @@ public class FrogExperiment : Experiment {
         Spit.SPEED_FACTOR = 1f;
         FrogControllerState.CAST_TIME = 50;
         Spit.ACCURACY = 0;
+        GenericEnemy.INITIAL_HEALTH = 8;
 
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
@@ -51,11 +21,15 @@ public class FrogExperiment : Experiment {
                 break;
             case SceneLoader.ExaminedVariable.BreakTime:
                 //FrogControllerState.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
-                FrogControllerState.CAST_TIME = 50 + 5 * m_currentLevel;
+                //FrogControllerState.CAST_TIME = 50 + 5 * m_currentLevel;
                 //TODO
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                Spit.ACCURACY = 0.25f * m_currentLevel;
+                //Spit.ACCURACY = 0.25f * m_currentLevel;
+                //TODO
+                break;
+            case SceneLoader.ExaminedVariable.Health:
+                GenericEnemy.INITIAL_HEALTH = (int) (8 * (1 - m_currentLevel));
                 break;
         }
     }
