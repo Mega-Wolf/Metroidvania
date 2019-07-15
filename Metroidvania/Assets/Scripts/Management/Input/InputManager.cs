@@ -142,6 +142,9 @@ public class InputManager : Singleton<InputManager> {
     /// Returns true if the virtual button with the given name is pressed
     /// </summary>
     public bool GetButton(string virtualKey, bool ignoreIgnore = false) {
+        if (GameManager.Instance.Frame == 0) {
+            return false;
+        }
         return (!IgnoreInput || ignoreIgnore) && f_inputManager.GetButton(virtualKey);
     }
 
@@ -149,6 +152,9 @@ public class InputManager : Singleton<InputManager> {
     /// Returns true if the virtual button with the given name was pressed this frame
     /// </summary>
     public bool GetButtonDown(string virtualKey, EDelayType delayType = EDelayType.None, bool ignoreIgnore = false) {
+        if (GameManager.Instance.Frame == 0) {
+            return false;
+        }
         return (!IgnoreInput || ignoreIgnore) && f_inputManager.GetButtonDown(virtualKey, delayType);
     }
 
@@ -156,6 +162,9 @@ public class InputManager : Singleton<InputManager> {
     /// Returns true if the virtual button with the given name was released this frame
     /// </summary>
     public bool GetButtonUp(string virtualKey, bool ignoreIgnore = false) {
+        if (GameManager.Instance.Frame == 0) {
+            return false;
+        }
         return (!IgnoreInput || ignoreIgnore) && f_inputManager.GetButtonUp(virtualKey);
     }
 
