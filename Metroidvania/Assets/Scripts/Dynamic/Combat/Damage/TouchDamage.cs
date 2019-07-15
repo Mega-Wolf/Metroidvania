@@ -11,7 +11,7 @@ public class TouchDamage : MonoBehaviour {
     //TODO; only use that (but that would break links)
     [SerializeField] private Collider2D[] f_colliders;
 
-    [SerializeField][EnumFlag] private EDamageReceiver f_eDamageReceiver;
+    [SerializeField] [EnumFlag] private EDamageReceiver f_eDamageReceiver;
 
     [SerializeField] private int f_damage;
 
@@ -34,6 +34,9 @@ public class TouchDamage : MonoBehaviour {
     #region [Updates]
 
     private void FixedUpdate() {
+        //FIX
+        f_damage = 1;
+
         bool hittedSth = false;
 
         if (f_colliders != null && f_colliders.Length != 0) {

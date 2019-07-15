@@ -41,6 +41,9 @@ public class Damage : MonoBehaviour {
     #region [Updates]
 
     private void FixedUpdate() {
+        //FIX
+        m_damage = 1;
+
         List<Collider2D> colliderList = DamageHelper.ContactList;
         //colliderList.Clear();
 

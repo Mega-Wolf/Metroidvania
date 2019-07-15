@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
   playerAir: {fileID: 11400000, guid: 64f43513e56fe7845bde2e61897ab756, type: 2}
-  health: 20
+  health: 10
   walkSpeed: 4
   sideDamage: 1
   upDamage: 1
