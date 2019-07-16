@@ -191,7 +191,7 @@ using UnityEngine;
 public abstract class Experiment {
 
     // TESTING (I want 5 to throw away the first 2)
-    private const int TEST_AMOUNT = 3;
+    public const int TEST_AMOUNT = 3;
 
     #region [Types]
 
@@ -205,6 +205,11 @@ public abstract class Experiment {
         Vector2 movement, int jumps, int dashes)> f_data = new List<(float, int, int, int, int,
         int, int, int, int, int, int,
         Vector2, int, int)>();
+
+        private int m_ratingAfterState1;
+        private int m_ratingAfterState2;
+
+        private string m_finalText = "";
 
         #endregion
 
@@ -222,12 +227,32 @@ public abstract class Experiment {
             f_data.Add((currentLevel, frames, characterHealth, combinedEnemyHealth, restEnemies, sideTries, sideHits, upTries, upHits, downTries, downHits, movement, jumps, dashes));
         }
 
+        public void RateAfterState(int state, int rating) {
+            if (state == 1) {
+                RateAfterState1(rating);
+            } else {
+                RateAfterState2(rating);
+            }
+        }
+
+        public void RateAfterState1(int rating) {
+            m_ratingAfterState1 = rating;
+        }
+
+        public void RateAfterState2(int rating) {
+            m_ratingAfterState2 = rating;
+        }
+
+        public void SetFinalText(string finalText) {
+            m_finalText = finalText;
+        }
+
         #endregion
 
         #region [Printing]
 
         public override string ToString() {
-            string ret = f_examinedVariable + ":" + Environment.NewLine;
+            string ret = ""; // = f_examinedVariable + ":" + Environment.NewLine;
 
             for (int i = 0; i < f_data.Count; ++i) {
                 ret += f_data[i].currentLevel + "\t" +
@@ -236,6 +261,9 @@ public abstract class Experiment {
                 f_data[i].movement.x + "\t" + f_data[i].movement.y + "\t" + f_data[i].jumps + "\t" + f_data[i].dashes + Environment.NewLine;
                 ;
             }
+
+            // ret += m_ratingAfterState1 + "\t" + m_ratingAfterState2 + Environment.NewLine;
+            // ret += Environment.NewLine + m_finalText + Environment.NewLine;
 
             return ret;
         }
@@ -269,6 +297,8 @@ public abstract class Experiment {
 
     #region [Properties]
 
+    public int EndCounter { get { return m_endCounter; } }
+
     public string ExperimentText { get { return f_experimentData + ""; } }
 
     public bool Started { get; set; }
@@ -290,6 +320,14 @@ public abstract class Experiment {
     #endregion
 
     #region [PublicMethods]
+
+    public void SetFinalText(string finalText) {
+        f_experimentData.SetFinalText(finalText);
+    }
+
+    public void RateAfterState(int state, int rating) {
+        f_experimentData.RateAfterState(state, rating);
+    }
 
     public void NextTry() {
         if (!Started) {

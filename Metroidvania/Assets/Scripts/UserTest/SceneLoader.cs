@@ -10,6 +10,8 @@ using Environment = System.Environment;
 /// </summary>
 public class SceneLoader : Singleton<SceneLoader> {
 
+    public string finalText = "";
+
     #region [Types]
 
     public enum ExaminedVariable {
@@ -35,6 +37,8 @@ public class SceneLoader : Singleton<SceneLoader> {
     [SerializeField] private GameObject f_canvasQuestions;
 
     [SerializeField] private GameObject f_nextLevelNote;
+
+    [SerializeField] private GameObject f_finalQuestion;
 
     //[SerializeField] private BossFight m_bossFight = BossFight.Owl;
     //TESTING
@@ -86,11 +90,11 @@ public class SceneLoader : Singleton<SceneLoader> {
             setting = (int)(UnityEngine.Random.value * Enum.GetValues(typeof(ExaminedVariable)).Length);
         }
 
-        m_examinedVariable = (ExaminedVariable) setting;
+        m_examinedVariable = (ExaminedVariable)setting;
 
-        f_owlExperiment = new OwlExperiment((ExaminedVariable) setting);
-        f_rhinoExperiment = new RhinoExperiment((ExaminedVariable) setting);
-        f_frogExperiment = new FrogExperiment((ExaminedVariable) setting);
+        f_owlExperiment = new OwlExperiment((ExaminedVariable)setting);
+        f_rhinoExperiment = new RhinoExperiment((ExaminedVariable)setting);
+        f_frogExperiment = new FrogExperiment((ExaminedVariable)setting);
 
         f_experiments[BossFight.Owl] = f_owlExperiment;
         f_experiments[BossFight.Rhino] = f_rhinoExperiment;
@@ -131,7 +135,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                 sceneName = "FrogScene";
                 break;
             default:
-                Application.Quit();
+                //Application.Quit();
+                f_finalQuestion.SetActive(true);
                 return;
         }
 
@@ -189,12 +194,20 @@ public class SceneLoader : Singleton<SceneLoader> {
 
         CurrentExperiment.NextTry();
 
-        if (CurrentExperiment.Finished) {
+        if (CurrentExperiment.EndCounter == Experiment.TEST_AMOUNT + 1) {
             f_nextLevelNote.SetActive(true);
-        } else {
-            StartScene(false);
+            f_nextLevelNote.GetComponent<RadioFeedback>().ShowAfterStage1();
+            return;
         }
 
+
+        if (CurrentExperiment.Finished) {
+            f_nextLevelNote.SetActive(true);
+            f_nextLevelNote.GetComponent<RadioFeedback>().ShowAfterStage2();
+            return;
+        }
+
+        StartScene(false);
     }
 
     #endregion
@@ -212,7 +225,8 @@ public class SceneLoader : Singleton<SceneLoader> {
             Environment.NewLine +
             BossFight.Frog + ":" + Environment.NewLine +
             f_frogExperiment.ExperimentText +
-            Environment.NewLine
+            Environment.NewLine +
+            finalText
         );
 
 
@@ -235,7 +249,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                     Environment.NewLine +
                     BossFight.Frog + ":" + Environment.NewLine +
                     f_frogExperiment.ExperimentText +
-                    Environment.NewLine
+                    Environment.NewLine +
+                    finalText
                 );
                 fs.Flush();
                 fs.Close();
