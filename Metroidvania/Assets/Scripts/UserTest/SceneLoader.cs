@@ -89,8 +89,8 @@ public class SceneLoader : Singleton<SceneLoader> {
         m_examinedVariable = (ExaminedVariable) setting;
 
         f_owlExperiment = new OwlExperiment((ExaminedVariable) setting);
-        f_rhinoExperiment = new OwlExperiment((ExaminedVariable) setting);
-        f_frogExperiment = new OwlExperiment((ExaminedVariable) setting);
+        f_rhinoExperiment = new RhinoExperiment((ExaminedVariable) setting);
+        f_frogExperiment = new FrogExperiment((ExaminedVariable) setting);
 
         f_experiments[BossFight.Owl] = f_owlExperiment;
         f_experiments[BossFight.Rhino] = f_rhinoExperiment;

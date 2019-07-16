@@ -297,7 +297,7 @@ public abstract class Experiment {
         }
 
         if (m_isEasier) {
-            m_currentLevel = 3;
+            m_currentLevel = 2.5f;
         } else {
             m_currentLevel = 0;
         }

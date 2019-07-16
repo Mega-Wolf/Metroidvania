@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class FrogExperiment : Experiment {
 
     #region [Constructors]
@@ -12,6 +14,7 @@ public class FrogExperiment : Experiment {
 
         Spit.SPEED_FACTOR = 1f;
         FrogControllerState.CAST_TIME = 50;
+        FrogControllerState.POST_IDLE = 0;
         Spit.ACCURACY = 0;
         GenericEnemy.INITIAL_HEALTH = 8;
 
@@ -20,9 +23,7 @@ public class FrogExperiment : Experiment {
                 Spit.SPEED_FACTOR = (1 - m_currentLevel / 10f);
                 break;
             case SceneLoader.ExaminedVariable.BreakTime:
-                //FrogControllerState.CAST_TIME = (int)(20 * (1 + m_currentLevel / 10f));
-                //FrogControllerState.CAST_TIME = 50 + 5 * m_currentLevel;
-                //TODO
+                FrogControllerState.POST_IDLE = (int) ((FrogControllerState.CAST_TIME + FrogControllerState.PUKE_TIME + FrogControllerState.END_IDLE) / (1 - m_currentLevel / 10f) - (FrogControllerState.CAST_TIME + FrogControllerState.PUKE_TIME + FrogControllerState.END_IDLE));
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
                 //Spit.ACCURACY = 0.25f * m_currentLevel;
@@ -32,6 +33,12 @@ public class FrogExperiment : Experiment {
                 GenericEnemy.INITIAL_HEALTH = (int) (8 * (1 - m_currentLevel));
                 break;
         }
+
+        Debug.Log(Spit.SPEED_FACTOR);
+        Debug.Log(FrogControllerState.CAST_TIME);
+        Debug.Log(FrogControllerState.POST_IDLE);
+        Debug.Log(Spit.ACCURACY);
+        Debug.Log(GenericEnemy.INITIAL_HEALTH);
     }
 
     #endregion
