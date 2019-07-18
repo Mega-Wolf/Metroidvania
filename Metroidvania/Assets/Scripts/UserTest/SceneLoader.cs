@@ -22,7 +22,7 @@ public class SceneLoader : Singleton<SceneLoader> {
         Accuracy
     }
 
-    private enum BossFight {
+    public enum BossFight {
         Owl,
         Rhino,
         Frog
@@ -71,6 +71,8 @@ public class SceneLoader : Singleton<SceneLoader> {
     #region [Properties]
 
     public Experiment CurrentExperiment { get { return f_experiments[m_bossFight]; } }
+
+    public BossFight BossFightValue { get { return m_bossFight; } }
 
     #endregion
 

@@ -60,7 +60,16 @@ public class PlayerHittingUp : ControllerState, IDamager {
     #region [Override]
 
     public override bool EnterOnCondition() {
-        if (InputManager.Instance.GetButton("Up") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always)) {
+
+        bool isTrue = false;
+
+        if (SceneLoader.Instance.BossFightValue == SceneLoader.BossFight.Owl) {
+            isTrue = InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always);
+        } else {
+            isTrue = InputManager.Instance.GetButton("Up") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always);
+        }
+
+        if (isTrue) {
             ++m_hitAmount;
             return true;
         }
