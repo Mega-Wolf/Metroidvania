@@ -122,7 +122,10 @@ public class Player : Controller, IDamagable {
 
     public void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         //TODO; that looks awful
-        ReactOnImpact(-hitNormal);
+
+        if (Grounded) {
+            ReactOnImpact(-hitNormal);
+        }
 
         m_currentHittedDuration = 1;
         if (f_hitted.ParticleSystem) {
