@@ -66,7 +66,7 @@ public class TouchDamage : MonoBehaviour {
                 if (health != null) {
                     bool shallSpawn = true;
                     if (health.Controller is Player p) {
-                        shallSpawn = !(p.ActiveStackedState is CharacterHitted);
+                        shallSpawn = !(p.ActiveStackedState is CharacterHitted || p.CurrentHitted > 0);
                     }
                     if (shallSpawn) {
                         Instantiate(Consts.Instance.PreHit, (colliderCombos[i].self.transform.position + colliderCombos[i].other.transform.position) / 2f, Quaternion.identity);
