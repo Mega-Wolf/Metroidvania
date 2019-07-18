@@ -26,7 +26,7 @@ public class FrogExperiment : Experiment {
                 FrogControllerState.POST_IDLE = (int) ((FrogControllerState.CAST_TIME + FrogControllerState.PUKE_TIME + FrogControllerState.END_IDLE) / (1 - m_currentLevel / 10f) - (FrogControllerState.CAST_TIME + FrogControllerState.PUKE_TIME + FrogControllerState.END_IDLE));
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                //Spit.ACCURACY = 0.25f * m_currentLevel;
+                Spit.ACCURACY = 0.25f * m_currentLevel;
                 //TODO
                 break;
             case SceneLoader.ExaminedVariable.Health:

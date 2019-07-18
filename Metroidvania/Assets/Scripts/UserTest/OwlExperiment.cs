@@ -28,7 +28,7 @@ public class OwlExperiment : Experiment {
                 FeatherFight.POST_IDLE = (int)((FeatherFight.PRE_IDLE + FeatherFight.PREPARATION) / (1 - m_currentLevel / 10f) - (FeatherFight.PRE_IDLE + FeatherFight.PREPARATION));
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                //Feather.ACCURACY = 0.25f * m_currentLevel;
+                Feather.ACCURACY = 0.25f * m_currentLevel;
                 //TODO
                 break;
             case SceneLoader.ExaminedVariable.Health:

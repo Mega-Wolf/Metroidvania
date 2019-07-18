@@ -17,15 +17,18 @@ public class RhinoExperiment : Experiment {
         DifficultMeteorSpawn.OFFSET = 27;
         GenericEnemy.INITIAL_HEALTH = 8;
 
+        BossFightRhino.SPEED = (1 - 2.5f / 10f);
+
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
-                BossFightRhino.SPEED = (1 - m_currentLevel / 10f);
+                //BossFightRhino.SPEED = (1 - m_currentLevel / 10f);
+                Meteor.SPEED = 10 * (1 - m_currentLevel / 10f);
                 break;
             case SceneLoader.ExaminedVariable.BreakTime:
                 DifficultMeteorSpawn.OFFSET = (int) (27 / (1 - m_currentLevel / 10f));
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
-                //DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;
+                DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;
                 //TODO
                 break;
             case SceneLoader.ExaminedVariable.Health:
