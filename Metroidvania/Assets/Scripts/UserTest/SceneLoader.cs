@@ -115,6 +115,26 @@ public class SceneLoader : Singleton<SceneLoader> {
 
         // This looks a bit stupid since essentially it is just +=1; however I made this so I could change the order more easily
         if (next) {
+            if (!Directory.Exists("Data")) {
+                Directory.CreateDirectory("Data");
+            }
+
+            for (int i = 0; ; ++i) {
+                string path = "Data/Data" + i + ".txt";
+
+                if (!File.Exists(path)) {
+                    StreamWriter fs = new StreamWriter(File.Create("Data/Data" + i + "-" + (int)m_bossFight + ".txt"));
+                    fs.Write(
+                        m_examinedVariable + ":" + Environment.NewLine +
+                        m_bossFight + ":" + Environment.NewLine +
+                        CurrentExperiment.ExperimentText
+                    );
+                    fs.Flush();
+                    fs.Close();
+                    break;
+                }
+            }
+
             switch (m_bossFight) {
                 case BossFight.Owl:
                     m_bossFight = BossFight.Rhino;
@@ -126,6 +146,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                     m_bossFight = (BossFight)(-1);
                     break;
             }
+
+
         }
 
         switch (m_bossFight) {

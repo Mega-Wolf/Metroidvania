@@ -25,7 +25,7 @@ public class EnableOnKey : MonoBehaviour {
     #region [Updates]
 
     private void Update() {
-        if (Time.time < f_startTime + 0.5f) {
+        if (Time.time < f_startTime + 1f) {
             return;
         }
         
