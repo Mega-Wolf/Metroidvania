@@ -40,6 +40,8 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     [SerializeField] private GameObject f_finalQuestion;
 
+    [SerializeField] private TMPro.TMP_Text f_tryText;
+
     //[SerializeField] private BossFight m_bossFight = BossFight.Owl;
     //TESTING
     /*[SerializeField]*/
@@ -148,9 +150,12 @@ public class SceneLoader : Singleton<SceneLoader> {
         //this would not allow me to redo the easiest one; therefore done somewhere else
 
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+
+        f_tryText.text = "Phase: " + ((CurrentExperiment.EndCounter + 3 - 1) / 3) + "/2   -   Try: " + (1 + (CurrentExperiment.EndCounter - 1) % 3) + "/3";
     }
 
     public void EndedScene(int frames, int characterHealth, int enemyHealthCombined, int restEnemies) {
+        f_tryText.text = "";
 
         CurrentExperiment.AddData(
             frames, characterHealth, enemyHealthCombined, restEnemies,
