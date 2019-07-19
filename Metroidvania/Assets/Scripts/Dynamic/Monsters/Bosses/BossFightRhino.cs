@@ -7,6 +7,8 @@ public class BossFightRhino : MonoBehaviour {
     public static float SPEED = 1f;
     public static float DOOR_DELTA = 20;
 
+    private const int MIN_SPAWN_OFFSET = 40;
+
     #region [MemberFields]
 
     //[SerializeField] private float f_createPercentage = 0;
@@ -20,6 +22,12 @@ public class BossFightRhino : MonoBehaviour {
 
     #endregion
 
+    #region [FinalVariables]
+
+    private Dictionary<Door, int> f_lastSpawn = new Dictionary<Door, int>();
+
+    #endregion
+
     #region [Init]
 
     private void Awake() {
@@ -27,16 +35,19 @@ public class BossFightRhino : MonoBehaviour {
     }
 
     private void OnValidate() {
+        f_lastSpawn.Clear();
+
         foreach (Door door in f_doors) {
             door.EnableColor = m_enabledDoor;
             door.DisableColor = m_disabledDoor;
 
             door.SetEnabled(false);
+
+            f_lastSpawn[door] = -MIN_SPAWN_OFFSET;
         }
     }
 
     #endregion
-
 
     #region [PublicMethods]
 
@@ -81,6 +92,15 @@ public class BossFightRhino : MonoBehaviour {
         //         rb.SetStartState(rb.ActiveState);
         //     }
         // }
+
+        int lastSpawn = f_lastSpawn[door];
+        int addedOffset = Mathf.Max(0, MIN_SPAWN_OFFSET - (GameManager.Instance.Frame - lastSpawn));
+
+        f_lastSpawn[door] = GameManager.Instance.Frame + addedOffset;
+
+        for (int i = 0; i < addedOffset; ++i) {
+            yield return new WaitForFixedUpdate();
+        }
 
         for (int i = 0; i < DOOR_DELTA; ++i) {
             yield return new WaitForFixedUpdate();
