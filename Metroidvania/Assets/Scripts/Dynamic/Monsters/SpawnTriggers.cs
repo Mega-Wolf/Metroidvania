@@ -27,6 +27,8 @@ public class SpawnTriggers : MonoBehaviour {
 
     private int m_currentCooldown;
 
+    private int m_hideTimer = 0;
+
     #endregion
 
     #region [Init]
@@ -52,12 +54,21 @@ public class SpawnTriggers : MonoBehaviour {
 
         if (m_currentCooldown == 0) {
             f_nearCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
+            
             if (DamageHelper.ContactList.Count > 0) {
-                if (m_outwards) {
-                    m_currentCooldown = f_cooldownTime;
+                ++m_hideTimer;
+                if (m_hideTimer != 20) {
+
+                } else {
+                    if (m_outwards) {
+                        m_currentCooldown = f_cooldownTime;
+                    }
+                    m_outwards = false;
                 }
-                m_outwards = false;
+                
             } else {
+                m_hideTimer = 0;
+
                 f_farCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
                 if (DamageHelper.ContactList.Count > 0) {
                     if (!m_outwards) {
@@ -69,6 +80,15 @@ public class SpawnTriggers : MonoBehaviour {
                         m_currentCooldown = f_cooldownTime;
                     }
                     m_outwards = false;
+                }
+            }
+        } else {
+            f_nearCollider.OverlapCollider(DamageHelper.PlayerFilter, DamageHelper.ContactList);
+            
+            if (DamageHelper.ContactList.Count > 0) {
+                ++m_hideTimer;
+                if (m_hideTimer == 20) {
+                    --m_hideTimer;
                 }
             }
         }
