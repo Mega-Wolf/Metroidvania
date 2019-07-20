@@ -63,7 +63,7 @@ public class PlayerHittingUp : ControllerState, IDamager {
 
         bool isTrue = false;
 
-        if (SceneLoader.Instance.BossFightValue == SceneLoader.BossFight.Owl) {
+        if (SceneLoader.Instance && SceneLoader.Instance.BossFightValue == SceneLoader.BossFight.Owl) {
             isTrue = InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always);
         } else {
             isTrue = InputManager.Instance.GetButton("Up") && InputManager.Instance.GetButtonDown("Fight", InputManager.EDelayType.Always);
