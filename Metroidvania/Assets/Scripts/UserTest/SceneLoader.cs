@@ -41,6 +41,7 @@ public class SceneLoader : Singleton<SceneLoader> {
     [SerializeField] private GameObject f_finalQuestion;
 
     [SerializeField] private TMPro.TMP_Text f_tryText;
+    [SerializeField] private TMPro.TMP_Text f_winLoseText;
 
     //[SerializeField] private BossFight m_bossFight = BossFight.Owl;
     //TESTING
@@ -75,6 +76,8 @@ public class SceneLoader : Singleton<SceneLoader> {
     public Experiment CurrentExperiment { get { return f_experiments[m_bossFight]; } }
 
     public BossFight BossFightValue { get { return m_bossFight; } }
+
+    public TMPro.TMP_Text WinLoseText {get {return f_winLoseText;}}
 
     #endregion
 
@@ -178,6 +181,14 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     public void EndedScene(int frames, int characterHealth, int enemyHealthCombined, int restEnemies) {
         f_tryText.text = "";
+
+
+        if (characterHealth > 0) {
+            f_winLoseText.text = "You defeated all the enemies";
+        } else {
+            f_winLoseText.text = "You were killed";
+        }
+
 
         CurrentExperiment.AddData(
             frames, characterHealth, enemyHealthCombined, restEnemies,
