@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +10,19 @@ using Environment = System.Environment;
 /// </summary>
 public class SceneLoader : Singleton<SceneLoader> {
 
+    public string finalText = "";
+
     #region [Types]
 
     public enum ExaminedVariable {
         BreakTime,
+        None,
         AttackSpeed,
+        Health,
         Accuracy
     }
 
-    private enum BossFight {
+    public enum BossFight {
         Owl,
         Rhino,
         Frog
@@ -33,12 +38,16 @@ public class SceneLoader : Singleton<SceneLoader> {
 
     [SerializeField] private GameObject f_nextLevelNote;
 
+    [SerializeField] private GameObject f_finalQuestion;
+
+    [SerializeField] private TMPro.TMP_Text f_tryText;
+
     //[SerializeField] private BossFight m_bossFight = BossFight.Owl;
     //TESTING
     /*[SerializeField]*/
     private BossFight m_bossFight = BossFight.Owl;
 
-    [SerializeField] private FeedbackAsker f_feedback;
+    //[SerializeField] private FeedbackAsker f_feedback;
 
     #endregion
 
@@ -57,11 +66,15 @@ public class SceneLoader : Singleton<SceneLoader> {
     private string m_sceneName;
     private bool m_isQuitting = false;
 
+    private ExaminedVariable m_examinedVariable;
+
     #endregion
 
     #region [Properties]
 
     public Experiment CurrentExperiment { get { return f_experiments[m_bossFight]; } }
+
+    public BossFight BossFightValue { get { return m_bossFight; } }
 
     #endregion
 
@@ -78,62 +91,14 @@ public class SceneLoader : Singleton<SceneLoader> {
     public void ChooseSetting(int setting) {
         Destroy(f_permutationCanvas);
         if (setting == -1) {
-            setting = (int)(Random.value * 6);
+            setting = (int)(UnityEngine.Random.value * Enum.GetValues(typeof(ExaminedVariable)).Length);
         }
 
-        //   :      Owl     Rhino       Frog
-        // --+------------------------------
-        //  0:      A       C           Ac
-        //  1:      A       Ac          C
-        //  2:      C       A           Ac
-        //  3:      C       Ac          A
-        //  4:      Ac      A           C
-        //  5:      Ac      C           A
+        m_examinedVariable = (ExaminedVariable)setting;
 
-        switch (setting) {
-            case 0:
-            case 1:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.AttackSpeed);
-                break;
-            case 2:
-            case 3:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.BreakTime);
-                break;
-            case 4:
-            case 5:
-                f_owlExperiment = new OwlExperiment(ExaminedVariable.Accuracy);
-                break;
-        }
-
-        switch (setting) {
-            case 2:
-            case 4:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.AttackSpeed);
-                break;
-            case 0:
-            case 5:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.BreakTime);
-                break;
-            case 1:
-            case 3:
-                f_rhinoExperiment = new RhinoExperiment(ExaminedVariable.Accuracy);
-                break;
-        }
-
-        switch (setting) {
-            case 3:
-            case 5:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.AttackSpeed);
-                break;
-            case 1:
-            case 4:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.BreakTime);
-                break;
-            case 0:
-            case 2:
-                f_frogExperiment = new FrogExperiment(ExaminedVariable.Accuracy);
-                break;
-        }
+        f_owlExperiment = new OwlExperiment((ExaminedVariable)setting);
+        f_rhinoExperiment = new RhinoExperiment((ExaminedVariable)setting);
+        f_frogExperiment = new FrogExperiment((ExaminedVariable)setting);
 
         f_experiments[BossFight.Owl] = f_owlExperiment;
         f_experiments[BossFight.Rhino] = f_rhinoExperiment;
@@ -150,6 +115,26 @@ public class SceneLoader : Singleton<SceneLoader> {
 
         // This looks a bit stupid since essentially it is just +=1; however I made this so I could change the order more easily
         if (next) {
+            if (!Directory.Exists("Data")) {
+                Directory.CreateDirectory("Data");
+            }
+
+            for (int i = 0; ; ++i) {
+                string path = "Data/Data" + i + ".txt";
+
+                if (!File.Exists(path)) {
+                    StreamWriter fs = new StreamWriter(File.Create("Data/Data" + i + "-" + (int)m_bossFight + ".txt"));
+                    fs.Write(
+                        m_examinedVariable + ":" + Environment.NewLine +
+                        m_bossFight + ":" + Environment.NewLine +
+                        CurrentExperiment.ExperimentText
+                    );
+                    fs.Flush();
+                    fs.Close();
+                    break;
+                }
+            }
+
             switch (m_bossFight) {
                 case BossFight.Owl:
                     m_bossFight = BossFight.Rhino;
@@ -161,6 +146,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                     m_bossFight = (BossFight)(-1);
                     break;
             }
+
+
         }
 
         switch (m_bossFight) {
@@ -174,9 +161,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                 sceneName = "FrogScene";
                 break;
             default:
-                //TODO; not sure if I shall just quit
-                // actual TODO: save the data somewhere
-                Application.Quit();
+                //Application.Quit();
+                f_finalQuestion.SetActive(true);
                 return;
         }
 
@@ -186,12 +172,15 @@ public class SceneLoader : Singleton<SceneLoader> {
         //this would not allow me to redo the easiest one; therefore done somewhere else
 
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+
+        f_tryText.text = "Phase: " + ((CurrentExperiment.EndCounter + 3 - 1) / 3) + "/2   -   Try: " + (1 + (CurrentExperiment.EndCounter - 1) % 3) + "/3";
     }
 
-    public void EndedScene(int frames, int characterHealth, int enemyHealthCombined) {
+    public void EndedScene(int frames, int characterHealth, int enemyHealthCombined, int restEnemies) {
+        f_tryText.text = "";
 
         CurrentExperiment.AddData(
-            frames, characterHealth, enemyHealthCombined,
+            frames, characterHealth, enemyHealthCombined, restEnemies,
             Consts.Instance.Player.PlayerHittingSide.m_hitAmount, Consts.Instance.Player.PlayerHittingSide.m_hittedAmount,
             Consts.Instance.Player.PlayerHittingUp.m_hitAmount, Consts.Instance.Player.PlayerHittingUp.m_hittedAmount,
             Consts.Instance.Player.PlayerHittingDown.m_hitAmount, Consts.Instance.Player.PlayerHittingDown.m_hittedAmount,
@@ -224,26 +213,30 @@ public class SceneLoader : Singleton<SceneLoader> {
     #region [PrivateMethods]
 
     private void AfterUnload() {
+        //TODO; this basically is the only stuff I have to change in this class
+
+        //TODO; is this still allowed ?!?
         if (!CurrentExperiment.Started) {
             f_canvasRetest.SetActive(true);
             return;
         }
 
-        if (!CurrentExperiment.Realised && CurrentExperiment.CurrentLevel > 0) {
-            f_feedback.ShowQuestions(CurrentExperiment);
-            CurrentExperiment.NextTry();
+        CurrentExperiment.NextTry();
+
+        if (CurrentExperiment.EndCounter == Experiment.TEST_AMOUNT + 1) {
+            f_nextLevelNote.SetActive(true);
+            f_nextLevelNote.GetComponent<RadioFeedback>().ShowAfterStage1();
             return;
         }
 
-        CurrentExperiment.NextTry();
 
         if (CurrentExperiment.Finished) {
             f_nextLevelNote.SetActive(true);
-        } else {
-            StartScene(false);
+            f_nextLevelNote.GetComponent<RadioFeedback>().ShowAfterStage2();
+            return;
         }
 
-        //StartScene(CurrentExperiment.Finished);
+        StartScene(false);
     }
 
     #endregion
@@ -252,6 +245,7 @@ public class SceneLoader : Singleton<SceneLoader> {
         m_isQuitting = true;
 
         Debug.Log(
+            m_examinedVariable + ":" + Environment.NewLine +
             BossFight.Owl + ":" + Environment.NewLine +
             f_owlExperiment.ExperimentText +
             Environment.NewLine +
@@ -260,7 +254,8 @@ public class SceneLoader : Singleton<SceneLoader> {
             Environment.NewLine +
             BossFight.Frog + ":" + Environment.NewLine +
             f_frogExperiment.ExperimentText +
-            Environment.NewLine
+            Environment.NewLine +
+            finalText
         );
 
 
@@ -274,6 +269,7 @@ public class SceneLoader : Singleton<SceneLoader> {
             if (!File.Exists(path)) {
                 StreamWriter fs = new StreamWriter(File.Create(path));
                 fs.Write(
+                    m_examinedVariable + ":" + Environment.NewLine +
                     BossFight.Owl + ":" + Environment.NewLine +
                     f_owlExperiment.ExperimentText +
                     Environment.NewLine +
@@ -282,7 +278,8 @@ public class SceneLoader : Singleton<SceneLoader> {
                     Environment.NewLine +
                     BossFight.Frog + ":" + Environment.NewLine +
                     f_frogExperiment.ExperimentText +
-                    Environment.NewLine
+                    Environment.NewLine +
+                    finalText
                 );
                 fs.Flush();
                 fs.Close();

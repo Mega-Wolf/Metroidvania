@@ -11,7 +11,7 @@ public class TouchDamage : MonoBehaviour {
     //TODO; only use that (but that would break links)
     [SerializeField] private Collider2D[] f_colliders;
 
-    [SerializeField][EnumFlag] private EDamageReceiver f_eDamageReceiver;
+    [SerializeField] [EnumFlag] private EDamageReceiver f_eDamageReceiver;
 
     [SerializeField] private int f_damage;
 
@@ -34,6 +34,9 @@ public class TouchDamage : MonoBehaviour {
     #region [Updates]
 
     private void FixedUpdate() {
+        //FIX
+        f_damage = 1;
+
         bool hittedSth = false;
 
         if (f_colliders != null && f_colliders.Length != 0) {
@@ -63,7 +66,7 @@ public class TouchDamage : MonoBehaviour {
                 if (health != null) {
                     bool shallSpawn = true;
                     if (health.Controller is Player p) {
-                        shallSpawn = !(p.ActiveStackedState is CharacterHitted);
+                        shallSpawn = !(p.ActiveStackedState is CharacterHitted || p.CurrentHitted > 0);
                     }
                     if (shallSpawn) {
                         Instantiate(Consts.Instance.PreHit, (colliderCombos[i].self.transform.position + colliderCombos[i].other.transform.position) / 2f, Quaternion.identity);

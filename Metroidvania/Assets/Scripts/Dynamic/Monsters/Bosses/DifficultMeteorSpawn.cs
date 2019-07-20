@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DifficultMeteorSpawn : MonoBehaviour {
 
-    public static int OFFSET = 30;
+    public static int OFFSET = 27;
     public static float ACCURACY = 0;
 
     #region [MemberFields]
@@ -61,8 +61,6 @@ public class DifficultMeteorSpawn : MonoBehaviour {
         ++m_currentFrame;
 
         float x = Consts.Instance.Player.transform.position.x;
-
-        ACCURACY = 1;
 
         if (m_currentFrame % OFFSET == 0) {
             //TODO Accuracy should be a percentage value probably; also don't like random

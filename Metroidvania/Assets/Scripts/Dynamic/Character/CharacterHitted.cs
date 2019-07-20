@@ -30,6 +30,8 @@ public class CharacterHitted : ControllerState {
 
     public override bool ConsumesInputAndEffects { get { return m_currentHittedDuration < STUNNED_LENGTH; } }
 
+    public ParticleSystem ParticleSystem { get { return f_particleSystem; } }
+
     #endregion
 
     #region [Init]
@@ -49,12 +51,12 @@ public class CharacterHitted : ControllerState {
         f_controller.SpriteRenderer.material.SetFloat("_UseReplacement", 1);
 
 
-//	if (f_particleSystem) {
-//	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 4);
-//            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
-//            f_matProp.SetFloat("_ColorMode", 4);
-//            f_controller.SpriteRenderer.SetPropertyBlock(f_matProp);
-//	}
+        //	if (f_particleSystem) {
+        //	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 4);
+        //            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
+        //            f_matProp.SetFloat("_ColorMode", 4);
+        //            f_controller.SpriteRenderer.SetPropertyBlock(f_matProp);
+        //	}
     }
 
     public override void LogicalEnter() {
@@ -85,12 +87,12 @@ public class CharacterHitted : ControllerState {
         f_controller.SpriteRenderer.material.SetFloat("_UseReplacement", 0);
 
 
-//	if (f_particleSystem) {
-//	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 0);
-//            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
-//            f_matProp.SetFloat("_ColorMode", 0);
-//            f_controller.SpriteRenderer.SetPropertyBlock(f_matProp);
-//	}
+        //	if (f_particleSystem) {
+        //	        f_controller.SpriteRenderer.material.SetFloat("_ColorMode", 0);
+        //            f_controller.SpriteRenderer.GetPropertyBlock(f_matProp);
+        //            f_matProp.SetFloat("_ColorMode", 0);
+        //            f_controller.SpriteRenderer.SetPropertyBlock(f_matProp);
+        //	}
     }
 
     #endregion

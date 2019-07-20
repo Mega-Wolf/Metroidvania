@@ -338,6 +338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
+  m_hitAmount: 0
+  m_hittedAmount: 0
   f_fps: 6
   f_startFrame: 0
   f_lastFrame: 3
@@ -389,7 +391,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.7883813}
+  m_Offset: {x: 0, y: 0.89672357}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -400,7 +402,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.5814415}
+  m_Size: {x: 0.95, y: 0.7981261}
   m_EdgeRadius: 0
 --- !u!114 &208158981937746322
 MonoBehaviour:
@@ -428,6 +430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
+  m_hitAmount: 0
+  m_hittedAmount: 0
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
   f_fps: 6
   f_fullFrames: 4
@@ -512,7 +516,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.63977313, y: 0.114714384}
+  m_Offset: {x: 0.76832545, y: 0.114714384}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -523,7 +527,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.819551, y: 1.2294288}
+  m_Size: {x: 1.0766556, y: 1.2294288}
   m_EdgeRadius: 0
 --- !u!114 &4737915331603448298
 MonoBehaviour:
@@ -551,6 +555,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
+  m_hitAmount: 0
+  m_hittedAmount: 0
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
   f_fps: 6
   f_fullFrames: 3
@@ -707,6 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a222b181e04d446a1fc8ed3e5f6396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerMovement: {x: 0, y: 0}
   CONTROLLER_SO: {fileID: 11400000, guid: b37a69a5af94f59449ecfe606d08a6dc, type: 2}
   f_mirror: {fileID: 8876319897970463777}
   f_spriteRenderer: {fileID: 171882996}
@@ -738,6 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
+  m_dashAmount: 0
   SPEED: {fileID: 11400000, guid: 13243582dfd0b9047a4e8df22873c2c0, type: 2}
   m_dashCooldown: 0
 --- !u!114 &439656555
@@ -753,6 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_controller: {fileID: 439656557}
+  m_jumpAmount: 0
   f_playerSO: {fileID: 11400000, guid: c7fbacfe9ee368440977089acfaee963, type: 2}
   f_playerAir: {fileID: 11400000, guid: 64f43513e56fe7845bde2e61897ab756, type: 2}
 --- !u!114 &1407809264

@@ -4,9 +4,9 @@ using WolfBT;
 
 public class FeatherFight : ControllerState, IDamagable {
 
-    private const int PRE_IDLE = 50;
-    private const int PREPARATION = 30;
-    private const int POST_IDLE = 0;
+    public static int PRE_IDLE = 50;
+    public static int PREPARATION = 31;
+    public static int POST_IDLE = 0;
 
     #region [MemberFields]
 

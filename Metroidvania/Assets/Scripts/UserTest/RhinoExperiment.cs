@@ -1,40 +1,10 @@
+using UnityEngine;
+
 public class RhinoExperiment : Experiment {
-
-    #region [Properties]
-
-    public override string[] FeedbackTexts {
-        get {
-            return
-                new string[] {
-                    "Slower Meteors",
-                    "Lower Rhino Health",
-                    "Higher Character Health",
-                    "Shorter time after the character is hit and can't attack",
-                    "Longer rhino teleportation time between doors",
-                    "Slower Rhinos",
-                    "Lower Meteor Accuracy",
-                    "Faster Character"
-                };
-        }
-    }
-
-    #endregion
 
     #region [Constructors]
 
-    public RhinoExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) {
-        switch (examinedVariable) {
-            case SceneLoader.ExaminedVariable.AttackSpeed:
-                f_text = "Slower Rhinos";
-                break;
-            case SceneLoader.ExaminedVariable.BreakTime:
-                f_text = "Longer rhino teleportation time between doors";
-                break;
-            case SceneLoader.ExaminedVariable.Accuracy:
-                f_text = "Lower Meteor Accuracy";
-                break;
-        }
-    }
+    public RhinoExperiment(SceneLoader.ExaminedVariable examinedVariable) : base(examinedVariable) { }
 
     #endregion
 
@@ -44,21 +14,33 @@ public class RhinoExperiment : Experiment {
         BossFightRhino.SPEED = 1f;
         BossFightRhino.DOOR_DELTA = 20;
         DifficultMeteorSpawn.ACCURACY = 0;
-        DifficultMeteorSpawn.OFFSET = 10;
+        DifficultMeteorSpawn.OFFSET = 27;
+        GenericEnemy.INITIAL_HEALTH = 8;
+
+        BossFightRhino.SPEED = (1 - 2.5f / 10f);
 
         switch (f_examinedVariable) {
             case SceneLoader.ExaminedVariable.AttackSpeed:
-                BossFightRhino.SPEED = (1 - m_currentLevel / 10f);
+                //BossFightRhino.SPEED = (1 - m_currentLevel / 10f);
+                Meteor.SPEED = 10 * (1 - m_currentLevel / 10f);
                 break;
             case SceneLoader.ExaminedVariable.BreakTime:
-                //BossFightRhino.DOOR_DELTA = (int) (20 * (1 + m_currentLevel / 10f));
-                //BossFightRhino.DOOR_DELTA = 20 + 5 * m_currentLevel;
-                DifficultMeteorSpawn.OFFSET = 10 + m_currentLevel;
+                DifficultMeteorSpawn.OFFSET = (int) (27 / (1 - m_currentLevel / 10f));
                 break;
             case SceneLoader.ExaminedVariable.Accuracy:
                 DifficultMeteorSpawn.ACCURACY = 0.25f * m_currentLevel;
+                //TODO
+                break;
+            case SceneLoader.ExaminedVariable.Health:
+                GenericEnemy.INITIAL_HEALTH = (int)(8 * (1 - m_currentLevel / 10f));
                 break;
         }
+
+        Debug.Log(BossFightRhino.SPEED);
+        Debug.Log(BossFightRhino.DOOR_DELTA);
+        Debug.Log(DifficultMeteorSpawn.ACCURACY);
+        Debug.Log(DifficultMeteorSpawn.OFFSET);
+        Debug.Log(GenericEnemy.INITIAL_HEALTH);
     }
 
     #endregion

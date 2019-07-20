@@ -41,6 +41,9 @@ public class Damage : MonoBehaviour {
     #region [Updates]
 
     private void FixedUpdate() {
+        //FIX
+        m_damage = 1;
+
         List<Collider2D> colliderList = DamageHelper.ContactList;
         //colliderList.Clear();
 
@@ -67,7 +70,7 @@ public class Damage : MonoBehaviour {
 
                         bool shallSpawn = true;
                         if (health.Controller is Player p) {
-                            shallSpawn = !(p.ActiveStackedState is CharacterHitted);
+                            shallSpawn = !(p.ActiveStackedState is CharacterHitted || p.CurrentHitted > 0);
                         }
                         if (shallSpawn) {
                             Instantiate(Consts.Instance.PreHit, (colliderList[i].transform.position + f_collider.transform.position) / 2f, Quaternion.identity);

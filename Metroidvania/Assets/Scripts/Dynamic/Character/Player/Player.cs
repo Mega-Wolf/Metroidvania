@@ -41,6 +41,7 @@ public class Player : Controller, IDamagable {
     #region [PrivateVariables]
 
     private int m_energy;
+    private int m_currentHittedDuration = -1;
 
     #endregion
 
@@ -64,6 +65,8 @@ public class Player : Controller, IDamagable {
     public PlayerHittingUp PlayerHittingUp { get { return f_hittingUp; } }
     public PlayerAir PlayerAir { get { return f_air; } }
     public PlayerGrounded PlayerGrounded { get { return f_grounded; } }
+
+    public int CurrentHitted { get { return m_currentHittedDuration; } }
 
     #endregion
 
@@ -102,16 +105,38 @@ public class Player : Controller, IDamagable {
         f_health.Init(Consts.Instance.PlayerSO.HEALTH, 0, this);
     }
 
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
+        if (m_currentHittedDuration > 0) {
+            ++m_currentHittedDuration;
+            if (m_currentHittedDuration == 50) {
+                m_currentHittedDuration = -1;
+                SpriteRenderer.material.SetFloat("_UseReplacement", 0);
+            }
+        }
+    }
+
     #endregion
 
     #region [Override]
 
     public void HandleDamage(int amount, int healthAfter, int maxHealth, Vector2 hitNormal) {
         //TODO; that looks awful
-        ReactOnImpact(-hitNormal);
-        m_activeStackedState = f_hitted;
-        m_activeStackedState.LogicalEnter();
-        m_activeStackedState.EffectualEnter();
+
+        if (Grounded) {
+            ReactOnImpact(-hitNormal);
+        }
+
+        m_currentHittedDuration = 1;
+        if (f_hitted.ParticleSystem) {
+            f_hitted.ParticleSystem.Play();
+        }
+        SpriteRenderer.material.SetFloat("_UseReplacement", 1);
+
+
+        //m_activeStackedState = f_hitted;
+        //m_activeStackedState.LogicalEnter();
+        //m_activeStackedState.EffectualEnter();
     }
 
     #endregion
