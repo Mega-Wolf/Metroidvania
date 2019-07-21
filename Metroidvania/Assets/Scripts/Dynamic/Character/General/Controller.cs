@@ -338,6 +338,10 @@ public class Controller : MonoBehaviour {
         //TODO; this is because the scalled monsters somewhere have wrong values
         hitNormal.y = 0;
 
+        if (Mathf.Abs(hitNormal.x) < 0.1f) {
+            return;
+        }
+
         Velocity = hitNormal * CONTROLLER_SO.IMPACT_LENGTH;
         Debug.Log(Velocity);
 

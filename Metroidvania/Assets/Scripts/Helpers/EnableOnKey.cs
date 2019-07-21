@@ -35,6 +35,10 @@ public class EnableOnKey : MonoBehaviour {
                 f_toEnable[i].enabled = true;
             }
             Destroy(gameObject);
+
+            if (SceneLoader.Instance) {
+                SceneLoader.Instance.WinLoseText.text = "";
+            }
         }
     }
 
